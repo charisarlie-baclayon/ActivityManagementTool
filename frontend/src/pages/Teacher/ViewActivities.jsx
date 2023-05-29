@@ -1,10 +1,13 @@
 import React from 'react'
+import MenuBar from '../../components/MenuBar'
 
 const ViewActivities = () => {
   return (
     <div>
-        <h1>Henlo World!</h1>
-        <p>HIIII</p>
+        <div class="body">
+        <MenuBar/>
+        </div>
+        
     </div>
   )
 }
