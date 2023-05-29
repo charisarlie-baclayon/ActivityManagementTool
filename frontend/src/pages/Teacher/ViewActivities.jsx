@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react'
 
-class ViewActivities extends Component {
-    render() {
-        return (
-            <div>
-                <h1>Henlo world!</h1>
-            </div>
-        );
-    }
+const ViewActivities = () => {
+  return (
+    <div>
+        <h1>Henlo World!</h1>
+        <p>HIIII</p>
+    </div>
+  )
 }
 
-export default ViewActivities;
+export default ViewActivities
