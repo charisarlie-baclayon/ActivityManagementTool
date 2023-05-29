@@ -1,0 +1,13 @@
+.template-activities-container{
+    margin-block-end: 15%;
+}
+
+.custom-button{
+    flex-direction: row;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#root{
+    width: 50%;
+}

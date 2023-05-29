@@ -10,16 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "boostrap": "^2.0.0",
-    "bootstrap": "^5.2.3",
-    "jquery": "^3.6.0",
-    "node-sass": "^9.0.0",
-=======
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "jquery": "^3.7.0",
->>>>>>> 7e3ae370ea02ed2abff95d5dad294f2b45d50a9b
+    "node-sass": "^9.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
