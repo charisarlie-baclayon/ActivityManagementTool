@@ -6,6 +6,8 @@ import VerticalNavBar from "./assets/common/vertical-nav-bar";
 import { Teacher } from "./pages/Teacher/Teacher";
 import { CreateActivities } from "./pages/Teacher/CreateActivities";
 import { NotFound } from "./assets/common/NotFound";
+import { Student } from "./pages/Student/Student";
+import { StudentViewActivities } from "./pages/Student/StudentViewActivities";
 
 function App() {
 
@@ -16,6 +18,9 @@ function App() {
         <Route path="teacher" element={<Teacher />}>
           <Route path="activities" element={<ViewActivities />} />
           <Route path="create" element={<CreateActivities />} />
+        </Route>
+        <Route path="student" element={<Student />}>
+          <Route path="activities" element={<StudentViewActivities/>} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
