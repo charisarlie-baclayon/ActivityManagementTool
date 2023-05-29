@@ -1,0 +1,202 @@
+[
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 1",
+      "description": "Description for Activity 1",
+      "link": "http://example.com/activity/1"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 2",
+      "description": "Description for Activity 2",
+      "link": "http://example.com/activity/2"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 3",
+      "description": "Description for Activity 3",
+      "link": "http://example.com/activity/3"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 4",
+      "description": "Description for Activity 4",
+      "link": "http://example.com/activity/4"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 5",
+      "description": "Description for Activity 5",
+      "link": "http://example.com/activity/5"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 6",
+      "description": "Description for Activity 6",
+      "link": "http://example.com/activity/6"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 7",
+      "description": "Description for Activity 7",
+      "link": "http://example.com/activity/7"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 8",
+      "description": "Description for Activity 8",
+      "link": "http://example.com/activity/8"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 9",
+      "description": "Description for Activity 9",
+      "link": "http://example.com/activity/9"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 10",
+      "description": "Description for Activity 10",
+      "link": "http://example.com/activity/10"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 11",
+      "description": "Description for Activity 11",
+      "link": "http://example.com/activity/11"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 12",
+      "description": "Description for Activity 12",
+      "link": "http://example.com/activity/12"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 13",
+      "description": "Description for Activity 13",
+      "link": "http://example.com/activity/13"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 14",
+      "description": "Description for Activity 14",
+      "link": "http://example.com/activity/14"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 15",
+      "description": "Description for Activity 15",
+      "link": "http://example.com/activity/15"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 16",
+      "description": "Description for Activity 16",
+      "link": "http://example.com/activity/16"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 17",
+      "description": "Description for Activity 17",
+      "link": "http://example.com/activity/17"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 18",
+      "description": "Description for Activity 18",
+      "link": "http://example.com/activity/18"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 19",
+      "description": "Description for Activity 19",
+      "link": "http://example.com/activity/19"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 20",
+      "description": "Description for Activity 20",
+      "link": "http://example.com/activity/20"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 21",
+      "description": "Description for Activity 21",
+      "link": "http://example.com/activity/21"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 22",
+      "description": "Description for Activity 22",
+      "link": "http://example.com/activity/22"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 23",
+      "description": "Description for Activity 23",
+      "link": "http://example.com/activity/23"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 24",
+      "description": "Description for Activity 24",
+      "link": "http://example.com/activity/24"
+    }
+  },
+  {
+    "model": "amt.activity",
+    "fields": {
+      "name": "Activity 25",
+      "description": "Description for Activity 25",
+      "link": "http://example.com/activity/25"
+    }
+  }
+]
