@@ -1,96 +1,98 @@
-import React, { useEffect } from 'react';
+import { useState } from 'react';
 import './vertical-nav-bar.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import $ from 'jquery';
 
 function VerticalNavBar() {
-    useEffect(() => {
-        // Sidebar toggle behavior
-        $('#sidebarCollapse').on('click', function() {
-          $('#sidebar, #content').toggleClass('active');
-        });
-    }, []);
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [isDarkMode, setDarkMode] = useState(false);
+
+  const handleToggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
+
+  const handleSearchBtnClick = () => {
+    setSidebarOpen(false);
+  };
+
+  const handleModeSwitch = () => {
+    setDarkMode(!isDarkMode);
+  
+    // Toggle body class based on dark mode state
+    if (!isDarkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  };
   return (
     <>
-    {/* Vertical navbar */}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <div className="vertical-nav bg-white" id="sidebar">
-        <div className="py-4 px-3 mb-4 bg-light">
-        <div className="media d-flex align-items-center">
-            <img
-            src="https://bootstrapious.com/i/snippets/sn-v-nav/avatar.png"
-            alt="..."
-            width={65}
-            className="mr-3 rounded-circle img-thumbnail shadow-sm"
-            />
-            <div className="media-body">
-            <h4 className="m-0">Jason Doe</h4>
-            <p className="font-weight-light text-muted mb-0">Web developer</p>
-            </div>
+    <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"></link>
+    <nav className={`sidebar ${isSidebarOpen ? 'close' : ''}`}>
+    <header>
+      <div className="image-text">
+        <span className="image"><img src='../img/wils-logo.png' alt="default"/></span>
+        <div className="text logo-text">
+          <span className="name">WIL's Incubatee</span>
+          <span className="profession">CIT-U</span>
         </div>
-        </div>
-        <p className="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">
-        Main
-        </p>
-        <ul className="nav flex-column bg-white mb-0">
-        <li className="nav-item">
-            <a href="#" className="nav-link text-dark font-italic bg-light">
-            <i className="fa fa-th-large mr-3 text-primary fa-fw" />
-            Home
-            </a>
+      </div>
+      <i className="bx bx-chevron-right toggle" onClick={handleToggleSidebar} />
+    </header>
+    <div className="menu-bar">
+      <div className="menu">
+        <li className="search-box" onClick={handleSearchBtnClick}>
+          <i className="bx bx-search icon" />
+          <input type="text" placeholder="Search..." />
         </li>
-        <li className="nav-item">
-            <a href="#" className="nav-link text-dark font-italic">
-            <i className="fa fa-address-card mr-3 text-primary fa-fw" />
-            About
+        <ul className="menu-links">
+          <li className="nav-link">
+            <a href="#">
+              <i className="bx bx-home-alt icon" />
+              <span className="text nav-text">Dashboard</span>
             </a>
-        </li>
-        <li className="nav-item">
-            <a href="#" className="nav-link text-dark font-italic">
-            <i className="fa fa-cubes mr-3 text-primary fa-fw" />
-            Services
+          </li>
+          <li className="nav-link">
+            <a href="#">
+              <i className="bx bx-bar-chart-alt-2 icon" />
+              <span className="text nav-text">Revenue</span>
             </a>
-        </li>
-        <li className="nav-item">
-            <a href="#" className="nav-link text-dark font-italic">
-            <i className="fa fa-picture-o mr-3 text-primary fa-fw" />
-            Gallery
+          </li>
+          <li className="nav-link">
+            <a href="#">
+              <i className="bx bx-bell icon" />
+              <span className="text nav-text">Notifications</span>
             </a>
-        </li>
+          </li>
+          <li className="nav-link">
+            <a href="#">
+              <i className="bx bx-pie-chart-alt icon" />
+              <span className="text nav-text">Analytics</span>
+            </a>
+          </li>
         </ul>
-        <p className="text-gray font-weight-bold text-uppercase px-3 small py-4 mb-0">
-        Charts
-        </p>
-        <ul className="nav flex-column bg-white mb-0">
-        <li className="nav-item">
-            <a href="#" className="nav-link text-dark font-italic">
-            <i className="fa fa-area-chart mr-3 text-primary fa-fw" />
-            Area charts
-            </a>
+      </div>
+      <div className="bottom-content">
+        <li className="">
+          <a href="#">
+            <i className="bx bx-log-out icon" />
+            <span className="text nav-text">Logout</span>
+          </a>
         </li>
-        <li className="nav-item">
-            <a href="#" className="nav-link text-dark font-italic">
-            <i className="fa fa-bar-chart mr-3 text-primary fa-fw" />
-            Bar charts
-            </a>
+        <li className="mode">
+          <div className="sun-moon">
+            <i className="bx bx-moon icon moon" />
+            <i className="bx bx-sun icon sun" />
+          </div>
+          <span className="mode-text text">Dark mode</span>
+          <div className="toggle-switch" onClick={handleModeSwitch}>
+            <span className="switch" />
+          </div>
         </li>
-        <li className="nav-item">
-            <a href="#" className="nav-link text-dark font-italic">
-            <i className="fa fa-pie-chart mr-3 text-primary fa-fw" />
-            Pie charts
-            </a>
-        </li>
-        <li className="nav-item">
-            <a href="#" className="nav-link text-dark font-italic">
-            <i className="fa fa-line-chart mr-3 text-primary fa-fw" />
-            Line charts
-            </a>
-        </li>
-        </ul>
+      </div>
     </div>
-    {/* End vertical navbar */}
-    
-    </>
+  </nav>
+</>
+
   );
 }
 
