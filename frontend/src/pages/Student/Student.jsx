@@ -5,21 +5,21 @@ import axios from "axios";
 
 export const Student = () => {
   const navigate = useNavigate();
-    const [activity, setActivity] = useState([]);
+  const [activity, setActivity] = useState([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await axios.get('http://127.0.0.1:8000/api/activities/');
-            setActivity(response.data.activities);
-            console.log(response.data.activities);
-          } catch (error) {
-            console.error('Error fetching activity data:', error);
-          }
-        };
-      
-        fetchData();
-    }, []);
+  useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('http://127.0.0.1:8000/api/activities/');
+          setActivity(response.data.activities);
+          console.log(response.data.activities);
+        } catch (error) {
+          console.error('Error fetching activity data:', error);
+        }
+      };
+    
+      fetchData();
+  }, []);
 
     return (
       <>
@@ -36,25 +36,6 @@ export const Student = () => {
           <select class="filter">
             <option>Filter</option>
           </select>
-        </div>
-
-        <div class="tags_bar">
-          <div class="tag">
-            <i class="bx bx-x"></i>
-            <span>Programming</span>
-          </div>
-          <div class="tag">
-            <i class="bx bx-x"></i>
-            <span>Design</span>
-          </div>
-          <div class="tag">
-            <i class="bx bx-x"></i>
-            <span>PHP</span>
-          </div>
-          <div class="tag">
-            <i class="bx bx-x"></i>
-            <span>JavaScript</span>
-          </div>
         </div>
 
         <div class="row">

@@ -4,7 +4,6 @@ import ViewActivities from "./pages/Teacher/ViewActivities";
 import { Route, Routes } from "react-router-dom";
 import VerticalNavBar from "./assets/common/vertical-nav-bar";
 import { Teacher } from "./pages/Teacher/Teacher";
-import { CreateActivities } from "./pages/Teacher/CreateActivities";
 import { NotFound } from "./assets/common/NotFound";
 import { Student } from "./pages/Student/Student";
 import { StudentViewActivities } from "./pages/Student/StudentViewActivities";
@@ -17,7 +16,6 @@ function App() {
       <Routes>
         <Route path="teacher" element={<Teacher />}>
           <Route path="activities" element={<ViewActivities />} />
-          <Route path="create" element={<CreateActivities />} />
         </Route>
         <Route path="student" element={<Student />}>
           <Route path="activities" element={<StudentViewActivities/>} />
