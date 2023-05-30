@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { ActivityRowCard } from "../../assets/common/Activity/activity-row-card";
 import axios from "axios";
+import './../../assets/common/Activity/activity-row-card.css';
 
 export const Student = () => {
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ export const Student = () => {
           <p>You can do it!</p>
           <a>See all</a>
         </div>
-        <div>
+        <div className = 'scroll-container'>
           {activity.map((act, index) => (
             <ActivityRowCard key={index} {...act} />
           ))}

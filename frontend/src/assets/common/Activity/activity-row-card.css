@@ -11,6 +11,10 @@ a{
   color: #DBB824;
 }
 
+.activity-box{
+  width: 100%;
+}
+
 .search_bar{
   display: flex;
   padding: 10px;

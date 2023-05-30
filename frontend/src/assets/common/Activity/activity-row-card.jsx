@@ -3,7 +3,7 @@ import "./activity-row-card.css";
 
 export const ActivityRowCard = (props) => {
   return (
-    <>
+    <div className='activity-box'>
       <div className="activity-row-card">
         <div className="activity-row-details">
           <div className="img">
@@ -18,6 +18,6 @@ export const ActivityRowCard = (props) => {
           <h5>{props.link}</h5>
         </div>
       </div>
-    </>
+    </div>
   );
 };
