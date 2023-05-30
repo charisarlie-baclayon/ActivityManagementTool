@@ -11,19 +11,17 @@
     
 }
 
-.page-body{
-    display: flex;
-    flex-direction: column;
-    width: 87vw;
-    align-items: center;
-    justify-items: center;
+.create-activity{
+  display: flex;
+  background-color: #FFD700;
+  float:right;
+  height: 50%;
 }
 
+
 .scroll-container{
-    height: 50vh;
+    height: 40vh;
     width: 80vw;
-    border-top: 5px solid rgb(61, 38, 29);
-    border-bottom: 5px solid rgb(61, 38, 29);
 }
 
 .scroll-container::-webkit-scrollbar {
@@ -33,7 +31,7 @@
   
   /* Thumb */
   .scroll-container::-webkit-scrollbar-thumb {
-    background-color: #985f1e;
+    background-color: #FFD700;
     border-radius: 6px;
   }
   
