@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './vertical-nav-bar.css';
+import logo from './../img/wils-logo.png';
 
 function VerticalNavBar() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -30,7 +31,7 @@ function VerticalNavBar() {
     <nav className={`sidebar ${isSidebarOpen ? 'close' : ''}`}>
     <header>
       <div className="image-text">
-        <span className="image"><img src='../img/wils-logo.png' alt="default"/></span>
+        <span className="image"><img src={logo} alt="default"/></span>
         <div className="text logo-text">
           <span className="name">WIL's Incubatee</span>
           <span className="profession">CIT-U</span>
