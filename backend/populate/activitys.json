@@ -4,7 +4,8 @@
     "fields": {
       "name": "Activity 1",
       "description": "Description for Activity 1",
-      "link": "http://example.com/activity/1"
+      "link": "http://example.com/activity/1",
+      "status": "IN-PROGRESS"
     }
   },
   {
@@ -12,7 +13,8 @@
     "fields": {
       "name": "Activity 2",
       "description": "Description for Activity 2",
-      "link": "http://example.com/activity/2"
+      "link": "http://example.com/activity/2",
+      "status": "IN-PROGRESS"
     }
   },
   {
@@ -20,7 +22,8 @@
     "fields": {
       "name": "Activity 3",
       "description": "Description for Activity 3",
-      "link": "http://example.com/activity/3"
+      "link": "http://example.com/activity/3",
+      "status": "INCOMPLETE"
     }
   },
   {
@@ -28,7 +31,8 @@
     "fields": {
       "name": "Activity 4",
       "description": "Description for Activity 4",
-      "link": "http://example.com/activity/4"
+      "link": "http://example.com/activity/4",
+      "status": "IN-PROGRESS"
     }
   },
   {
@@ -36,7 +40,8 @@
     "fields": {
       "name": "Activity 5",
       "description": "Description for Activity 5",
-      "link": "http://example.com/activity/5"
+      "link": "http://example.com/activity/5",
+      "status": "COMPLETE"
     }
   },
   {
@@ -44,7 +49,8 @@
     "fields": {
       "name": "Activity 6",
       "description": "Description for Activity 6",
-      "link": "http://example.com/activity/6"
+      "link": "http://example.com/activity/6",
+      "status": "COMPLETE"
     }
   },
   {
@@ -52,7 +58,8 @@
     "fields": {
       "name": "Activity 7",
       "description": "Description for Activity 7",
-      "link": "http://example.com/activity/7"
+      "link": "http://example.com/activity/7",
+      "status": "INCOMPLETE"
     }
   },
   {
@@ -60,7 +67,8 @@
     "fields": {
       "name": "Activity 8",
       "description": "Description for Activity 8",
-      "link": "http://example.com/activity/8"
+      "link": "http://example.com/activity/8",
+      "status": "IN-PROGRESS"
     }
   },
   {
@@ -68,7 +76,8 @@
     "fields": {
       "name": "Activity 9",
       "description": "Description for Activity 9",
-      "link": "http://example.com/activity/9"
+      "link": "http://example.com/activity/9",
+      "status": "INCOMPLETE"
     }
   },
   {
@@ -76,7 +85,8 @@
     "fields": {
       "name": "Activity 10",
       "description": "Description for Activity 10",
-      "link": "http://example.com/activity/10"
+      "link": "http://example.com/activity/10",
+      "status": "INCOMPLETE"
     }
   },
   {
@@ -84,7 +94,8 @@
     "fields": {
       "name": "Activity 11",
       "description": "Description for Activity 11",
-      "link": "http://example.com/activity/11"
+      "link": "http://example.com/activity/11",
+      "status": "IN-PROGRESS"
     }
   },
   {
@@ -92,7 +103,8 @@
     "fields": {
       "name": "Activity 12",
       "description": "Description for Activity 12",
-      "link": "http://example.com/activity/12"
+      "link": "http://example.com/activity/12",
+      "status": "IN-PROGRESS"
     }
   },
   {
@@ -100,7 +112,8 @@
     "fields": {
       "name": "Activity 13",
       "description": "Description for Activity 13",
-      "link": "http://example.com/activity/13"
+      "link": "http://example.com/activity/13",
+      "status": "COMPLETE"
     }
   },
   {
@@ -108,7 +121,8 @@
     "fields": {
       "name": "Activity 14",
       "description": "Description for Activity 14",
-      "link": "http://example.com/activity/14"
+      "link": "http://example.com/activity/14",
+      "status": "INCOMPLETE"
     }
   },
   {
@@ -116,7 +130,8 @@
     "fields": {
       "name": "Activity 15",
       "description": "Description for Activity 15",
-      "link": "http://example.com/activity/15"
+      "link": "http://example.com/activity/15",
+      "status": "COMPLETE"
     }
   },
   {
@@ -124,7 +139,8 @@
     "fields": {
       "name": "Activity 16",
       "description": "Description for Activity 16",
-      "link": "http://example.com/activity/16"
+      "link": "http://example.com/activity/16",
+      "status": "IN-PROGRESS"
     }
   },
   {
@@ -132,7 +148,8 @@
     "fields": {
       "name": "Activity 17",
       "description": "Description for Activity 17",
-      "link": "http://example.com/activity/17"
+      "link": "http://example.com/activity/17",
+      "status": "IN-PROGRESS"
     }
   },
   {
@@ -140,7 +157,8 @@
     "fields": {
       "name": "Activity 18",
       "description": "Description for Activity 18",
-      "link": "http://example.com/activity/18"
+      "link": "http://example.com/activity/18",
+      "status": "IN-PROGRESS"
     }
   },
   {
@@ -148,7 +166,8 @@
     "fields": {
       "name": "Activity 19",
       "description": "Description for Activity 19",
-      "link": "http://example.com/activity/19"
+      "link": "http://example.com/activity/19",
+      "status": "COMPLETE"
     }
   },
   {
@@ -156,7 +175,8 @@
     "fields": {
       "name": "Activity 20",
       "description": "Description for Activity 20",
-      "link": "http://example.com/activity/20"
+      "link": "http://example.com/activity/20",
+      "status": "INCOMPLETE"
     }
   },
   {
@@ -164,7 +184,8 @@
     "fields": {
       "name": "Activity 21",
       "description": "Description for Activity 21",
-      "link": "http://example.com/activity/21"
+      "link": "http://example.com/activity/21",
+      "status": "COMPLETE"
     }
   },
   {
@@ -172,7 +193,8 @@
     "fields": {
       "name": "Activity 22",
       "description": "Description for Activity 22",
-      "link": "http://example.com/activity/22"
+      "link": "http://example.com/activity/22",
+      "status": "INCOMPLETE"
     }
   },
   {
@@ -180,7 +202,8 @@
     "fields": {
       "name": "Activity 23",
       "description": "Description for Activity 23",
-      "link": "http://example.com/activity/23"
+      "link": "http://example.com/activity/23",
+      "status": "COMPLETE"
     }
   },
   {
@@ -188,7 +211,8 @@
     "fields": {
       "name": "Activity 24",
       "description": "Description for Activity 24",
-      "link": "http://example.com/activity/24"
+      "link": "http://example.com/activity/24",
+      "status": "COMPLETE"
     }
   },
   {
@@ -196,7 +220,8 @@
     "fields": {
       "name": "Activity 25",
       "description": "Description for Activity 25",
-      "link": "http://example.com/activity/25"
+      "link": "http://example.com/activity/25",
+      "status": "INCOMPLETE"
     }
   }
 ]
