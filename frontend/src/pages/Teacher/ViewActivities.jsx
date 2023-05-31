@@ -3,8 +3,9 @@ import './../../assets/css/ViewActivities.css';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { ActivityRowCard } from '../../assets/common/Activity/activity-row-card';
 
-const ViewActivities = () => {
+const ViewActivities = ({isSidebarOpen}) => {
 
     const navigate = useNavigate();
     const [activity, setActivity] = useState([]);
@@ -28,27 +29,46 @@ const ViewActivities = () => {
     };
 
   return (
-    <div>
-        <VerticalNavBar></VerticalNavBar>
-        <div className='page-body'>
-            <div className='activities-header'>
-                <p className='activity-text'>Activities</p>
-                <button className='activity-button'>Add Activity</button>
-            </div>
-            <div className='scroll-container'>
-                {activity.map((act, index) => (
-                    <div className="activity-list" key={index} onClick={() => handleToSelectedActivity(act)}>
-                        <div className='activity-bound'>
-                            <p id="activity-name">{act.name}</p>
-                            <p id="activity-description">{act.description}</p>{' '}
-                            <p id="activity-link">{act.link}</p>{' '}
-                        </div>
-                    </div>
-                ))}
-            </div>
+    <>
+          <h1>Activities</h1>
+          <button className='activity-button'>Add Activity</button>
+        
+        <div class="search_bar">
+          <input type="search" placeholder="Search activity here..."/>
+          <select name="" id="">
+            <option>Category</option>
+          </select>
+          <select class="filter">
+            <option>Filter</option>
+          </select>
         </div>
-    </div>
-  )
+
+        <div class="tags_bar">
+          <div class="tag">
+            <i class="bx bx-x"></i>
+            <span>Complete</span>
+          </div>
+          <div class="tag">
+            <i class="bx bx-x"></i>
+            <span>Incomplete</span>
+          </div>
+          <div class="tag">
+            <i class="bx bx-x"></i>
+            <span>In-Progress</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <p>You can do it!</p>
+          <a>See all</a>
+        </div>
+        <div className = 'scroll-container'>
+          {activity.map((act, index) => (
+            <ActivityRowCard key={index} {...act} />
+          ))}
+        </div>
+      </>
+    );
 }
 
 export default ViewActivities

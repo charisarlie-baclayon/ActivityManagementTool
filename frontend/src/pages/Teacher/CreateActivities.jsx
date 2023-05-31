@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Pagination from "react-bootstrap/Pagination";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
-import { Container } from "react-bootstrap";
 
 export const CreateActivities = () => {
   const [active, setActive] = useState(1);

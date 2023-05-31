@@ -1,9 +1,9 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-export const Teacher = () => {
+export const Teacher = ({isSidebarOpen}) => {
   return (
-    <div>
+    <div className={`view-sidebar ${isSidebarOpen ? '' : 'open'}`}>
       <Outlet />
     </div>
   );
