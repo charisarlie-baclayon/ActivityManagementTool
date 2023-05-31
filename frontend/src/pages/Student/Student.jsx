@@ -52,8 +52,7 @@ export const Student = ({isSidebarOpen}) => {
         </div>
 
         <div class="row">
-          <p>You can do it!</p>
-          <a>See all</a>
+        <br/>
         </div>
         <div className = 'scroll-container'>
           {activity.map((act, index) => (

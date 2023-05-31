@@ -1,14 +1,8 @@
-import VerticalNavBar from "../../assets/common/vertical-nav-bar";
 import "./../../assets/css/ViewActivities.css";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ActivityRowCard } from "../../assets/common/Activity/activity-row-card";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
-import { createActivity } from "../../Api/Activity";
-import CreateActivities from "./CreateActivity";
 import CreateActivity from "./CreateActivity";
 
 const ViewActivities = ({ isSidebarOpen }) => {
@@ -88,8 +82,7 @@ const ViewActivities = ({ isSidebarOpen }) => {
       </div>
 
       <div class="row">
-        <p>You can do it!</p>
-        <a>See all</a>
+        <br/>
       </div>
       <div className="scroll-container">
         {activity.map((act, index) => (
