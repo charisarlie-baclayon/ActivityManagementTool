@@ -1,74 +1,120 @@
-import VerticalNavBar from '../../assets/common/vertical-nav-bar';
-import './../../assets/css/ViewActivities.css';
-import { useNavigate } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { ActivityRowCard } from '../../assets/common/Activity/activity-row-card';
+import VerticalNavBar from "../../assets/common/vertical-nav-bar";
+import "./../../assets/css/ViewActivities.css";
+import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { ActivityRowCard } from "../../assets/common/Activity/activity-row-card";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
+import { createActivity } from "../../Api/Activity";
+import CreateActivities from "./CreateActivity";
+import CreateActivity from "./CreateActivity";
 
-const ViewActivities = ({isSidebarOpen}) => {
+const ViewActivities = ({ isSidebarOpen }) => {
+  const navigate = useNavigate();
+  const [activity, setActivity] = useState([]);
 
-    const navigate = useNavigate();
-    const [activity, setActivity] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = () => setShowModal(true);
 
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await axios.get('http://127.0.0.1:8000/api/activities/');
-            setActivity(response.data.activities);
-            console.log(response.data.activities);
-          } catch (error) {
-            console.error('Error fetching activity data:', error);
-          }
-        };
-      
-        fetchData();
-    }, []);
-
-    const handleToSelectedActivity = async (act) => {
-      //navigate('/activity', { state: { act } });
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://127.0.0.1:8000/api/activities/"
+        );
+        setActivity(response.data.activities);
+        console.log(response.data.activities);
+      } catch (error) {
+        console.error("Error fetching activity data:", error);
+      }
     };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://127.0.0.1:8000/api/activities/"
+        );
+        setActivity(response.data.activities);
+        console.log(response.data.activities);
+      } catch (error) {
+        console.error("Error fetching activity data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleToSelectedActivity = async (act) => {
+    //navigate('/activity', { state: { act } });
+  };
+
+  const handleSubmit = async () => {
+    const newActivity = {
+      title,
+      description,
+      link,
+    };
+
+    try {
+      await createActivity(newActivity);
+    } catch (error) {
+      console.error(error);
+      // Handle error, e.g., show an error message to the user
+    }
+  };
 
   return (
     <>
-          <h1>Activities</h1>
-          <button className='activity-button'>Add Activity</button>
-        
-        <div class="search_bar">
-          <input type="search" placeholder="Search activity here..."/>
-          <select name="" id="">
-            <option>Category</option>
-          </select>
-          <select class="filter">
-            <option>Filter</option>
-          </select>
-        </div>
+      <h1>Activities</h1>
+      <button className="activity-button" onClick={handleShowModal}>
+        Add Activity
+      </button>
 
-        <div class="tags_bar">
-          <div class="tag">
-            <i class="bx bx-x"></i>
-            <span>Complete</span>
-          </div>
-          <div class="tag">
-            <i class="bx bx-x"></i>
-            <span>Incomplete</span>
-          </div>
-          <div class="tag">
-            <i class="bx bx-x"></i>
-            <span>In-Progress</span>
-          </div>
-        </div>
+      <div class="search_bar">
+        <input type="search" placeholder="Search activity here..." />
+        <select name="" id="">
+          <option>Category</option>
+        </select>
+        <select class="filter">
+          <option>Filter</option>
+        </select>
+      </div>
 
-        <div class="row">
-          <p>You can do it!</p>
-          <a>See all</a>
+      <div class="tags_bar">
+        <div class="tag">
+          <i class="bx bx-x"></i>
+          <span>Complete</span>
         </div>
-        <div className = 'scroll-container'>
-          {activity.map((act, index) => (
-            <ActivityRowCard key={index} {...act} />
-          ))}
+        <div class="tag">
+          <i class="bx bx-x"></i>
+          <span>Incomplete</span>
         </div>
-      </>
-    );
-}
+        <div class="tag">
+          <i class="bx bx-x"></i>
+          <span>In-Progress</span>
+        </div>
+      </div>
 
-export default ViewActivities
+      <div class="row">
+        <p>You can do it!</p>
+        <a>See all</a>
+      </div>
+      <div className="scroll-container">
+        {activity.map((act, index) => (
+          <ActivityRowCard key={index} {...act} />
+        ))}
+      </div>
+
+      <CreateActivity show={showModal} handleClose={handleCloseModal} />
+    </>
+  );
+};
+
+export default ViewActivities;
