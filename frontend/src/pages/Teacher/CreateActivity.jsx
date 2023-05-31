@@ -6,12 +6,16 @@ import { createActivity } from "../../Api/Activity";
 
 const CreateActivity = ({ show, handleClose }) => {
   const handleSubmit = async () => {
-    const newActivity = {
-      title,
-      description,
-      link,
-    };
+    const titleInput = document.getElementById("title-input");
+    const descriptionInput = document.getElementById("description-input");
+    const linkInput = document.getElementById("link-input");
 
+    const newActivity = {
+      title: titleInput.value,
+      description: descriptionInput.value,
+      link: linkInput.value,
+    };
+    console.log(newActivity);
     try {
       await createActivity(newActivity);
       handleClose(); // Close the modal after successful creation
@@ -29,21 +33,15 @@ const CreateActivity = ({ show, handleClose }) => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="mb-3" controlId="title-input">
               <Form.Label>Title</Form.Label>
               <Form.Control as="textarea" rows={1} />
             </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
+            <Form.Group className="mb-3" controlId="description-input">
               <Form.Label>Description</Form.Label>
               <Form.Control as="textarea" rows={8} />
             </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
+            <Form.Group className="mb-3" controlId="link-input">
               <Form.Label>Link</Form.Label>
               <Form.Control as="textarea" rows={3} />
             </Form.Group>

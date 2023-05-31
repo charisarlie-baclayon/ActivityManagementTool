@@ -55,21 +55,6 @@ const ViewActivities = ({ isSidebarOpen }) => {
     //navigate('/activity', { state: { act } });
   };
 
-  const handleSubmit = async () => {
-    const newActivity = {
-      title,
-      description,
-      link,
-    };
-
-    try {
-      await createActivity(newActivity);
-    } catch (error) {
-      console.error(error);
-      // Handle error, e.g., show an error message to the user
-    }
-  };
-
   return (
     <>
       <h1>Activities</h1>
