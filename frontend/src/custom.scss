@@ -1,19 +1,17 @@
 // theme color
 $primary: #DBB824;
 $secondary: pink;
-$body-bg: #dbdbdb;
+$body-bg: white;
 $body-color: black;
 
 // this is for button colors
 $theme-colors:(
     "primary": #DBB824,
-    "secondary": red
+    "secondary": #dbdbdb,
 );
 
-
-
 // Import Bootstrap SASS files
-//@import "../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
 
 
 // only the necessary imports

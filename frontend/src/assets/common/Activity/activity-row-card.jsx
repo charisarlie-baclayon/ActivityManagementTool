@@ -11,11 +11,10 @@ export const ActivityRowCard = (props) => {
           </div>
           <div className="text">
             <h2>{props.name}</h2>
-            <span>{props.description}</span>
           </div>
         </div>
         <div className="activity-row-link">
-          <h5>{props.link}</h5>
+          <h5>{props.status}</h5>
         </div>
       </div>
     </div>
