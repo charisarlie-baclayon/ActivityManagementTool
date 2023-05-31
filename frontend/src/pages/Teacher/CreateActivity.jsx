@@ -11,7 +11,7 @@ const CreateActivity = ({ show, handleClose }) => {
     const linkInput = document.getElementById("link-input");
 
     const newActivity = {
-      title: titleInput.value,
+      name: titleInput.value,
       description: descriptionInput.value,
       link: linkInput.value,
     };

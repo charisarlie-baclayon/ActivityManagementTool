@@ -49,7 +49,7 @@ const ViewActivities = ({ isSidebarOpen }) => {
     };
 
     fetchData();
-  }, []);
+  }, [showModal]);
 
   const handleToSelectedActivity = async (act) => {
     //navigate('/activity', { state: { act } });
