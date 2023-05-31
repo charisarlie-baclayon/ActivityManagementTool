@@ -50,12 +50,6 @@ function VerticalNavBar({isSidebarOpen, handleToggleSidebar}) {
           </li>
           <li className="nav-link">
             <a href="#">
-              <i className="bx bx-bell icon" />
-              <span className="text nav-text">Notifications</span>
-            </a>
-          </li>
-          <li className="nav-link">
-            <a href="#">
               <i className="bx bx-pie-chart-alt icon" />
               <span className="text nav-text">Activities</span>
             </a>
