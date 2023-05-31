@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Activity
+from amt.models import Activity
 
 
 class ActivitySerializers(serializers.ModelSerializer):
