@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ActivityRowCard } from "../../assets/common/Activity/activity-row-card";
 import CreateActivity from "./CreateActivity";
+import { ViewSelectedActivity } from "./ViewSelectedActivity";
 
 const ViewActivities = ({ isSidebarOpen }) => {
   const navigate = useNavigate();
@@ -13,6 +14,10 @@ const ViewActivities = ({ isSidebarOpen }) => {
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
 
+  const [showActivity, setShowActivity] = useState(false);
+  const handleCloseActivity = () => setShowActivity(false);
+
+  const [selectedActivity, setSelectedActivity] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,27 +32,14 @@ const ViewActivities = ({ isSidebarOpen }) => {
     };
 
     fetchData();
-  }, []);
+  }, [showModal, showActivity]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/activities/"
-        );
-        setActivity(response.data.activities);
-        console.log(response.data.activities);
-      } catch (error) {
-        console.error("Error fetching activity data:", error);
-      }
-    };
-
-    fetchData();
-  }, [showModal]);
-
-  const handleToSelectedActivity = async (act) => {
-    //navigate('/activity', { state: { act } });
-  };
+  const handleToSelectedActivity = (act) => {
+    setSelectedActivity(act);
+    setShowActivity(true);
+    console.log("s");
+    console.log(act);
+  };  
 
   return (
     <>
@@ -57,7 +49,7 @@ const ViewActivities = ({ isSidebarOpen }) => {
       </button>
 
       <div class="search_bar">
-        <input type="search" placeholder="Search activity here..." />
+        {/* <input type="search" placeholder="Search activity here..." />
         <select name="" id="">
           <option>Category</option>
         </select>
@@ -78,19 +70,31 @@ const ViewActivities = ({ isSidebarOpen }) => {
         <div class="tag">
           <i class="bx bx-x"></i>
           <span>In-Progress</span>
-        </div>
+        </div> */}
       </div>
 
       <div class="row">
-        <br/>
+        <br />
       </div>
       <div className="scroll-container">
         {activity.map((act, index) => (
-          <ActivityRowCard key={index} {...act} />
+          <ActivityRowCard
+            key={index}
+            {...act}
+            onClick={() =>handleToSelectedActivity(act)}
+          />
         ))}
       </div>
 
       <CreateActivity show={showModal} handleClose={handleCloseModal} />
+
+      {selectedActivity && (
+        <ViewSelectedActivity
+          show={showActivity}
+          handleClose={handleCloseActivity}
+          act={selectedActivity}
+        />
+      )}
     </>
   );
 };
