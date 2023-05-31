@@ -4,18 +4,18 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin
 from rest_framework import status
 
-from .models import Activity
-from .serializers import ActivitySerializer
+from amt.models import Activity
+from amt.serializer import ActivitySerializers
 
 
 class ActivityControllers(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin):
     queryset = Activity.objects.all()
-    serializer_class = ActivitySerializer
+    serializer_class = ActivitySerializers
 
     @action(methods=['GET'], detail=False)
     def get_all_activities(self, request):
         instances = self.get_queryset()
-        data = ActivitySerializer(instances, many=True).data
+        data = ActivitySerializers(instances, many=True).data
         return Response(data)
     
     @action(methods=['GET'], detail=True)
