@@ -2,13 +2,8 @@ import { useState } from 'react';
 import './vertical-nav-bar.css';
 import logo from './../img/wils-logo.png';
 
-function VerticalNavBar() {
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
+function VerticalNavBar({isSidebarOpen, handleToggleSidebar}) {
   const [isDarkMode, setDarkMode] = useState(false);
-
-  const handleToggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen);
-  };
 
   const handleSearchBtnClick = () => {
     setSidebarOpen(false);
@@ -42,7 +37,7 @@ function VerticalNavBar() {
     <div className="menu-bar">
       <div className="menu">
         <li className="search-box" onClick={handleSearchBtnClick}>
-          <i className="bx bx-search icon" />
+          <i className="bx bx-search icon" onClick={handleToggleSidebar}/>
           <input type="text" placeholder="Search..." />
         </li>
         <ul className="menu-links">
@@ -54,12 +49,6 @@ function VerticalNavBar() {
           </li>
           <li className="nav-link">
             <a href="#">
-              <i className="bx bx-bar-chart-alt-2 icon" />
-              <span className="text nav-text">Revenue</span>
-            </a>
-          </li>
-          <li className="nav-link">
-            <a href="#">
               <i className="bx bx-bell icon" />
               <span className="text nav-text">Notifications</span>
             </a>
@@ -67,7 +56,7 @@ function VerticalNavBar() {
           <li className="nav-link">
             <a href="#">
               <i className="bx bx-pie-chart-alt icon" />
-              <span className="text nav-text">Analytics</span>
+              <span className="text nav-text">Activities</span>
             </a>
           </li>
         </ul>

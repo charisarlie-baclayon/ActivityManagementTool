@@ -10,16 +10,19 @@ import { Student } from "./pages/Student/Student";
 import { StudentViewActivities } from "./pages/Student/StudentViewActivities";
 
 function App() {
-
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const handleToggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
   return (
     <>
-      <VerticalNavBar />
+      <VerticalNavBar isSidebarOpen={isSidebarOpen} handleToggleSidebar={handleToggleSidebar} />
       <Routes>
-        <Route path="teacher" element={<Teacher />}>
+        <Route path="teacher" element={<Teacher isSidebarOpen={isSidebarOpen}/>}>
           <Route path="activities" element={<ViewActivities />} />
           <Route path="create" element={<CreateActivities />} />
         </Route>
-        <Route path="student" element={<Student />}>
+        <Route path="student" element={<Student isSidebarOpen={isSidebarOpen}/>}>
           <Route path="activities" element={<StudentViewActivities/>} />
         </Route>
         <Route path="*" element={<NotFound />} />

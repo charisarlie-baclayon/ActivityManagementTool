@@ -4,7 +4,7 @@ import { ActivityRowCard } from "../../assets/common/Activity/activity-row-card"
 import axios from "axios";
 import './../../assets/common/Activity/activity-row-card.css';
 
-export const Student = () => {
+export const Student = ({isSidebarOpen}) => {
   const navigate = useNavigate();
     const [activity, setActivity] = useState([]);
 
@@ -23,16 +23,13 @@ export const Student = () => {
     }, []);
 
     return (
-      <>
+      <div className={`view-sidebar ${isSidebarOpen ? '' : 'open'}`}>
         <h1>Activities</h1>
         
         <div class="search_bar">
           <input type="search" placeholder="Search activity here..."/>
           <select name="" id="">
             <option>Category</option>
-            <option>Web Design</option>
-            <option>App Design</option>
-            <option>App Development</option>
           </select>
           <select class="filter">
             <option>Filter</option>
@@ -42,19 +39,15 @@ export const Student = () => {
         <div class="tags_bar">
           <div class="tag">
             <i class="bx bx-x"></i>
-            <span>Programming</span>
+            <span>Complete</span>
           </div>
           <div class="tag">
             <i class="bx bx-x"></i>
-            <span>Design</span>
+            <span>Incomplete</span>
           </div>
           <div class="tag">
             <i class="bx bx-x"></i>
-            <span>PHP</span>
-          </div>
-          <div class="tag">
-            <i class="bx bx-x"></i>
-            <span>JavaScript</span>
+            <span>In-Progress</span>
           </div>
         </div>
 
@@ -68,6 +61,6 @@ export const Student = () => {
           ))}
           <Outlet />
         </div>
-      </>
+      </div>
     );
 };
