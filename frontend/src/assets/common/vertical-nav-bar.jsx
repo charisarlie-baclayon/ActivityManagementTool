@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import '../../custom.scss';
 import './vertical-nav-bar.css';
 import logo from './../img/wils-logo.png';
 

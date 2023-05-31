@@ -1,4 +1,5 @@
 import axios from "axios";
+
 export const createActivity = async (data) => {
   try {
     const response = await axios.post(
