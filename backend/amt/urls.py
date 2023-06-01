@@ -1,7 +1,14 @@
 from django.urls import path
-from .views import ActivityView, ActivityDetailView 
+from amt.controllers import ActivityControllers
 
 urlpatterns = [
-    path('activities/', ActivityView.as_view()),
-    path('activities/<int:activity_id>/', ActivityDetailView.as_view()),
+    path('activities/', ActivityControllers.as_view({
+        'post': 'create_activity',
+        'get': 'get_all_activities',
+    }), name='create-activity'),
+    path('activities/<int:id>/', ActivityControllers.as_view({
+        'get': 'get_activity_by_id',
+        'put': 'update_activity',
+        'delete': 'delete_activity'
+    }), name='get-activity-by-id'),
 ]
