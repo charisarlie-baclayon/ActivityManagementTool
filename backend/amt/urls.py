@@ -6,7 +6,7 @@ urlpatterns = [
         'post': 'create_activity',
         'get': 'get_all_activities',
     }), name='create-activity'),
-    path('activity/<int:id>', ActivityControllers.as_view({
+    path('activities/<int:id>/', ActivityControllers.as_view({
         'get': 'get_activity_by_id',
         'put': 'update_activity',
         'delete': 'delete_activity'
