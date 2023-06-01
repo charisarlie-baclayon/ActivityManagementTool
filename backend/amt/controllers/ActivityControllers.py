@@ -22,7 +22,7 @@ class ActivityControllers(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cr
         data = []
         for activities in instance:
             data.append(ActivitySerializers(activities).data)
-        return JsonResponse({"activities": data}, safe=False)
+        return Response({"activities": data})
     
     @action(methods=['GET'], detail=True)
     def get_activity_by_id(self, request, id):
