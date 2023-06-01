@@ -42,9 +42,9 @@ class ActivityControllers(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cr
         # return Response(serializer.data, status=status.HTTP_201_CREATED)
         data = request.data
         newActivity = Activity()
-        newActivity.name = data['name']
-        newActivity.description = data['description']
-        newActivity.link = data['link']
+        newActivity.set_name(data['name'])
+        newActivity.description(data['description'])
+        newActivity.link(data['link'])
         newActivity.save()
         serializer = ActivitySerializers(newActivity)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -60,9 +60,9 @@ class ActivityControllers(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cr
         instance = self.get_queryset().filter(id=id).first()
         if instance is None:
             return Response({"error": "Activity not found"}, status=status.HTTP_404_NOT_FOUND)
-        instance.name = data['name']
-        instance.description = data['description']
-        instance.link = data['link']
+        instance.set_name(data['name'])
+        instance.set_description(data['description'])
+        instance.set_link(data['link'])
         instance.save()
         serializer = ActivitySerializers(instance)
         return Response(serializer.data)
