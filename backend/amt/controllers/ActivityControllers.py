@@ -43,8 +43,8 @@ class ActivityControllers(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cr
         data = request.data
         newActivity = Activity()
         newActivity.set_name(data['name'])
-        newActivity.description(data['description'])
-        newActivity.link(data['link'])
+        newActivity.set_description(data['description'])
+        newActivity.set_link(data['link'])
         newActivity.save()
         serializer = ActivitySerializers(newActivity)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
