@@ -1,0 +1,64 @@
+/* Contact Section */
+.contact-section {
+    background-color: #202020;
+    padding: 100px 0;
+}
+
+/* Contact Section Content */
+.contact-section-content {
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    max-width: 1200px;
+    padding: 0 20px;
+    gap: 50px;
+}
+
+/* Contact Section Texts */
+.contact-section-texts {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.contact-section-infos,
+.contact-section-forms {
+    flex: 1;
+    box-sizing: border-box;
+}
+
+/* Contact Section Forms */
+.contact-section-forms {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+/* Contact Section Inputs */
+.contact-section-inputs {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 3; /* Equally divides the available space */
+}
+
+/* Contact Section Infos */
+.contact-section-infos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Contact Section Info Card */
+.contact-section-info-card {
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #DFDFDF;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start; /* Align items at the top */
+}

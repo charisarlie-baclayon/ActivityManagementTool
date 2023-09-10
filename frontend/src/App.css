@@ -1,40 +1,157 @@
-#root {
-  max-width: 1280px;
-  margin: 0 5% 0 10%;
+/* Logo Styles */
+.logo-0,
+.logo-contrast-0 {
+  width: 250px;
+  height: 50px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Separators */
+.separator {
+  width: 100%;
+  border: 1px solid #20202025;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.separator-contrast {
+  width: 100%;
+  border: 1px solid #FDFDFD25;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Text Highlights */
+.highlight-maroon {
+  color: #800000;
 }
 
-.card {
-  padding: 2em;
+.highlight-gold {
+  color: #FFD700;
 }
 
-.read-the-docs {
-  color: #888;
+/* Button Styles */
+button, input[type=submit] {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 10px 40px;
+  border: 3px solid;
+  border-radius: 10px;
+}
+
+/* Primary Button Styles - Fill */
+.primary-fill {
+  color: #202020;
+  border-color: #FFD700;
+  background-color: #FFD700;
+  cursor: pointer;
+}
+
+.primary-fill:hover {
+  background-color: #CFB630;
+}
+
+/* Primary Button Styles - Outline */
+.primary-outline {
+  color: #FFD700;
+  border-color: #FFD700;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.primary-outline:hover {
+  color: #202020;
+  background-color: #CFB630;
+  cursor: pointer;
+}
+
+/* Secondary Button Styles - Fill */
+.secondary-fill {
+  color: #DFDFDF;
+  border-color: #800000;
+  background-color: #800000;
+  cursor: pointer;
+}
+
+.secondary-fill:hover {
+  background-color: #803030;
+}
+
+/* Secondary Button Styles - Outline */
+.secondary-outline {
+  color: #800000;
+  border-color: #800000;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.secondary-outline:hover {
+  color: #DFDFDF;
+  background-color: #803030;
+  cursor: pointer;
+}
+
+/* Black Button Styles - Fill */
+.black-fill {
+  color: #DFDFDF;
+  border-color: #202020;
+  background-color: #202020;
+  cursor: pointer;
+}
+
+.black-fill:hover {
+  background-color: #202020;
+}
+
+/* Black Button Styles - Outline */
+.black-outline {
+  color: #202020;
+  border-color: #202020;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.black-outline:hover {
+  color: #DFDFDF;
+  background-color: #202020;
+  cursor: pointer;
+}
+
+/* Input and Textarea Styles */
+input, textarea {
+  border: 3px solid;
+  border-radius: 5px;
+  border-color: #606060;
+  background-color: #DFDFDF;
+  padding: 10px 15px;
+}
+
+/* Input and Textarea Focus Styles */
+input[type=text]:focus, textarea:focus {
+  border-color: #202020;
+}
+
+/* Textarea Height */
+textarea {
+  height: 100%;
+}
+
+/* Target Webkit (Safari and Chrome) scrollbars */
+::-webkit-scrollbar {
+  width: 6px; /* Adjust the width as needed for a thinner scrollbar */
+  background-color: #202020; /* Background color of the scrollbar track */
+}
+
+/* Target Webkit (Safari and Chrome) scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #FFD700; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+}
+
+/* Target Firefox scrollbar */
+/* Note: Firefox requires `scrollbar-color` property */
+.scrollbar {
+  scrollbar-color: #FFD700 #202020; /* thumb and track color */
+  scrollbar-width: thin; /* Width of the scrollbar (thin or auto) */
+}
+
+/* For Internet Explorer and Edge (legacy) */
+.ms-overflow-style {
+  scrollbar-color: #FFD700 #202020; /* thumb and track color */
 }
