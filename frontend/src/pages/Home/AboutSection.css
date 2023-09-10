@@ -1,0 +1,37 @@
+.about-section {
+    background-color: #202020; /* Background color for the about section */
+}
+
+.about-section-content {
+    padding: 0 20px;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+}
+
+.about-section-imgs,
+.about-section-texts {
+    flex: 1;
+    box-sizing: border-box;
+}
+
+.about-section-texts {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 20px 0px;
+}
+
+.about-section-imgs img {
+    max-width: 100%;
+    max-height: 700px;
+}
+
+.about-section-imgs {
+    display: flex;
+    justify-content: flex-end; /* Align images to the right */
+}

@@ -1,0 +1,25 @@
+/* CTA Section Styles */
+.cta-section {
+    background-image: url('../../assets/img/home/team-section-background.png');
+    background-size: cover;
+    background-position: center;
+    padding: 100px 0px;
+  }
+  
+  /* CTA Section Content Styles */
+  .cta-section-content {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 0 25px;
+    margin: auto;
+    max-width: 1200px;
+    align-items: center;
+  }
+  
+  /* CTA Section Buttons Styles */
+  .cta-section-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }

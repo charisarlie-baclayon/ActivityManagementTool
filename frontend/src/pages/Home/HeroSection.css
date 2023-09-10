@@ -1,0 +1,64 @@
+.hero-section {
+  background-image: url('../../assets/img/home/hero-section-background.png');
+  background-size: cover;
+  background-position: center;
+  margin-top: 100px;
+}
+
+.hero-section-content {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  padding: 0 20px;
+  gap: 50px;
+}
+
+.hero-section-texts,
+.hero-section-imgs {
+    flex: 1;
+    box-sizing: border-box;
+}
+
+.hero-section-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 0px;
+}
+
+.hero-section-cards {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+}
+
+.hero-section-maroon-card,
+.hero-section-black-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 25px;
+    gap: 20px;
+}
+
+.hero-section-maroon-card {
+  border: 3px solid #800000;
+}
+
+.hero-section-black-card {
+  border: 3px solid #202020;
+}
+  
+.hero-section-imgs {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.hero-section-imgs img {
+  max-width: 100%;
+  max-height: 700px;
+  transform: scaleX(-1);
+}
