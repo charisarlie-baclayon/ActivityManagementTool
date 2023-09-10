@@ -1,45 +1,64 @@
 body {
-  margin: 0;
-  display: fixed;
-  place-items: center;
-  min-width: 100vw;
-  min-height: 100vh;
-  overflow: hidden;
+  background-color: #DFDFDF;
+  color: #202020;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+input::placeholder,
+textarea::placeholder,
+textarea, input {
+    font-family: 'Roboto Condensed', sans-serif; /* Replace 'Your Desired Font' with the actual font name */
+}
+
+/* Style for text on a black background with contrasting colors */
+.contrast {
+  background-color: #202020;
+  color: #DFDFDF;
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 96px;
+  font-weight: 700;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  cursor: pointer;
-  transition: border-color 0.25s;
+h2 {
+  font-size: 64px;
+  font-weight: 700;
 }
 
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+h3 {
+  font-size: 48px;
+  font-weight: 700;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+h4 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+h5 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+h6 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.body-small {
+  font-size: 12px;
+}
+
+.body-medium {
+  font-size: 14px;
+}
+
+.body-large {
+  font-size: 16px;
+}
+
+label {
+  font-size: 16px;
+  font-weight: 700;
 }
