@@ -1,0 +1,50 @@
+/* CSS rules for the Footer component */
+.footer-section {
+    background: #202020;
+    padding: 50px ;
+}
+
+.footer-content {
+    margin: auto;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 0 25px;
+}
+
+.footer-content-row-1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.footer-company {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 250px;
+}
+
+.footer-social-media {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-social-media-icons {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.footer-content-row-2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.footer-bar {
+    background-color: #FFD700;
+    height: 20px;
+}
