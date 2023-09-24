@@ -1,0 +1,11 @@
+.about-section {
+    background-color: #202020; /* Background color for the about section */
+    padding-top: 50px;
+}
+
+.about-section img {
+    max-width: 100%;
+    max-height: 500px;  
+    display: flex;
+    justify-content: flex-end; /* Align images to the right */
+}

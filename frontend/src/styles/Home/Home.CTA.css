@@ -13,13 +13,5 @@
     gap: 25px;
     padding: 0 25px;
     margin: auto;
-    max-width: 1200px;
     align-items: center;
-  }
-  
-  /* CTA Section Buttons Styles */
-  .cta-section-buttons {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
   }

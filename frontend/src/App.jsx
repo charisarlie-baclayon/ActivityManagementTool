@@ -1,12 +1,12 @@
 import { useState } from "react";
-import "./App.css";
-import ViewActivities from "./pages/Teacher/ViewActivities";
+import ViewActivities from "@views/Teacher/ViewActivities";
 import { Route, Routes } from "react-router-dom";
-import { Teacher } from "./pages/Teacher/Teacher";
-import { NotFound } from "./assets/common/NotFound";
-import { Student } from "./pages/Student/Student";
-import { StudentViewActivities } from "./pages/Student/StudentViewActivities";
-import { Home } from "./pages/Home/Home";
+import { Teacher } from "@views/Teacher/Teacher";
+import { NotFound } from "@assets/common/NotFound";
+import { Student } from "@views/Student/Student";
+import { StudentViewActivities } from "@views/Student/StudentViewActivities";
+import { Home } from "@views/Home/Home";
+import "./App.css";
 
 function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -19,7 +19,7 @@ function App() {
         {/*Path to home */}
         <Route path="/" element={<Home/>}>
           <Route path="home" element={<Home/>} />
-        </Route>
+        </Route>d
 
         {/*Path to home */}
         <Route path="teacher" element={<Teacher isSidebarOpen={isSidebarOpen}/>}>

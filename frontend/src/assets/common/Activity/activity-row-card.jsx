@@ -1,5 +1,4 @@
 import React from "react";
-import "./activity-row-card.css";
 
 export const ActivityRowCard = ({ onClick, ...props }) => {
   return (
