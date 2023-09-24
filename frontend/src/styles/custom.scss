@@ -1,0 +1,77 @@
+// Variables
+$primary: #FFEC8B;
+$secondary: #B8860B;
+$body-bg: #dfdfdf;
+$body-color: #202020;
+$border-color: #dfdfdf;
+$light: $body-bg;
+$dark: $body-color;
+$font-family: 'Roboto Condensed', sans-serif;
+
+// Font sizes in rem
+$h1-font-size: 5rem; // 80px
+$h2-font-size: 4rem; // 64px
+$h3-font-size: 3rem; // 48px
+$h4-font-size: 2rem; // 32px
+$h5-font-size: 1.5rem; // 24px
+$h6-font-size: 1.25rem; // 20px
+
+// Border widths in rems
+$border-widths: (
+  1: 1px,
+  2: 2px,
+  3: 3px,
+  4: 4px,
+  5: 5px
+);
+
+// Text font sizes in rems
+$text-font-sizes: (
+  1: 1rem,     // 16px
+  2: 0.875rem, // 14px
+  3: 0.75rem,  // 12px
+);
+
+// Global font settings
+* {
+  font-family: $font-family;
+}
+
+// Apply custom border widths to Bootstrap's border classes
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+
+// Generate custom border classes with rem values
+@each $bw, $width in $border-widths {
+  .bw-#{$bw} {
+    border-width: $width;
+  }
+}
+
+// Generate custom text classes with rem font sizes
+@each $size, $font-size in $text-font-sizes {
+  .text-fs-#{$size} {
+    font-size: $font-size;
+  }
+}
+
+/* Scrollbar Track */
+::-webkit-scrollbar {
+  width: 8px; /* Adjust the width as needed */
+  background-color: $dark; /* Set the background color */
+}
+
+/* Scrollbar Thumb */
+::-webkit-scrollbar-thumb {
+  background-color: $primary; /* Set the thumb color */
+  border-radius: 8px; /* Adjust the border radius for a rounded thumb */
+}
+
+/* Optional: Scrollbar Track on Hover */
+::-webkit-scrollbar:hover {
+  background-color: $dark; /* Set the hover background color */
+}
+
+/* Optional: Scrollbar Thumb on Hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: lighten($primary, 10%); /* Lighten the thumb color on hover */
+}

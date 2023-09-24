@@ -1,0 +1,75 @@
+/* signup.css */
+.sign-up {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1000px;
+    position: fixed;
+    background-color: #DFDFDF;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    z-index: 3;
+}
+
+.sign-up-container {
+    display: flex;
+    flex: 1;
+    gap: 20px; /* Adjust the gap to your desired spacing */
+}
+
+.sign-up-img {
+    background-image: url('../../../assets/img/home/sign-in-background.jpg'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    width: 400px;
+    position: relative;
+    padding: 50px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.sign-up-img-overlay {
+    background-color: #80000050; /* Change this to your desired color and opacity */
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.sign-up-forms {
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    background-color: #DFDFDF; /* Add your desired background color for the forms */
+    width: 400px;
+    gap: 20px;
+    border-radius: 10px;
+}
+
+.sign-up-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sign-up-forms-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sign-up-forms-inputs-agreement {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+}
+
+/* Add any additional styling for your form elements as needed */
+.sign-up-close {
+    cursor: pointer;
+}

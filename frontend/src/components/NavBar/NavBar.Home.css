@@ -1,0 +1,18 @@
+/* Add this CSS to your NavBar.Home.css file */
+.navbar.navbar-expand-md {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Adjust the z-index as needed */
+}
+
+/* Target the Link component when it's a child of an li element */
+li .react-scroll-link {
+    cursor: pointer;
+}
+
+/* Additional style for the hand pointer when hovering */
+.nav-link {
+    cursor: pointer;
+}

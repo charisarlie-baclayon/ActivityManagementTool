@@ -1,0 +1,26 @@
+.team-section {
+    background-image: url('../../assets/img/home/team-section-background.png');
+    background-size: cover;
+    background-position: center;
+    padding: 50px;
+}
+
+.team-section-texts{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+
+
+.team-section-profile-card {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.team-section-profile-card img {
+    max-width: 100px;
+    max-height: 100px;
+    padding: 10px;
+}
