@@ -2,14 +2,12 @@
   background-image: url('../../assets/img/home/hero-section-background.png');
   background-size:cover;
   background-position: center;
-  margin-top: 50px;
+  margin-top: 40px;
   padding-top: 50px;
 }
 
-
-
 .hero-section img {
   max-width: 100%;
-  max-height: 500px;
+  max-height: 400px;
   transform: scaleX(-1);
 }

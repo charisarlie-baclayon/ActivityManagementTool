@@ -1,17 +1,7 @@
 /* CTA Section Styles */
 .cta-section {
-    background-image: url('../../assets/img/home/team-section-background.png');
-    background-size: cover;
-    background-position: center;
-    padding: 50px 0px;
-  }
-  
-  /* CTA Section Content Styles */
-  .cta-section-content {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    padding: 0 25px;
-    margin: auto;
-    align-items: center;
-  }
+  background-image: url('../../assets/img/home/team-section-background.png');
+  background-size: cover;
+  background-position: center;
+  padding: 50px 0px;
+}

@@ -3,35 +3,3 @@
     background-color: #202020;
     padding: 50px 0;
 }
-
-/* Contact Section Inputs */
-.contact-section-inputs {
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    flex: 3; /* Equally divides the available space */
-}
-
-/* Contact Section Infos */
-.contact-section-infos {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-/* Contact Section Info Card */
-.contact-section-info-card {
-    padding: 20px;
-    border-radius: 5px;
-    background-color: #DFDFDF;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.contact-section-info {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-}

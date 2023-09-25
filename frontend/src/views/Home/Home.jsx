@@ -1,20 +1,20 @@
 import { Footer } from '@components/Footers/Footer.Home';
 import { NavBar } from '@components/NavBar/NavBar.Home';
-import { AboutSection } from '@views/Home/Home.About';
-import { CTASection } from '@views/Home/Home.CTA';
-import { ContactSection } from '@views/Home/Home.Contact';
-import { HeroSection } from '@views/Home/Home.Hero';
-import { TeamSection } from '@views/Home/Home.Team';
+import { Home_AboutSection } from '@views/Home/Home.About';
+import { Home_CTASection } from '@views/Home/Home.CTA';
+import { Home_ContactSection } from '@views/Home/Home.Contact';
+import { Home_HeroSection } from '@views/Home/Home.Hero';
+import { Home_TeamSection } from '@views/Home/Home.Team';
 
 export const Home = () => {
     return (
         <>
             <NavBar/>
-            <HeroSection/>
-            <AboutSection/>
-            <TeamSection/>
-            <ContactSection/>
-            <CTASection/>
+            <Home_HeroSection/>
+            <Home_AboutSection/>
+            <Home_TeamSection/>
+            <Home_ContactSection/>
+            <Home_CTASection/>
             <Footer/>
         </>
     )
