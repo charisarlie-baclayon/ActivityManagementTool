@@ -9,7 +9,7 @@
     margin: auto;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 20px;
     flex: 3; /* Equally divides the available space */
 }
 
