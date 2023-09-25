@@ -11,15 +11,14 @@
     gap:20px;
 }
 
-
-.team-section-profile-card {
+.team-profile-card {
     display: flex;
     align-items: center;
     flex-direction: column;
     gap: 10px;
 }
 
-.team-section-profile-card img {
+.team-profile-card img {
     max-width: 100px;
     max-height: 100px;
     padding: 10px;

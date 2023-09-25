@@ -64,8 +64,8 @@ export const NavBar = () => {
     return (
         <nav className='navbar navbar-expand-md navbar-dark bg-dark justify-content-between'>
             <div className="container">
-                <div className="navbar-logo logo">
-                    <a href='/home'>
+                <div className="navbar-logo">
+                    <a href='/home' className='navbar-logo-link'>
                         <img src={logo} alt='Your Logo' />
                     </a>
                 </div>
@@ -79,8 +79,8 @@ export const NavBar = () => {
                 </button>
     
                 <div className={`collapse navbar-collapse ${isNavbarCollapsed ? '' : 'show'}`}>
-                    <ul className='navbar-nav ml-auto gap-2 justify-content-center'>
-                        <li className='nav-item'>
+                    <ul className='navbar-nav ml-auto gap-2'>
+                        <li className='nav-item text-fs-3 d-flex align-items-center'>
                             <Link
                                 to='hero-section'
                                 smooth={true}
@@ -93,7 +93,7 @@ export const NavBar = () => {
                                 Home
                             </Link>
                         </li>
-                        <li className='nav-item'>
+                        <li className='nav-item text-fs-3 d-flex align-items-center'>
                             <Link
                                 to='about-section'
                                 smooth={true}
@@ -106,7 +106,7 @@ export const NavBar = () => {
                                 About
                             </Link>
                         </li>
-                        <li className='nav-item'>
+                        <li className='nav-item text-fs-3 d-flex align-items-center'>
                             <Link
                                 to='team-section'
                                 smooth={true}
@@ -119,7 +119,7 @@ export const NavBar = () => {
                                 Team
                             </Link>
                         </li>
-                        <li className='nav-item'>
+                        <li className='nav-item text-fs-3 d-flex align-items-center'>
                             <Link
                                 to='contact-section'
                                 smooth={true}
@@ -132,11 +132,11 @@ export const NavBar = () => {
                                 Contact
                             </Link>
                         </li>
-                        <li className='nav-item'>
-                            <button className='btn fw-bold bw-2 btn-outline-primary btn-block' onClick={openSignInPopup}>Sign In</button>
+                        <li className='nav-item d-flex align-items-center'>
+                            <button className='btn fw-bold text-fs-3 bw-2 btn-outline-primary btn-block' onClick={openSignInPopup}>Sign In</button>
                         </li>
-                        <li className='nav-item'>
-                            <button className='btn fw-bold bw-2 btn-primary btn-block' onClick={openSignUpPopup}>Sign Up</button>
+                        <li className='nav-item d-flex align-items-center'>
+                            <button className='btn fw-bold text-fs-3 bw-2 btn-primary btn-block' onClick={openSignUpPopup}>Sign Up</button>
                         </li>
                     </ul>
                 </div>

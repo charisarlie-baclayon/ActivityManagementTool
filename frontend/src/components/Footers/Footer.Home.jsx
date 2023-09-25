@@ -8,9 +8,9 @@ export const Footer = () => {
         <footer className="footer bg-dark text-light">
             <div className="container py-5">
                 <div className="row">
-                    <div className="footer-logo col-md">
+                    <div className="footer-logo col-md-4">
                         <div className="mb-3">
-                            <a className='logo' href='/home'>
+                            <a className='footer-logo-link' href='/home'>
                                 <img src={logo} alt='Your Logo' />
                             </a>
                         </div>
@@ -21,10 +21,10 @@ export const Footer = () => {
                         </div>
                     </div>
 
-                    <div className="footer-space col-md"></div>
+                    <div className="footer-space col-md-4"></div>
                     
-                    <div className="footer-social col-md text-md-right">
-                        <p>Follow Us On:</p>
+                    <div className="footer-social col-md-4 text-md-right">
+                        <p className='text-fs-3 '>Follow Us On:</p>
                         <div className="footer-social-media-icons justify-content-md-end">
                             <a href="#" className="me-3"><FiFacebook className="text-light" /></a>
                             <a href="#" className="me-3"><FiInstagram className="text-light" /></a>
@@ -34,7 +34,7 @@ export const Footer = () => {
                 </div>
             </div>
 
-            <hr className='separator' />
+            <hr className='footer-separator' />
 
             <div className="container py-3">
                 <div className="row">
@@ -43,7 +43,7 @@ export const Footer = () => {
                     </div>
                     <div className="footer-links col-md-6 text-md-right">
                         <p className="text-fs-3">
-                            <a className=' text-light' href="#">Terms of Service</a> | <a className=' text-light' href="#">Privacy Policy</a>
+                            <a className='footer-link text-light' href="#">Terms of Service</a> | <a className='footer-link text-light' href="#">Privacy Policy</a>
                         </p>
                     </div>
                 </div>
