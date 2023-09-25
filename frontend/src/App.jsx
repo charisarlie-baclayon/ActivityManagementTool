@@ -7,6 +7,7 @@ import { Student } from "@views/Student/Student";
 import { StudentViewActivities } from "@views/Student/StudentViewActivities";
 import { Home } from "@views/Home/Home";
 import "./App.css";
+import { Student_HomeSection } from "./views/Student/Student.Home";
 
 function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -28,6 +29,7 @@ function App() {
         
         {/*Path to home */}
         <Route path="student" element={<Student isSidebarOpen={isSidebarOpen}/>}>
+          <Route path="home" element={<Student_HomeSection/>} />
           <Route path="activities" element={<StudentViewActivities/>} />
         </Route>
         

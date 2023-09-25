@@ -30,6 +30,8 @@ $text-font-sizes: (
   1: 1rem,     // 16px
   2: 0.875rem, // 14px
   3: 0.75rem,  // 12px
+  4: 0.625rem, // 10px
+  5: 0.5rem,   // 8px
 );
 
 // Global font settings
@@ -56,14 +58,14 @@ $text-font-sizes: (
 
 /* Scrollbar Track */
 ::-webkit-scrollbar {
-  width: 8px; /* Adjust the width as needed */
+  width: 6px; /* Adjust the width as needed */
   background-color: $dark; /* Set the background color */
 }
 
 /* Scrollbar Thumb */
 ::-webkit-scrollbar-thumb {
   background-color: $primary; /* Set the thumb color */
-  border-radius: 8px; /* Adjust the border radius for a rounded thumb */
+  border-radius: 6px; /* Adjust the border radius for a rounded thumb */
 }
 
 /* Optional: Scrollbar Track on Hover */

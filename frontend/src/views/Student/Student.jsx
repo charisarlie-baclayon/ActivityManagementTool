@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { ActivityRowCard } from "../../assets/common/Activity/activity-row-card";
 import axios from "axios";
+import { NavBar } from "../../components/NavBar/NavBar.Student";
+import { SideBar } from "../../components/SideBar/SideBar.Student";
+import { Student_HomeSection } from "./Student.Home";
 
 export const Student = ({isSidebarOpen}) => {
   const navigate = useNavigate();
@@ -23,42 +25,11 @@ export const Student = ({isSidebarOpen}) => {
 
     return (
       <div className={`view-sidebar ${isSidebarOpen ? '' : 'open'}`}>
-        <h1>Activities</h1>
+        <NavBar/>
+        <SideBar/>
+        <Student_HomeSection/>
         
-        <div class="search_bar">
-          <input type="search" placeholder="Search activity here..."/>
-          <select name="" id="">
-            <option>Category</option>
-          </select>
-          <select class="filter">
-            <option>Filter</option>
-          </select>
-        </div>
-
-        <div class="tags_bar">
-          <div class="tag">
-            <i class="bx bx-x"></i>
-            <span>Complete</span>
-          </div>
-          <div class="tag">
-            <i class="bx bx-x"></i>
-            <span>Incomplete</span>
-          </div>
-          <div class="tag">
-            <i class="bx bx-x"></i>
-            <span>In-Progress</span>
-          </div>
-        </div>
-
-        <div class="row">
-        <br/>
-        </div>
-        <div className = 'scroll-container'>
-          {activity.map((act, index) => (
-            <ActivityRowCard key={index} {...act} />
-          ))}
-          <Outlet />
-        </div>
+        
       </div>
     );
 };

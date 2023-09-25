@@ -10809,16 +10809,24 @@ textarea.form-control-lg {
   font-size: 0.75rem;
 }
 
+.text-fs-4 {
+  font-size: 0.625rem;
+}
+
+.text-fs-5 {
+  font-size: 0.5rem;
+}
+
 /* Scrollbar Track */
 ::-webkit-scrollbar {
-  width: 8px; /* Adjust the width as needed */
+  width: 6px; /* Adjust the width as needed */
   background-color: #202020; /* Set the background color */
 }
 
 /* Scrollbar Thumb */
 ::-webkit-scrollbar-thumb {
   background-color: #FFEC8B; /* Set the thumb color */
-  border-radius: 8px; /* Adjust the border radius for a rounded thumb */
+  border-radius: 6px; /* Adjust the border radius for a rounded thumb */
 }
 
 /* Optional: Scrollbar Track on Hover */

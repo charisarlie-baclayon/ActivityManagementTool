@@ -1,15 +1,6 @@
-/* Add this CSS to your NavBar.Home.css file */
-.navbar.navbar-expand-md {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000; /* Adjust the z-index as needed */
-}
-
 .navbar-logo-link img{
-    width: 200px;
-    height: 40px;
+    width: 150px;
+    height: 30px;
 }
 
 /* Target the Link component when it's a child of an li element */
