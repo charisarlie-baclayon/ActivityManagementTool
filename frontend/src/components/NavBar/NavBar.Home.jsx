@@ -71,7 +71,7 @@ export const NavBar = () => {
                 </div>
     
                 <button
-                    className="navbar-toggler  text-fs-4"
+                    className="navbar-toggler  text-fs-5"
                     type="button"
                     onClick={handleNavbarToggle}
                 >
@@ -80,7 +80,7 @@ export const NavBar = () => {
     
                 <div className={`collapse navbar-collapse ${isNavbarCollapsed ? '' : 'show'}`}>
                     <ul className='navbar-nav ml-auto gap-3'>
-                        <li className='nav-item text-fs-4 d-flex align-items-center'>
+                        <li className='nav-item text-fs-5 d-flex align-items-center'>
                             <Link
                                 to='hero-section'
                                 smooth={true}
@@ -93,7 +93,7 @@ export const NavBar = () => {
                                 Home
                             </Link>
                         </li>
-                        <li className='nav-item text-fs-4 d-flex align-items-center'>
+                        <li className='nav-item text-fs-5 d-flex align-items-center'>
                             <Link
                                 to='about-section'
                                 smooth={true}
@@ -106,7 +106,7 @@ export const NavBar = () => {
                                 About
                             </Link>
                         </li>
-                        <li className='nav-item text-fs-4 d-flex align-items-center'>
+                        <li className='nav-item text-fs-5 d-flex align-items-center'>
                             <Link
                                 to='team-section'
                                 smooth={true}
@@ -119,7 +119,7 @@ export const NavBar = () => {
                                 Team
                             </Link>
                         </li>
-                        <li className='nav-item text-fs-4 d-flex align-items-center'>
+                        <li className='nav-item text-fs-5 d-flex align-items-center'>
                             <Link
                                 to='contact-section'
                                 smooth={true}
@@ -133,10 +133,10 @@ export const NavBar = () => {
                             </Link>
                         </li>
                         <li className='nav-item d-flex align-items-center'>
-                            <button className='btn fw-bold text-fs-4 bw-2 btn-outline-primary btn-block' onClick={openSignInPopup}>Sign In</button>
+                            <button className='btn fw-bold text-fs-5 bw-2 btn-outline-primary btn-block' onClick={openSignInPopup}>Sign In</button>
                         </li>
                         <li className='nav-item d-flex align-items-center'>
-                            <button className='btn fw-bold text-fs-4 bw-2 btn-primary btn-block' onClick={openSignUpPopup}>Sign Up</button>
+                            <button className='btn fw-bold text-fs-5 bw-2 btn-primary btn-block' onClick={openSignUpPopup}>Sign Up</button>
                         </li>
                     </ul>
                 </div>

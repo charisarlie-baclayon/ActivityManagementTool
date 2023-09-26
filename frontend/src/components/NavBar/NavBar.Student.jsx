@@ -15,10 +15,10 @@ export const NavBar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-md navbar-dark bg-black fixed-top">
+    <nav className="navbar navbar-expand-md navbar-dark bg-black">
       <div className="container">
         <button
-          className="navbar-toggler text-fs-4"
+          className="navbar-toggler text-fs-5"
           type="button"
           data-toggle="collapse"
           data-target="#navbarContent"
@@ -28,26 +28,26 @@ export const NavBar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className={`collapse navbar-collapse ${isNavbarCollapsed ? '' : 'show'}`} id="navbarContent">
-          <div className="navbar-nav ml-auto gap-3">
-            <div className="input-group">
-              <div className="input-group-prepend">
+        <div className={`collapse gap-5 navbar-collapse ${isNavbarCollapsed ? '' : 'show'}`} id="navbarContent">
+            <div className="input-group align-items-center">
+              <div className="input-group-prepend  input-height-1">
                 <span className="input-group-text text-fs-5">
                   <FiSearch />
                 </span>
               </div>
-              <input type="text" className="form-control text-fs-5" placeholder="Search" />
+              <input type="text" className="form-control  input-height-1 text-fs-5" placeholder="Search" />
             </div>
-            <span className="nav-item nav-link text-fs-4">
+          <div className="navbar-nav ml-auto">
+            <span className="nav-item nav-link text-fs-5">
               {isNavbarCollapsed ? <FiBell /> : 'Notification'}
             </span>
-            <span className="nav-item nav-link text-fs-4">
+            <span className="nav-item nav-link text-fs-5">
               {isNavbarCollapsed ? <FiSettings /> : 'Settings'}
             </span>
-            <span className="nav-item nav-link text-fs-4">
+            <span className="nav-item nav-link text-fs-5">
               {isNavbarCollapsed ? <FiHelpCircle /> : 'Help'}
             </span>
-            <span className="nav-item nav-link text-fs-4">
+            <span className="nav-item nav-link text-fs-5">
               {isNavbarCollapsed ? <FiUser /> : 'User'}
             </span>
           </div>

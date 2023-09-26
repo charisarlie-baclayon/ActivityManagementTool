@@ -8,11 +8,11 @@ export const Home_HeroSection = () => {
       <div className="container hero-content">
         <div className="row">
           <div className="col-md">
-            <h3 className="fw-bold">
+            <h1 className="fw-bold">
               Where Ideas <span className="text-secondary">Hatch</span>
               <br />
               <span className="text-secondary">Futures</span> Form
-            </h3>
+            </h1>
 
             <p className='text-fs-3'>
               Join our collaborative platform for student innovators, and embark on a journey of creativity, mentorship, and limitless possibilities.
@@ -27,7 +27,7 @@ export const Home_HeroSection = () => {
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                       <br /><br />Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     </p>
-                    <button className="btn w-100 bw-2 text-fs-4 btn-outline-dark">Learn More</button>
+                    <button className="btn w-100 bw-2 fw-bold  text-fs-5 btn-outline-dark">Learn More</button>
                   </div>
                 </div>
               </div>
@@ -39,7 +39,7 @@ export const Home_HeroSection = () => {
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                       <br /><br />Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     </p>
-                    <button className="btn w-100 bw-2 text-fs-4 btn-outline-light">Learn More</button>
+                    <button className="btn w-100 bw-2 fw-bold text-fs-5 btn-outline-light">Learn More</button>
                   </div>
                 </div>
               </div>
