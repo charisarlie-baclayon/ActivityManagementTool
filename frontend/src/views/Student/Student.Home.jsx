@@ -4,7 +4,7 @@ export const Student_HomeSection = () => {
     <div className="cta-section">
       <div className='container'>
         <div className='cta-section-content'>
-          <h3 className='fw-bold'>What are you waiting for? <span className='text-secondary'>Join</span> Us!</h3>
+          <h3 className='fw-bold'>Good Afternoon, Jeremy!</h3>
 
         </div>
       </div>

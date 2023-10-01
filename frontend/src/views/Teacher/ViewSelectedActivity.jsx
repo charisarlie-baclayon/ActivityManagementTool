@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import {deleteActivity, updateActivity } from "../../Api/Activity";
 
@@ -56,10 +55,10 @@ export const ViewSelectedActivity = ({ show, handleClose, act }) => {
   };
 
   return (
-    <div>
+    <>
       <Modal centered show={show} onHide={handleModalHide} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>View Activity</Modal.Title>
+        <Modal.Header closebutton>
+          <Modal.Title className=" fs-6 fw-bold">View Activity</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -97,20 +96,20 @@ export const ViewSelectedActivity = ({ show, handleClose, act }) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="warning" onClick={handleDelete}>
+          <button className="btn btn-outline-secondary bw-3 btn-block fw-bold" onClick={handleDelete}>
             Delete
-          </Button>
+          </button>
           {editable ? (
-            <Button variant="primary" onClick={handleEdit}>
+            <button className="btn btn-secondary bw-3 btn-block fw-bold" onClick={handleEdit}>
               Edit
-            </Button>
+            </button>
           ) : (
-            <Button variant="primary" onClick={handleUpdate}>
+            <button className="btn btn-secondary bw-3 btn-block fw-bold" onClick={handleUpdate}>
               Submit
-            </Button>
+            </button>
           )}
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   );
 };
