@@ -28,7 +28,7 @@ export const Student = ({ isSidebarOpen }) => {
       <SideBar/>
       <div className="view-sidebar"> {/* Added a custom class for styling */}
         <NavBar/>
-        <Student_HomeSection />
+        <Outlet/>
       </div>
     </div>
   );

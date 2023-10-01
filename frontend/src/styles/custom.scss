@@ -17,22 +17,30 @@ $font-family: 'Roboto Condensed', sans-serif;
   box-shadow: none !important;
 }
 
+$h1-font-size: 4.5rem;
+$h2-font-size: 4rem; 
+$h3-font-size: 3rem; 
+$h4-font-size: 2rem; 
+$h5-font-size: 1.5rem; 
+$h6-font-size: 1.25rem; 
+
 // Layout Styles
 .view-navbar {
-  margin-top: 40px;
+  margin-top: 75px;
 }
 
 .view-sidebar {
-  margin-left: 120px;
+  margin-left: 200px;
 }
 
 .sidebar {
-  padding: 25px;
-  width: 120px;
+  min-width: 125px;
+  max-width: 200px;
 }
 
 .navbar {
-  height: 40px;
+  min-height: 75px;
+  max-height: 100px;
 }
 
 // Border Widths in Pixels
@@ -44,43 +52,14 @@ $border-widths: (
   5: 5px
 );
 
-// Text Font Sizes in REMs
-$text-font-sizes: (
-  1: 16px,     // 16px
-  2: 14px, // 14px
-  3: 12px,  // 12px
-  4: 10px, // 10px
-  5: 8px,   // 8px
-);
 
-// Input Sizes in Pixels
-$input-heights: (
-  1: 20px,
-  2: 15px,
-  3: 10px,
-);
 
-// Generate custom input classes with pixel heights
-@each $size, $height in $input-heights {
-  .input-height-#{$size} {
-    height: $height;
-  }
-}
-
-// Apply custom border widths to Bootstrap's border classes
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 
-// Generate custom border classes with REM values
+
 @each $bw, $width in $border-widths {
   .bw-#{$bw} {
     border-width: $width;
-  }
-}
-
-// Generate custom text classes with REM font sizes
-@each $size, $font-size in $text-font-sizes {
-  .text-fs-#{$size} {
-    font-size: $font-size;
   }
 }
 

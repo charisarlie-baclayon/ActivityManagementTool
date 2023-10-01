@@ -1,6 +1,5 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { createActivity } from "../../Api/Activity";
 
@@ -28,32 +27,35 @@ const CreateActivity = ({ show, handleClose }) => {
   return (
     <div>
       <Modal show={show} onHide={handleClose} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>Create Activity</Modal.Title>
+        <Modal.Header closebutton>
+          <Modal.Title className=" fs-6 fw-bold">Create Activity</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="title-input">
               <Form.Label>Title</Form.Label>
-              <Form.Control as="textarea" rows={1} />
+              <Form.Control 
+                as="textarea" rows={1} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="description-input">
               <Form.Label>Description</Form.Label>
-              <Form.Control as="textarea" rows={8} />
+              <Form.Control 
+                as="textarea" rows={8} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="link-input">
               <Form.Label>Link</Form.Label>
-              <Form.Control as="textarea" rows={3} />
+              <Form.Control 
+                as="textarea" rows={3} />
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <button className="btn btn-outline-secondary bw-3 btn-block fw-bold text-fs-5" onClick={handleClose}>
             Close
-          </Button>
-          <Button variant="primary" onClick={handleSubmit}>
+          </button>
+          <button className="btn btn-secondary btn-block bw-3 fw-bold text-fs-5" onClick={handleSubmit}>
             Submit
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
     </div>

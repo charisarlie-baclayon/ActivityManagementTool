@@ -15,10 +15,10 @@ export const NavBar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-md navbar-dark bg-black">
-      <div className="container">
+    <nav className="navbar navbar-expand-md navbar-dark bg-black pl-3 pr-3">
+      <div className="container-md">
         <button
-          className="navbar-toggler text-fs-5"
+          className="navbar-toggler"
           type="button"
           data-toggle="collapse"
           data-target="#navbarContent"
@@ -30,24 +30,19 @@ export const NavBar = () => {
         </button>
         <div className={`collapse gap-5 navbar-collapse ${isNavbarCollapsed ? '' : 'show'}`} id="navbarContent">
             <div className="input-group align-items-center">
-              <div className="input-group-prepend  input-height-1">
-                <span className="input-group-text text-fs-5">
-                  <FiSearch />
-                </span>
-              </div>
-              <input type="text" className="form-control  input-height-1 text-fs-5" placeholder="Search" />
+              <input type="text" className="form-control " placeholder="Search" />
             </div>
-          <div className="navbar-nav ml-auto">
-            <span className="nav-item nav-link text-fs-5">
+          <div className="navbar-nav ml-auto gap-3">
+            <span className="nav-item nav-link">
               {isNavbarCollapsed ? <FiBell /> : 'Notification'}
             </span>
-            <span className="nav-item nav-link text-fs-5">
+            <span className="nav-item nav-link">
               {isNavbarCollapsed ? <FiSettings /> : 'Settings'}
             </span>
-            <span className="nav-item nav-link text-fs-5">
+            <span className="nav-item nav-link">
               {isNavbarCollapsed ? <FiHelpCircle /> : 'Help'}
             </span>
-            <span className="nav-item nav-link text-fs-5">
+            <span className="nav-item nav-link">
               {isNavbarCollapsed ? <FiUser /> : 'User'}
             </span>
           </div>

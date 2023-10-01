@@ -14,9 +14,9 @@ export const SideBar = () => {
 
   // Define the active route for each link
   const routes = [
-    { path: '/student/home', icon: <FiHome />, name: 'Dashboard' },
-    { path: '/student/classes', icon: <FiBook />, name: 'Class' },
-    { path: '/student/activities', icon: <FiActivity />, name: 'Activity' },
+    { path: '/teacher/home', icon: <FiHome />, name: 'Dashboard' },
+    { path: '/teacher/classes', icon: <FiBook />, name: 'Class' },
+    { path: '/teacher/activities', icon: <FiActivity />, name: 'Activity' },
   ];
 
   return (
