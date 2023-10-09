@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FiX } from 'react-icons/fi';
-import './sign-in.css'; // You can use the same CSS file as the SignInPopup
 
 export const SignUpPopup = ({ onClose }) => {
+    
     return (
-        <div className="modal custom-modal show" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
+        <div className="modal fade show" id="signUpModal" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
             <div className="modal-dialog modal-dialog-centered" role="document">
                 <div className="modal-content">
                     <div className="modal-header">
                         <h4 className="modal-title">Sign Up</h4>
                         <button type="button" className="close" onClick={onClose}>
-                            <FiX className="sign-in-close" />
+                            <FiX className="sign-up-close" />
                         </button>
                     </div>
                     <div className="modal-body">
@@ -33,17 +33,15 @@ export const SignUpPopup = ({ onClose }) => {
                                             <input type='password' id='password' className='form-control' placeholder='Enter your password' required />
                                             <label htmlFor='repassword'>Re-enter Password</label>
                                             <input type='password' id='repassword' className='form-control' placeholder='Re-enter your password' required />
-                                            <div className='sign-in-forms-inputs-remember' htmlFor="remember">
-                                                <input type="checkbox" id="remember" name="remember" required />
-                                                <p className='body-small'>Remember me</p>
+                                            <div className='sign-in-forms-inputs-agreement' htmlFor='agreement'>
+                                                <div className="form-check">
+                                                    <input type='checkbox' id='agreement' className='form-check-input' name='agreement' required />
+                                                    <label className='form-check-label' htmlFor='agreement'>I agree to the terms and conditions</label>
+                                                </div>
                                             </div>
-                                            <div className='sign-in-forms-inputs-buttons'>
-                                                <button className='btn btn-secondary btn-block' type="submit">Incubatee</button>
-                                                <button className='btn btn-secondary btn-block' type="submit">Incubator</button>
-                                            </div>
+                                            <button className='btn btn-secondary btn-block' type="submit">Get Started</button>
                                             <div className='separator' />
-                                            <p className='body-small'>Don't have an account? <span className='link'>Create an Account</span></p>
-                                            <button className='btn btn-outline-secondary btn-block'>Create Account</button>
+                                            <p className='body-small'>Already have an account? <span className='link'>Sign In</span></p>
                                         </div>
                                     </div>
                                 </div>
