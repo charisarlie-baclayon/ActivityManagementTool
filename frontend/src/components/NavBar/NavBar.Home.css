@@ -1,11 +1,6 @@
 .navbar-logo-link img{
-    width: 150px;
-    height: 30px;
-}
-
-/* Target the Link component when it's a child of an li element */
-li .react-scroll-link {
-    cursor: pointer;
+    width: 250px;
+    height: 50px;
 }
 
 /* Additional style for the hand pointer when hovering */
