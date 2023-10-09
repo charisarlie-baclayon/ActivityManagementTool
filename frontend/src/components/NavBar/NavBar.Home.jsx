@@ -40,6 +40,7 @@ export const NavBar = () => {
     const openSignInPopup = () => {
         setShowSignInPopup(true);
         document.body.classList.add('overlay-active');
+        document.querySelector('.navbar').classList.add('overlay-active');
     };
 
     const openSignUpPopup = () => {
@@ -51,6 +52,7 @@ export const NavBar = () => {
         setShowSignInPopup(false);
         setShowSignUpPopup(false);
         document.body.classList.remove('overlay-active');
+        document.querySelector('.navbar').classList.remove('overlay-active'); 
     };
 
     const closePopupsAndOverlay = () => {
@@ -62,7 +64,7 @@ export const NavBar = () => {
     };
 
     return (
-        <nav className='navbar navbar-expand-md navbar-dark bg-dark justify-content-between fixed-top '>
+        <nav className={`navbar navbar-expand-md navbar-dark bg-dark justify-content-between fixed-top ${showSignInPopup ? 'overlay-active' : ''}`}>
             <div className="container">
                 <div className="navbar-logo">
                     <a href='/home' className='navbar-logo-link'>

@@ -1,11 +1,18 @@
 import React from 'react';
 import { FiX } from 'react-icons/fi';
+import './sign-in.css';
 
 export const SignInPopup = ({ onClose }) => {
     return (
         <div className="modal fade show" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
-            <div className="modal-dialog" role="document">
+            <div className="modal-dialog modal-dialog-centered" role="document">
                 <div className="modal-content">
+                    <div className="modal-header">
+                        <h4 className="modal-title">Sign In</h4>
+                        <button type="button" className="close" onClick={onClose}>
+                            <FiX className="sign-in-close" />
+                        </button>
+                    </div>
                     <div className="modal-body">
                         <div className='container'>
                             <div className='row'>
@@ -16,17 +23,12 @@ export const SignInPopup = ({ onClose }) => {
                                 </div>
                                 <div className='col-md-6'>
                                     <div className='sign-in-forms'>
-                                        <div className='sign-in-header'>
-                                            <h4>Sign in</h4>
-                                            <FiX className="sign-in-close" onClick={onClose} />
-                                        </div>
-
                                         <div className='separator' />
                                         <div className='sign-in-forms-inputs'>
                                             <label htmlFor='email'>Email</label>
-                                            <input type='email' id='email' className='form-control' placeholder='Enter your email' required></input>
+                                            <input type='email' id='email' className='form-control' placeholder='Enter your email' required />
                                             <label htmlFor='password'>Password</label>
-                                            <input type='password' id='password' className='form-control' placeholder='Enter your password' required></input>
+                                            <input type='password' id='password' className='form-control' placeholder='Enter your password' required />
                                             <div className='sign-in-forms-inputs-remember' htmlFor="remember">
                                                 <input type="checkbox" id="remember" name="remember" required />
                                                 <p className='body-small'>Remember me</p>
@@ -47,5 +49,6 @@ export const SignInPopup = ({ onClose }) => {
                 </div>
             </div>
         </div>
+        
     );
 };

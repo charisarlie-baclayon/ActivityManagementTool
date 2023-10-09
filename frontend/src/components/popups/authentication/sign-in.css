@@ -1,0 +1,34 @@
+
+.sign-in-img{
+    display: flex;
+    background-image: url('../../../assets/img/home/sign-in-background.png'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    padding: 50px;
+    margin-left: -10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.sign-in-img-overlay{
+    background-color: #80000050; /* Change this to your desired color and opacity */
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.custom-modal {
+    opacity: 0; /* Start with zero opacity */
+    transition: opacity 0.5s ease; /* Customize the duration (e.g., 0.5s for 0.5 seconds) and ease-in-out timing function */
+    pointer-events: none; /* Disable pointer events until the modal is fully visible */
+}
+
+.custom-modal.show {
+    opacity: 1; /* Set opacity to 1 when the modal is shown */
+    pointer-events: auto; /* Enable pointer events when the modal is visible */
+}
