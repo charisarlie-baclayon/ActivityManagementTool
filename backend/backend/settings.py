@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'amt.apps.AmtConfig',
     'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
