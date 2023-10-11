@@ -3,7 +3,6 @@ import { Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { NavBar } from "../../components/NavBar/NavBar.Teacher";
 import { SideBar } from "../../components/SideBar/SideBar.Teacher";
-import { Teacher_HomeSection } from "./Teacher.Home";
 
 export const Teacher = ({ isSidebarOpen }) => {
   const navigate = useNavigate();

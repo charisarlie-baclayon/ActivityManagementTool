@@ -9,9 +9,14 @@ const sections = ['hero-section', 'about-section', 'team-section', 'contact-sect
 
 export const NavBar = () => {
   const [activeSection, setActiveSection] = useState('');
-  const [showSignInPopup, setShowSignInPopup] = useState(false);
-  const [showSignUpPopup, setShowSignUpPopup] = useState(false);
   const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
+  const [showSignInModal, setShowSignInModal] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
+  
+  const handleCloseSignInModal = () => setShowSignInModal(false);
+  const handleShowSignInModal = () => setShowSignInModal(true);
+  const handleCloseSignUpModal = () => setShowSignUpModal(false);
+  const handleShowSignUpModal = () => setShowSignUpModal(true);
 
   const handleSetActive = (to) => {
     setActiveSection(to);
@@ -37,26 +42,6 @@ export const NavBar = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  const openSignInPopup = () => {
-    setShowSignInPopup(true);
-    document.body.classList.add('overlay-active');
-  };
-
-  const openSignUpPopup = () => {
-    setShowSignUpPopup(true);
-    document.body.classList.add('overlay-active');
-  };
-
-  const closePopups = () => {
-    setShowSignInPopup(false);
-    setShowSignUpPopup(false);
-    document.body.classList.remove('overlay-active');
-  };
-
-  const closePopupsAndOverlay = () => {
-    closePopups();
-  };
 
   const handleNavbarToggle = () => {
     setIsNavbarCollapsed(!isNavbarCollapsed);
@@ -97,17 +82,16 @@ export const NavBar = () => {
               </li>
             ))}
             <li className='nav-item d-flex align-items-md-center'>
-              <button className='btn fw-bold bw-3 btn-outline-primary btn-block' onClick={openSignInPopup}>Sign In</button>
+              <button className='btn fw-bold bw-3 btn-outline-primary btn-block' onClick={handleShowSignInModal}>Sign In</button>
             </li>
             <li className='nav-item d-flex align-items-md-center'>
-              <button className='btn fw-bold bw-3 btn-primary btn-block' onClick={openSignUpPopup}>Sign Up</button>
+              <button className='btn fw-bold bw-3 btn-primary btn-block' onClick={handleShowSignUpModal}>Sign Up</button>
             </li>
           </ul>
         </div>
 
-        {showSignInPopup && <SignInPopup onClose={closePopupsAndOverlay} />}
-        {showSignUpPopup && <SignUpPopup onClose={closePopupsAndOverlay} />}
-        {(showSignInPopup || showSignUpPopup) && <div className='overlay' onClick={closePopupsAndOverlay}></div>}
+        <SignInPopup show={showSignInModal} handleClose={handleCloseSignInModal} />
+        <SignUpPopup show={showSignUpModal} handleClose={handleCloseSignUpModal} />
       </div>
     </nav>
   );

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { FiHome, FiBook, FiActivity } from 'react-icons/fi';
 import logo from '../../assets/img/logo/logo-incubatee-primary-2.png';
-import './SideBar.Student.css';
 import { Link, useLocation } from 'react-router-dom';
 
 export const SideBar = () => {

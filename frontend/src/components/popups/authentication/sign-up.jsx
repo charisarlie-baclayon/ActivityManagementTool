@@ -1,55 +1,66 @@
-import React, { useEffect } from 'react';
-import { FiX } from 'react-icons/fi';
+import React, { useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import "./sign-up.css";
+import { SignInPopup } from './sign-in';
 
-export const SignUpPopup = ({ onClose }) => {
-    
-    return (
-        <div className="modal fade show" id="signUpModal" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
-            <div className="modal-dialog modal-dialog-centered" role="document">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h4 className="modal-title">Sign Up</h4>
-                        <button type="button" className="close" onClick={onClose}>
-                            <FiX className="sign-up-close" />
-                        </button>
-                    </div>
-                    <div className="modal-body">
-                        <div className='container'>
-                            <div className='row'>
-                                <div className='col-md-6'>
-                                    <div className='sign-in-img'>
-                                        <div className='sign-in-img-overlay'></div>
-                                    </div>
-                                </div>
-                                <div className='col-md-6'>
-                                    <div className='sign-in-forms'>
-                                        <div className='separator' />
-                                        <div className='sign-in-forms-inputs'>
-                                            <label htmlFor='name'>Name</label>
-                                            <input type='text' id='name' className='form-control' placeholder='Enter your name' required />
-                                            <label htmlFor='email'>Email</label>
-                                            <input type='email' id='email' className='form-control' placeholder='Enter your email' required />
-                                            <label htmlFor='password'>Password</label>
-                                            <input type='password' id='password' className='form-control' placeholder='Enter your password' required />
-                                            <label htmlFor='repassword'>Re-enter Password</label>
-                                            <input type='password' id='repassword' className='form-control' placeholder='Re-enter your password' required />
-                                            <div className='sign-in-forms-inputs-agreement' htmlFor='agreement'>
-                                                <div className="form-check">
-                                                    <input type='checkbox' id='agreement' className='form-check-input' name='agreement' required />
-                                                    <label className='form-check-label' htmlFor='agreement'>I agree to the terms and conditions</label>
-                                                </div>
-                                            </div>
-                                            <button className='btn btn-secondary btn-block' type="submit">Get Started</button>
-                                            <div className='separator' />
-                                            <p className='body-small'>Already have an account? <span className='link'>Sign In</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+export const SignUpPopup = ({ show, handleClose }) => {
+  const [showSignIn, setShowSignIn] = useState(false);
+
+  const handleShowSignIn = () => {
+    setShowSignIn(true);
+  };
+
+  const handleCloseSignIn = () => {
+    setShowSignIn(false);
+  };
+
+  return (
+    <Modal show={show} onHide={handleClose} centered size="lg">
+      <div className='d-flex flex-row'>
+        <div className='col-md-6'>
+          <div className='sign-up-img'>
+            <div className='sign-up-img-overlay'></div>
+          </div>
         </div>
-    );
+        <div className='col-md-6 p-3'>
+          <Modal.Header closeButton>
+            <Modal.Title>Sign Up</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form className='d-flex flex-column gap-3'>
+              <Form.Group controlId="name">
+                <Form.Label>Name</Form.Label>
+                <Form.Control type="text" placeholder="Enter your name" required />
+              </Form.Group>
+              <Form.Group controlId="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" placeholder="Enter your email" required />
+              </Form.Group>
+              <Form.Group controlId="password">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Enter your password" required />
+              </Form.Group>
+              <Form.Group controlId="repassword">
+                <Form.Label>Re-enter Password</Form.Label>
+                <Form.Control type="password" placeholder="Re-enter your password" required />
+              </Form.Group>
+              <Form.Group controlId="agreement">
+                  <Form.Check type="checkbox" label="I agree to the terms and conditions" required />
+              </Form.Group>
+            <button className="btn btn-outline-secondary bw-3 btn-block fw-bold" >Create Account</button>
+            </Form>
+            <br/>
+            <p className="body-small">Already have an account? <span className="text-secondary link" onClick={handleShowSignIn}>Sign In</span></p>
+            {showSignIn && <SignInPopup show={showSignIn} handleClose={handleCloseSignIn} />}
+          </Modal.Body>
+          <Modal.Footer>
+            <button className="btn btn-secondary bw-3 btn-block fw-bold" onClick={handleClose}>
+              Cancel
+            </button>
+          </Modal.Footer>
+        </div>
+      </div>
+    </Modal>
+  );
 };
