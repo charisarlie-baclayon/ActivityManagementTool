@@ -1,9 +1,9 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { createActivity } from "../../Api/Activity";
+import { createActivity } from "../../../Api/Activity";
 
-const CreateActivity = ({ show, handleClose }) => {
+export const CreateActivityPopup = ({ show, handleClose }) => {
   const handleSubmit = async () => {
     const titleInput = document.getElementById("title-input");
     const descriptionInput = document.getElementById("description-input");
@@ -25,7 +25,6 @@ const CreateActivity = ({ show, handleClose }) => {
   };
 
   return (
-    <div>
       <Modal show={show} onHide={handleClose} size="lg">
         <Modal.Header closebutton>
           <Modal.Title className=" fs-6 fw-bold">Create Activity</Modal.Title>
@@ -58,8 +57,5 @@ const CreateActivity = ({ show, handleClose }) => {
           </button>
         </Modal.Footer>
       </Modal>
-    </div>
   );
 };
-
-export default CreateActivity;

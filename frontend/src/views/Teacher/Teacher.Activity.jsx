@@ -2,11 +2,10 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ActivityRowCard } from "../../assets/common/Activity/activity-row-card";
-import CreateActivity from "./CreateActivity";
-import { ViewSelectedActivity } from "./ViewSelectedActivity";
-import { FiSearch } from "react-icons/fi";
+import { ActivityPopup } from "../../components/popups/activity/teacher-view-activity";
+import { CreateActivityPopup } from "../../components/popups/activity/teacher-create-activity";
 
-const ViewActivities = ({ isSidebarOpen }) => {
+export const Teacher_ActivitySection = ({ isSidebarOpen }) => {
   const navigate = useNavigate();
   const [activity, setActivity] = useState([]);
   const [searchInput, setSearchInput] = useState(""); // State for search input
@@ -114,10 +113,10 @@ const ViewActivities = ({ isSidebarOpen }) => {
           ))}
         </div>
 
-        <CreateActivity show={showModal} handleClose={handleCloseModal} />
+        <CreateActivityPopup show={showModal} handleClose={handleCloseModal} />
 
         {selectedActivity && (
-          <ViewSelectedActivity
+          <ActivityPopup
             show={showActivity}
             handleClose={handleCloseActivity}
             act={selectedActivity}
@@ -127,5 +126,3 @@ const ViewActivities = ({ isSidebarOpen }) => {
     </div>
   );
 };
-
-export default ViewActivities;

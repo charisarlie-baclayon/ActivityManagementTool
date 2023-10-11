@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import {deleteActivity, updateActivity } from "../../Api/Activity";
+import {deleteActivity, updateActivity } from "../../../Api/Activity";
 
-export const ViewSelectedActivity = ({ show, handleClose, act }) => {
+export const ActivityPopup = ({ show, handleClose, act }) => {
   const { id, name, description, link } = act;
   const [disable, setDisable] = useState(true);
   const [editable, setEditable] = useState(true);
@@ -55,9 +55,8 @@ export const ViewSelectedActivity = ({ show, handleClose, act }) => {
   };
 
   return (
-    <>
       <Modal centered show={show} onHide={handleModalHide} size="lg">
-        <Modal.Header closebutton>
+        <Modal.Header closeButton>
           <Modal.Title className=" fs-6 fw-bold">View Activity</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -110,6 +109,5 @@ export const ViewSelectedActivity = ({ show, handleClose, act }) => {
           )}
         </Modal.Footer>
       </Modal>
-    </>
   );
 };
