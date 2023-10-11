@@ -1,8 +1,8 @@
 from rest_framework.response import Response
-from rest_framework.decorators import action
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin
 from rest_framework import status
+from rest_framework.serializers import ValidationError
 
 from amt.models import Activity
 from amt.serializers import ActivitySerializer
@@ -12,77 +12,55 @@ class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cre
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
 
-    @action(methods=['GET'], detail=False)
     def get_all_activities(self, request):
-        # instances = self.get_queryset()
-        # data = ActivitySerializer(instances, many=True).data
-        # return JsonResponse({"activities": data}, safe=False)
-        instance = self.get_queryset()
-        data = []
-        for activities in instance:
-            data.append(ActivitySerializer(activities).data)
-        return Response({"activities": data})
+        try:
+            instances = self.get_queryset()
+            serializer = ActivitySerializer(instances, many=True)
+            return Response({"activities": serializer.data})
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-    @action(methods=['GET'], detail=True)
     def get_activity_by_id(self, request, id):
-        # instance = self.get_object()
-        # serializer = self.get_serializer(instance)
-        # return Response(serializer.data)
-        instance = self.get_queryset().filter(id=id).first()
-        if instance is None:
-            return Response({"error": "Activity not found"}, status=status.HTTP_404_NOT_FOUND)
-        return Response(ActivitySerializer(instance).data)
+        try:
+            instance = self.get_queryset().filter(id=id).first()
+            serializer = ActivitySerializer(instance)
+            if instance is None:
+                return Response({"error": "Activity not found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response(serializer.data)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-    @action(methods=['POST'], detail=False)
     def create_activity(self, request):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-        # data = request.data
-        # newActivity = Activity()
-        # newActivity.set_name(data['name'])
-        # newActivity.set_description(data['description'])
-        # newActivity.set_link(data['link'])
-        # newActivity.save()
-        # serializer = ActivitySerializer(newActivity)
-        # return Response(serializer.data, status=status.HTTP_201_CREATED)
-    
-    @action(methods=['PUT'], detail=True)
-    def update_activity(self, request, id):
-        # instance = self.get_object()
-        # serializer = self.get_serializer(instance, data=request.data)
-        # serializer.is_valid(raise_exception=True)
-        # self.perform_update(serializer)
-        # return Response(serializer.data)
+        try:
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except ValidationError as e:
+            return Response({"error": e.detail}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        # data = request.data
-        # instance = self.get_queryset().filter(id=id).first()
-        # if instance is None:
-        #     return Response({"error": "Activity not found"}, status=status.HTTP_404_NOT_FOUND)
-        # instance.set_name(data['name'])
-        # instance.set_description(data['description'])
-        # instance.set_link(data['link'])
-        # instance.save()
-        # serializer = ActivitySerializer(instance)
-        # return Response(serializer.data)
+    def update_activity(self, request, id):
+        try:
+            instance = self.get_queryset().filter(id=id).first()
+            if instance is None:
+                return Response({"error": "Activity not found"}, status=status.HTTP_404_NOT_FOUND)
+            serializer = self.get_serializer(instance, data=request.data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_update(serializer)
+            return Response(serializer.data)
+        except ValidationError as e:
+            return Response({"error": e.detail}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-        instance = self.get_queryset().filter(id=id).first()
-        if instance is None:
-            return Response({"error": "Activity not found"}, status=status.HTTP_404_NOT_FOUND)
-        serializer = self.get_serializer(instance, data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
-        return Response(serializer.data)
-    
-    @action(methods=['DELETE'], detail=True)
     def delete_activity(self, request, id):
-        # instance = self.get_object()
-        # self.perform_destroy(instance)
-        # return Response({"success": "Activity deleted"})
-    
-        instance = self.get_queryset().filter(id=id).first()
-        if instance is None:
-            return Response({"error": "Activity not found"}, status=status.HTTP_404_NOT_FOUND)
-        instance.delete()
-        return Response({"success": "Activity deleted"})
+        try:
+            instance = self.get_queryset().filter(id=id).first()
+            if instance is None:
+                return Response({"error": "Activity not found"}, status=status.HTTP_404_NOT_FOUND)
+            self.perform_destroy(instance)
+            return Response({"success": "Activity deleted"})
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
