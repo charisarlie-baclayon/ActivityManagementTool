@@ -1,4 +1,3 @@
-from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.viewsets import GenericViewSet
@@ -6,22 +5,22 @@ from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, CreateMode
 from rest_framework import status
 
 from amt.models import Activity
-from amt.serializer import ActivitySerializers
+from amt.serializers import ActivitySerializer
 
 
-class ActivityControllers(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin):
+class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin):
     queryset = Activity.objects.all()
-    serializer_class = ActivitySerializers
+    serializer_class = ActivitySerializer
 
     @action(methods=['GET'], detail=False)
     def get_all_activities(self, request):
         # instances = self.get_queryset()
-        # data = ActivitySerializers(instances, many=True).data
+        # data = ActivitySerializer(instances, many=True).data
         # return JsonResponse({"activities": data}, safe=False)
         instance = self.get_queryset()
         data = []
         for activities in instance:
-            data.append(ActivitySerializers(activities).data)
+            data.append(ActivitySerializer(activities).data)
         return Response({"activities": data})
     
     @action(methods=['GET'], detail=True)
@@ -32,22 +31,22 @@ class ActivityControllers(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cr
         instance = self.get_queryset().filter(id=id).first()
         if instance is None:
             return Response({"error": "Activity not found"}, status=status.HTTP_404_NOT_FOUND)
-        return Response(ActivitySerializers(instance).data)
+        return Response(ActivitySerializer(instance).data)
     
     @action(methods=['POST'], detail=False)
     def create_activity(self, request):
-        # serializer = self.get_serializer(data=request.data)
-        # serializer.is_valid(raise_exception=True)
-        # self.perform_create(serializer)
-        # return Response(serializer.data, status=status.HTTP_201_CREATED)
-        data = request.data
-        newActivity = Activity()
-        newActivity.set_name(data['name'])
-        newActivity.set_description(data['description'])
-        newActivity.set_link(data['link'])
-        newActivity.save()
-        serializer = ActivitySerializers(newActivity)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+        # data = request.data
+        # newActivity = Activity()
+        # newActivity.set_name(data['name'])
+        # newActivity.set_description(data['description'])
+        # newActivity.set_link(data['link'])
+        # newActivity.save()
+        # serializer = ActivitySerializer(newActivity)
+        # return Response(serializer.data, status=status.HTTP_201_CREATED)
     
     @action(methods=['PUT'], detail=True)
     def update_activity(self, request, id):
@@ -56,15 +55,24 @@ class ActivityControllers(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cr
         # serializer.is_valid(raise_exception=True)
         # self.perform_update(serializer)
         # return Response(serializer.data)
-        data = request.data
+
+        # data = request.data
+        # instance = self.get_queryset().filter(id=id).first()
+        # if instance is None:
+        #     return Response({"error": "Activity not found"}, status=status.HTTP_404_NOT_FOUND)
+        # instance.set_name(data['name'])
+        # instance.set_description(data['description'])
+        # instance.set_link(data['link'])
+        # instance.save()
+        # serializer = ActivitySerializer(instance)
+        # return Response(serializer.data)
+    
         instance = self.get_queryset().filter(id=id).first()
         if instance is None:
             return Response({"error": "Activity not found"}, status=status.HTTP_404_NOT_FOUND)
-        instance.set_name(data['name'])
-        instance.set_description(data['description'])
-        instance.set_link(data['link'])
-        instance.save()
-        serializer = ActivitySerializers(instance)
+        serializer = self.get_serializer(instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
         return Response(serializer.data)
     
     @action(methods=['DELETE'], detail=True)
