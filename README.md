@@ -1,4 +1,8 @@
-**Setup Virtual Environment**
+# ActivityManagementTool
+
+## Setting Up Backend
+
+### **Setup Virtual Environment**
 
 1. Create a virtual environment:
    ```
@@ -10,21 +14,21 @@
    source venv/bin/activate
    ```
 
-**Install Dependencies**
+### **Install Dependencies**
 
 3. Install the project dependencies using `pip`:
    ```
-   pip install -r requirements.txt
+   pip3 install -r requirements.txt
    ```
 
-**Run Django Project**
+### **Run Django Project**
 
 4. Run the Django project:
    ```
    python manage.py runserver
    ```
 
-**Admin Credentials**
+### Admin Credentials
 
 - **Username:** admin
 - **Password:** admin
