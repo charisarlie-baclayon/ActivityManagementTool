@@ -1,15 +1,30 @@
-# ActivityManagementTool
+**Setup Virtual Environment**
 
-run backend 
+1. Create a virtual environment:
+   ```
+   python3 -m venv venv
+   ```
 
-setup virtual environment
-1. python3 -m venv venv
-2. source venv/bin/activate
+2. Activate the virtual environment:
+   ```
+   source venv/bin/activate
+   ```
 
-install dependencies
-3. pip3 install -r requirements.txt
+**Install Dependencies**
 
-run django project
-4. python manage.py runserver
+3. Install the project dependencies using `pip`:
+   ```
+   pip install -r requirements.txt
+   ```
 
+**Run Django Project**
 
+4. Run the Django project:
+   ```
+   python manage.py runserver
+   ```
+
+**Admin Credentials**
+
+- **Username:** admin
+- **Password:** admin
