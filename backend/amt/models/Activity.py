@@ -6,7 +6,7 @@ class Activity(models.Model):
     date_added = models.DateTimeField(auto_now_add=True, editable=False)
     submission_status = models.BooleanField(default=False)
     due_date = models.DateTimeField(null=True)
-    work_submission = models.TextField(max_length=10000, default="", null=True, blank=True)
+    # work_submission = models.TextField(max_length=10000, default="", null=True, blank=True)
 
     # TO-ADD
     # Attach files by teacher
