@@ -1,10 +1,11 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from amt.controllers import ActivityController, CategoryController
+from amt.controllers import ActivityController, CategoryController, TemplateController
 
 router = DefaultRouter()
 router.register(r'activities', ActivityController, basename='activity')
 router.register(r'categories', CategoryController, basename='category')
+router.register(r'templates', TemplateController, basename='template')
 
 urlpatterns = [
     # path('activities/', ActivityController.as_view({
