@@ -14,6 +14,6 @@ __all__ = [
     'Work',
     'Comment',
     'Class',
-    'Teacher',
     'Team',
+    'Teacher',
 ]
