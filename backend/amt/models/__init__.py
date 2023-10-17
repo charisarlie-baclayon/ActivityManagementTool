@@ -3,6 +3,7 @@ from .Category import *
 from .Template import *
 from .Work import *
 from .Comment import *
+from .Class import *
 
 __all__ = [
     'Activity',
@@ -10,4 +11,5 @@ __all__ = [
     'Template',
     'Work',
     'Comment',
+    'Class',
 ]
