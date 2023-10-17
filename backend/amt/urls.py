@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from amt.controllers import TeamController, TeacherController, ActivityController, CategoryController, TemplateController, WorkController, CommentController, ClassController
+from amt.controllers import StudentController, TeamController, TeacherController, ActivityController, CategoryController, TemplateController, WorkController, CommentController, ClassController
 
 router = DefaultRouter()
 router.register(r'activities', ActivityController, basename='activity')
@@ -11,6 +11,7 @@ router.register(r'comments', CommentController, basename='comment')
 router.register(r'classes', ClassController, basename='class')
 router.register(r'teachers', TeacherController, basename='teacher')
 router.register(r'teams', TeamController, basename='team')
+router.register(r'students', StudentController, basename='student')
 
 urlpatterns = [
     # path('activities/', ActivityController.as_view({

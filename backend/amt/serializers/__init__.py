@@ -6,3 +6,4 @@ from .CommentSerializer import *
 from .ClassSerializer import *
 from .TeacherSerializer import *
 from .TeamSerializer import *
+from .StudentSerializer import *

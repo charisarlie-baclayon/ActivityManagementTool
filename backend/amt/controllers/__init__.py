@@ -6,3 +6,4 @@ from .CommentController import *
 from .ClassController import *
 from .TeacherController import *
 from .TeamController import *
+from .StudentController import *
