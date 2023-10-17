@@ -5,6 +5,7 @@ from .Work import *
 from .Comment import *
 from .Class import *
 from .Teacher import *
+from .Team import *
 
 __all__ = [
     'Activity',
@@ -14,4 +15,5 @@ __all__ = [
     'Comment',
     'Class',
     'Teacher',
+    'Team',
 ]
