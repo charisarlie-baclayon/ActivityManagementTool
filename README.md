@@ -6,19 +6,19 @@
 
 1. Create a virtual environment:
    ```
-   python3 -m venv venv
+   pip install pipenv
    ```
 
 2. Activate the virtual environment:
    ```
-   source venv/bin/activate
+   pipenv shell
    ```
 
 ### **Install Dependencies**
 
 3. Install the project dependencies using `pip`:
    ```
-   pip3 install -r requirements.txt
+   pip install -r requirements.txt
    ```
 
 ### **Run Django Project**
