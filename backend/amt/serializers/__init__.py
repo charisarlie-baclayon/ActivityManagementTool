@@ -1,2 +1,3 @@
 from .ActivitySerializer import *
 from .CategorySerializer import *
+from .TemplateSerializer import *
