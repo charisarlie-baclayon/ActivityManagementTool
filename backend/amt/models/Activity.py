@@ -2,7 +2,7 @@ from django.db import models
 
 class Activity(models.Model):
     title = models.CharField(max_length=100, default="", null=False)
-    description = models.CharField(max_length=10000, default="", null=False)
+    description = models.TextField(max_length=10000, default="", null=False)
     date_added = models.DateTimeField(auto_now_add=True, editable=False)
     submission_status = models.BooleanField(default=False)
     due_date = models.DateTimeField(null=True)
