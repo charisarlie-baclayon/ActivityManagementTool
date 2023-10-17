@@ -1,31 +1,49 @@
 from django.db import models
 
 class Activity(models.Model):
-    name = models.CharField(max_length=200, default="", null=False)
-    description = models.CharField(max_length=5000, default="", null=False)
-    link = models.URLField(max_length=200, default="", null=True)
-    status = models.CharField(max_length=100, default="INCOMPLETE")
+    title = models.CharField(max_length=100, default="", null=False)
+    description = models.TextField(max_length=10000, default="", null=False)
+    date_added = models.DateTimeField(auto_now_add=True, editable=False)
+    submission_status = models.BooleanField(default=False)
+    due_date = models.DateTimeField(null=True)
+    # work_submission = models.TextField(max_length=10000, default="", null=True, blank=True)
 
-    def get_name(self):
-        return self.name
+    # TO-ADD
+    # Attach files by teacher
+    # Attach files by student work
 
-    def get_description(self):
-        return self.description
+    # def get_title(self):
+    #     return self.title
 
-    def get_link(self):
-        return self.link
+    # def set_title(self, title):
+    #     self.title = title
 
-    def get_status(self):
-        return self.status
+    # def get_description(self):
+    #     return self.description
 
-    def set_name(self, name):
-        self.name = name
+    # def set_description(self, description):
+    #     self.description = description
 
-    def set_description(self, description):
-        self.description = description
+    # def get_date_added(self):
+    #     return self.date_added
 
-    def set_link(self, link):
-        self.link = link
+    # def set_date_added(self, date_added):
+    #     self.date_added = date_added
 
-    def set_status(self, status):
-        self.status = status
+    # def get_submission_status(self):
+    #     return self.submission_status
+
+    # def set_submission_status(self, submission_status):
+    #     self.submission_status = submission_status
+
+    # def get_due_date(self):
+    #     return self.due_date
+
+    # def set_due_date(self, due_date):
+    #     self.due_date = due_date
+
+    # def get_work_submission(self):
+    #     return self.work_submission
+
+    # def set_work_submission(self, work_submission):
+    #     self.work_submission = work_submission
