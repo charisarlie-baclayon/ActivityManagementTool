@@ -1,4 +1,6 @@
 from django.db import models
+from amt.models.Team import Team
+from amt.models.Class import Class
 
 class Activity(models.Model):
     title = models.CharField(max_length=100, default="", null=False)
@@ -6,6 +8,9 @@ class Activity(models.Model):
     date_added = models.DateTimeField(auto_now_add=True, editable=False)
     submission_status = models.BooleanField(default=False)
     due_date = models.DateTimeField(null=True)
+    activity_team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
+    activity_class = models.ForeignKey(Class, on_delete=models.CASCADE, null=True)
+
     # work_submission = models.TextField(max_length=10000, default="", null=True, blank=True)
 
     # TO-ADD
