@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import { createActivity } from "../../../Api/Activity";
 
 export const CreateActivityPopup = ({ show, handleClose }) => {
-  const handleSubmit = async () => {
+    const handleSubmit = async () => {
     const titleInput = document.getElementById("title-input");
     const descriptionInput = document.getElementById("description-input");
     const linkInput = document.getElementById("link-input");
