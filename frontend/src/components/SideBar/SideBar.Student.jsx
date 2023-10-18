@@ -20,7 +20,7 @@ export const SideBar = () => {
   ];
 
   return (
-    <div className={`sidebar fixed-top bg-dark shadow-lg ${isSidebarCollapsed ? 'collapsed' : ''}`}>
+    <aside className={`sidebar fixed-top bg-dark shadow-lg ${isSidebarCollapsed ? 'collapsed' : ''}`}>
       <div className="d-flex flex-column align-items-center vh-100 gap-3 mt-3">
         <div className="sidebar-logo">
           <a href='/home' className='sidebar-logo-link'>
@@ -43,6 +43,6 @@ export const SideBar = () => {
           </div>
         ))}
       </div>
-    </div>
+    </aside>
   );
 };

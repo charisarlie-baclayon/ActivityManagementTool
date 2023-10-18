@@ -3,8 +3,8 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import {deleteActivity, updateActivity } from "../../../Api/Activity";
 
-export const ActivityPopup = ({ show, handleClose, act }) => {
-  const { id, name, description, link } = act;
+export const ActivityPopup = ({ show, handleClose, activity }) => {
+  const { id, name, description, link } = activity;
   const [disable, setDisable] = useState(true);
   const [editable, setEditable] = useState(true);
 
@@ -24,9 +24,9 @@ export const ActivityPopup = ({ show, handleClose, act }) => {
       console.log(id);
       await deleteActivity(id);
       handleClose();
+      window.confirm("Deleted Successfully");
     } catch (error) {
       console.error(error);
-      // Handle error, e.g., show an error message to the user
     }
   };
 
@@ -48,6 +48,8 @@ export const ActivityPopup = ({ show, handleClose, act }) => {
       // handle the update logic here
       setDisable(true);
       setEditable(true);
+
+      window.confirm("Updated Successfully");
     } catch (error) {
       console.error(error);
       // Handle error, e.g., show an error message to the user

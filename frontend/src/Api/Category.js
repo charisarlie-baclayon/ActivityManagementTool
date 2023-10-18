@@ -1,33 +1,33 @@
 import axios from "axios";
 
-export const readActivities = async () => {
+export const readCategories = async () => {
   try {
     const response = await axios.get(
-      "http://127.0.0.1:8000/api/activities/"
+      "http://127.0.0.1:8000/api/categories/"
     );
     console.log(response.data); // Handle the response data
-    return response.data
+    return response.data;
   } catch (error) {
     console.log(error.response.data);
   }
 };
 
-export const readActivity = async (id) => {
+export const readCategory = async (id) => {
   try {
     const response = await axios.get(
-      `http://127.0.0.1:8000/api/activities/${id}/`
+      `http://127.0.0.1:8000/api/categories/${id}/`
     );
     console.log(response.data); // Handle the response data
-    return response.data
+    return response.data;
   } catch (error) {
     console.log(error.response.data);
   }
 };
 
-export const createActivity = async (data) => {
+export const createCategory = async (data) => {
   try {
     const response = await axios.post(
-      "http://127.0.0.1:8000/api/activities/",
+      "http://127.0.0.1:8000/api/categories/",
       data
     );
     console.log(response.data); // Handle the response data
@@ -36,9 +36,9 @@ export const createActivity = async (data) => {
   }
 };
 
-export const deleteActivity = async (id) => {
+export const deleteCategory = async (id) => {
   return await axios
-    .delete(`http://127.0.0.1:8000/api/activities/${id}/`)
+    .delete(`http://127.0.0.1:8000/api/categories/${id}/`)
     .then((response) => {
       return response.data;
     })
@@ -47,10 +47,10 @@ export const deleteActivity = async (id) => {
     });
 };
 
-export const updateActivity = async (id, data) => {
+export const updateCategory = async (id, data) => {
   try {
     const response = await axios.put(
-      `http://127.0.0.1:8000/api/activities/${id}/`,
+      `http://127.0.0.1:8000/api/categories/${id}/`,
       data
     );
     console.log(response.data); // Handle the response data
