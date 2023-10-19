@@ -3,7 +3,7 @@ from django.db import models
 # from amt.models.Student import Student
 
 class Team(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     date_added = models.DateTimeField(auto_now=True, editable=False)
     #team_class = models.ForeignKey(Class, on_delete=models.CASCADE)
     #leader = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True, blank=True, related_name='leading_teams')
