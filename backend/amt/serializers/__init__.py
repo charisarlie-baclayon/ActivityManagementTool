@@ -4,6 +4,7 @@ from .TemplateSerializer import *
 from .WorkSerializer import *
 from .CommentSerializer import *
 from .ClassSerializer import *
-from .TeacherSerializer import *
 from .TeamSerializer import *
 from .StudentSerializer import *
+from .UserSerializer import *
+from .AuthTokenSerializer import *

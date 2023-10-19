@@ -1,0 +1,53 @@
+POST http://127.0.0.1:8000/api/students/register/ 
+Content-Type:application/json
+
+    {
+    "first_name" : "Jeremy",
+    "last_name" : "Flores",
+    "email" : "jj@email.com", 
+    "password" : "123",
+    "role" : "student"
+    }
+
+
+####
+
+POST http://127.0.0.1:8000/api/teachers/register/ 
+Content-Type:application/json
+
+    {
+    "first_name" : "Jhon",
+    "last_name" : "Ambrad",
+    "email" : "jar@email.com", 
+    "password" : "123",
+    "role" : "teacher"
+    }
+####
+
+
+POST http://127.0.0.1:8000/api/students/login/ 
+Content-Type:application/json
+
+{
+  "email": "jeremyjulesflores@email.com",
+  "password": "123"
+}
+
+###
+POST http://127.0.0.1:8000/tokens/acquire
+Content-Type:application/json
+
+{
+  "email": "jj@email.com",
+    "password" : "123"
+}
+
+
+###
+GET http://127.0.0.1:8000/tokens/verify
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk3NzM3MTU0LCJpYXQiOjE2OTc3MzM1NTQsImp0aSI6ImZhNmU5YWI4MWQ5ZjRiMGFhYmQ2MzU1NGU1ZWE4MDJlIiwidXNlcl9pZCI6MiwiZW1haWwiOiJqZXJlbXlqdWxlc2Zsb3Jlc0BlbWFpbC5jb20ifQ.y_zvFnNWTBgouMfT_SVqWxaAyj9yjAOz9_Hg9Q4oMss"
+
+
+###
+GET http://127.0.0.1:8000/api/students/retrieve/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk3NzM5ODY1LCJpYXQiOjE2OTc3MzYyNjUsImp0aSI6IjkxODZlMDI1M2E1OTRjMjlhMDM2MzgyOGFkZjRhZTQ0IiwidXNlcl9pZCI6NCwiZW1haWwiOiJqakBlbWFpbC5jb20ifQ.ctXwGKJS8I5kTcvfpSnoxm3BUqRakFdglUA6PaSUjhc
