@@ -20,12 +20,21 @@ class TeamController(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateM
     authentication_classes = [JWTAuthentication]
 
     def get_permission(self):
-        if self.action in ['add_member']:
+        if self.action in ['add_member', 'create_team']:
             return [IsAuthenticated(), IsTeacher()]
         else:
             return [IsAuthenticated()]
         
-    
+        
+    @action(detail=False, methods=['POST'])
+    def create_team(self, request):
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+
+        return Response(serializer.errors, status=400)
 
     # @action(detail=True, methods=['post'])
     # def add_members(self, request, pk=None):
