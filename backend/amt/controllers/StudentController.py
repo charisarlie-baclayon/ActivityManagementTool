@@ -5,9 +5,10 @@ from rest_framework import status, permissions
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import action
 from django.contrib.auth.models import Group
-from amt.models import Student
-from amt.serializers import UserSerializer
+from amt.models import Student, Team
+from amt.serializers import UserSerializer 
 from amt.serializers import LoginSerializer as Login
+
 
 
 class StudentController(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin):
@@ -55,6 +56,21 @@ class StudentController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Crea
     
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
+    
+    @action(detail=True, methods=['POST'])
+    def assign_to_team(self, request, pk=None):
+        student = self.get_object()
+        team_id = request.data.get('team_id')
+
+        try:
+            team = Team.objects.get(id=team_id)
+        except Team.DoesNotExist:
+            return Response({'error': 'Team does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+
+        student.student_team = team
+        student.save()
+
+        return Response({'message': 'Student assigned to the team successfully'}, status=status.HTTP_200_OK)
 
 
 # from rest_framework.response import Response
