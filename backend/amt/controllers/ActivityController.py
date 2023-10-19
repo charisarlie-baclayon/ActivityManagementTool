@@ -10,6 +10,7 @@ from amt.permissions.permissions import IsTeacher
 
 from amt.models import Activity
 from amt.models import Team
+from amt.models import Template
 from amt.serializers import ActivitySerializer
 
 
@@ -19,13 +20,13 @@ class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cre
     authentication_classes = [JWTAuthentication]
 
     def get_permissions(self):
-        if self.action in ['create_activity']:
+        if self.action in ['create', 'create_from_template']:
             return [IsAuthenticated(), IsTeacher()]
         else:
             return [IsAuthenticated()]
         
-    @action(detail=False, methods=['POST'])
-    def create_activity(self, request):
+    #@action(detail=False, methods=['POST'])
+    def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
 
         if serializer.is_valid():
@@ -48,6 +49,22 @@ class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cre
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @action(detail=False, methods=['POST'])
+    def create_from_template(self, request):
+        template_id = request.data.get('template_id', None)
+
+        if template_id is not None:
+            try:
+                template = Template.objects.get(pk=template_id)
+                new_activity = Activity.create_activity_from_template(template)
+                return Response(
+                    {"success": "Activity created from template", "activity_id": new_activity.id},
+                    status=status.HTTP_201_CREATED
+                )
+            except Template.DoesNotExist:
+                return Response({"error": "Template not found"}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response({"error": "Template ID not provided"}, status=status.HTTP_400_BAD_REQUEST)
     # def get_all_activities(self, request):
     #     try:
     #         instances = self.get_queryset()
