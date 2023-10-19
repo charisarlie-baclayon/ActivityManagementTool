@@ -6,12 +6,13 @@ from amt.serializers.WorkSerializer import WorkSerializer
 
 class ActivitySerializer(serializers.ModelSerializer):
 
-    works = WorkSerializer(many=True, read_only=True, source='work_set')
-    comments = CommentSerializer(many=True, read_only=True, source='comment_set')
+    #works = WorkSerializer(many=True, read_only=True, source='work_set')
+    #comments = CommentSerializer(many=True, read_only=True, source='comment_set')
 
     class Meta:
         model = Activity
-        fields = ('__all__')
+        fields = ('id', 'title', 'description', 'date_added', 'submission_status', 'due_date', 'activity_team')
+
 
     # class Meta:
     #     model = Activity

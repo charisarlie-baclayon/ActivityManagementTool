@@ -2,15 +2,51 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin
 from rest_framework import status
-from rest_framework.serializers import ValidationError
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.decorators import action
+
+from rest_framework.permissions import IsAuthenticated
+from amt.permissions.permissions import IsTeacher
 
 from amt.models import Activity
+from amt.models import Team
 from amt.serializers import ActivitySerializer
 
 
 class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
+    authentication_classes = [JWTAuthentication]
+
+    def get_permissions(self):
+        if self.action in ['create_activity']:
+            return [IsAuthenticated(), IsTeacher()]
+        else:
+            return [IsAuthenticated()]
+        
+    @action(detail=False, methods=['POST'])
+    def create_activity(self, request):
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            # Save the activity without committing to the database
+            activity = serializer.save(activity_team=None)
+            
+            # Get the team_id from the request data (you may want to validate this)
+            team_id = request.data.get('team_id', None)
+            
+            if team_id:
+                try:
+                    team = Team.objects.get(pk=team_id)
+                    activity.activity_team = team
+                    activity.save()  # Commit the activity to the database with the assigned team
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                except Team.DoesNotExist:
+                    return Response({'error': 'Team not found'}, status=status.HTTP_404_NOT_FOUND)
+            else:
+                return Response({'error': 'Team ID not provided'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # def get_all_activities(self, request):
     #     try:

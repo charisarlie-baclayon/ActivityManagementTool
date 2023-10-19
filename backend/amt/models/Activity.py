@@ -9,7 +9,7 @@ class Activity(models.Model):
     submission_status = models.BooleanField(default=False)
     due_date = models.DateTimeField(null=True)
     activity_team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
-    activity_class = models.ForeignKey(Class, on_delete=models.CASCADE, null=True)
+    #activity_class = models.ForeignKey(Class, on_delete=models.CASCADE, null=True)
 
     # work_submission = models.TextField(max_length=10000, default="", null=True, blank=True)
 
