@@ -12,6 +12,7 @@ from amt.models import Activity
 from amt.models import Team
 from amt.models import Template
 from amt.serializers import ActivitySerializer
+from amt.serializers import TemplateSerializer
 
 
 class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin):
@@ -52,13 +53,36 @@ class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cre
     @action(detail=False, methods=['POST'])
     def create_from_template(self, request):
         template_id = request.data.get('template_id', None)
+        team_id = request.data.get('team_id', None)
 
         if template_id is not None:
             try:
                 template = Template.objects.get(pk=template_id)
+
+                # Create a new activity based on the template
                 new_activity = Activity.create_activity_from_template(template)
+
+                # Update additional fields, such as the team and any other desired fields
+                if team_id:
+                    try:
+                        team = Team.objects.get(pk=team_id)
+                        new_activity.activity_team = team
+                    except Team.DoesNotExist:
+                        return Response({"error": "Team not found"}, status=status.HTTP_404_NOT_FOUND)
+
+                # Save the updated activity
+                new_activity.save()
+
+                # Serialize the template and activity
+                template_serializer = TemplateSerializer(template)
+                activity_serializer = ActivitySerializer(new_activity)
+
                 return Response(
-                    {"success": "Activity created from template", "activity_id": new_activity.id},
+                    {
+                        "success": "Activity created from template",
+                        "activity": activity_serializer.data,
+                        "template": template_serializer.data
+                    },
                     status=status.HTTP_201_CREATED
                 )
             except Template.DoesNotExist:
