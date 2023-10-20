@@ -6,3 +6,5 @@ class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name= 'student_user')
     student_team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
     
+    def __str__(self):
+        return self.email

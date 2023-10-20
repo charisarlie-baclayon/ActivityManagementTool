@@ -10,3 +10,6 @@ class Team(models.Model):
 
     # def members(self):
     #     return Student.objects.filter(team_id=self.pk)
+    
+    def __str__(self):
+        return self.name

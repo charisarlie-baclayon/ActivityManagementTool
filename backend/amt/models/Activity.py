@@ -21,6 +21,9 @@ class Activity(models.Model):
         new_activity.save()
         return new_activity
 
+    def __str__(self):
+        return self.title
+    
     # work_submission = models.TextField(max_length=10000, default="", null=True, blank=True)
 
     # TO-ADD
