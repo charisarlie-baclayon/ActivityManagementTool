@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import logo from '../../assets/img/logo/logo-incubatee-primary-1.png';
-import './NavBar.Home.css';
+import './Home.css';
 import { Link, animateScroll as scroll } from 'react-scroll';
 import { SignInPopup } from '../popups/authentication/sign-in';
 import { SignUpPopup } from '../popups/authentication/sign-up';

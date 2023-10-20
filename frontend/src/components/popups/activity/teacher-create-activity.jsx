@@ -1,10 +1,10 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { createActivity } from "../../../Api/Activity";
+import { createActivity } from "../../../api/Activity";
 
 export const CreateActivityPopup = ({ show, handleClose }) => {
-  const handleSubmit = async () => {
+    const handleSubmit = async () => {
     const titleInput = document.getElementById("title-input");
     const descriptionInput = document.getElementById("description-input");
     const linkInput = document.getElementById("link-input");
@@ -17,7 +17,11 @@ export const CreateActivityPopup = ({ show, handleClose }) => {
     console.log(newActivity);
     try {
       await createActivity(newActivity);
-      handleClose(); // Close the modal after successful creation
+      handleClose();
+      
+      if (window.confirm("Created Successfully.")) {
+        window.location.reload();
+      }
     } catch (error) {
       console.error(error);
       // Handle error, e.g., show an error message to the user

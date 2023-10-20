@@ -1,25 +1,28 @@
-import React, { useState } from 'react';
-import { FiHome, FiBook, FiActivity } from 'react-icons/fi';
+import React from 'react';
+import { FiHome, FiBook, FiActivity, FiUsers } from 'react-icons/fi';
 import logo from '../../assets/img/logo/logo-incubatee-primary-2.png';
+import './Student.css';
 import { Link, useLocation } from 'react-router-dom';
 
-export const SideBar = () => {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+export const Student_SideBar = () => {
   const location = useLocation();
-
-  const toggleSidebar = () => {
-    setIsSidebarCollapsed(!isSidebarCollapsed);
-  };
 
   // Define the active route for each link
   const routes = [
-    { path: '/teacher/home', icon: <FiHome />, name: 'Dashboard' },
-    { path: '/teacher/classes', icon: <FiBook />, name: 'Class' },
-    { path: '/teacher/activities', icon: <FiActivity />, name: 'Activity' },
+    { path: '/student/home', icon: <FiHome />, name: 'Dashboard' },
+    { path: '/student/teams', icon: <FiUsers />, name: 'Teams' },
+    { path: '/student/classes', icon: <FiBook />, name: 'Class' },
+    { path: '/student/activities', icon: <FiActivity />, name: 'Activity' },
   ];
 
+  // Function to determine if a route should be considered active
+  const isRouteActive = (route) => {
+    // Check if the current path starts with the route path
+    return location.pathname.startsWith(route.path);
+  };
+
   return (
-    <div className={`sidebar fixed-top bg-dark shadow-lg ${isSidebarCollapsed ? 'collapsed' : ''}`}>
+    <aside className={`sidebar fixed-top bg-dark shadow-lg`}>
       <div className="d-flex flex-column align-items-center vh-100 gap-3 mt-3">
         <div className="sidebar-logo">
           <a href='/home' className='sidebar-logo-link'>
@@ -32,7 +35,7 @@ export const SideBar = () => {
           <div
             key={index}
             className={`sidebar-link d-flex gap-3 p-3 align-items-center ${
-              location.pathname === route.path ? 'bg-secondary text-decoration-underline' : 'bg-dark'
+              isRouteActive(route) ? 'bg-secondary text-decoration-underline' : 'bg-dark'
             } w-100 text-light`}
           >
             {route.icon && <div className='ml-3'>{route.icon}</div>}
@@ -42,6 +45,6 @@ export const SideBar = () => {
           </div>
         ))}
       </div>
-    </div>
+    </aside>
   );
 };

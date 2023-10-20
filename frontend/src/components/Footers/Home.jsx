@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from '../../assets/img/logo/logo-incubatee-light-1.png';
-import './Footer.Home.css';
+import './Home.css';
 import { FiFacebook, FiInstagram, FiTwitter } from "react-icons/fi";
 
 export const Footer = () => {

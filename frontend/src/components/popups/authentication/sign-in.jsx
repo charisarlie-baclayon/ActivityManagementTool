@@ -48,7 +48,7 @@ export const SignInPopup = ({ show, handleClose }) => {
             <p>Don't have an account? <span className=" text-secondary link" onClick={handleShowSignUp}>Create an Account</span></p>
             {showSignUp && <SignUpPopup show={showSignUp} handleClose={handleCloseSignUp} />}
           </Modal.Body>
-          <Modal.Footer>
+          <Modal.Footer >
             <button className="btn btn-secondary bw-3 btn-block fw-bold" onClick={handleClose}>
               Cancel
             </button>

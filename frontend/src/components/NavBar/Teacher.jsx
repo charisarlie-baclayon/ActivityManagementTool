@@ -7,7 +7,7 @@ import {
   FiUser,
 } from 'react-icons/fi';
 
-export const NavBar = () => {
+export const Teacher_NavBar = () => {
   const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
 
   const handleNavbarToggle = () => {

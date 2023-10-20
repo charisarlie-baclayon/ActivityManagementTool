@@ -41,10 +41,6 @@ export const SignUpPopup = ({ show, handleClose }) => {
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" placeholder="Enter your password" required />
               </Form.Group>
-              <Form.Group controlId="repassword">
-                <Form.Label>Re-enter Password</Form.Label>
-                <Form.Control type="password" placeholder="Re-enter your password" required />
-              </Form.Group>
               <Form.Group controlId="agreement">
                   <Form.Check type="checkbox" label="I agree to the terms and conditions" required />
               </Form.Group>

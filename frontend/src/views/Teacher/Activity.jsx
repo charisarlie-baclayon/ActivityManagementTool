@@ -1,15 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { ActivityRowCard } from "../../assets/common/Activity/activity-row-card";
 import { ActivityPopup } from "../../components/popups/activity/teacher-view-activity";
 import { CreateActivityPopup } from "../../components/popups/activity/teacher-create-activity";
+import { readActivities } from "../../api/Activity";
+import { ActivityCard } from "../../components/Cards/Card.Activity";
 
-export const Teacher_ActivitySection = ({ isSidebarOpen }) => {
+export const Teacher_ActivitySection = () => {
   const navigate = useNavigate();
   const [activity, setActivity] = useState([]);
-  const [searchInput, setSearchInput] = useState(""); // State for search input
-  const [selectedStatus, setSelectedStatus] = useState("All"); // State for selected status filter
+  const [searchInput, setSearchInput] = useState("");
 
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => setShowModal(false);
@@ -23,10 +22,8 @@ export const Teacher_ActivitySection = ({ isSidebarOpen }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/activities/"
-        );
-        setActivity(response.data.activities);
+        const response = await readActivities();
+        setActivity(response);
       } catch (error) {
         console.error("Error fetching activity data:", error);
       }
@@ -35,37 +32,16 @@ export const Teacher_ActivitySection = ({ isSidebarOpen }) => {
     fetchData();
   }, [showModal, showActivity]);
 
-  const handleToSelectedActivity = (act) => {
-    setSelectedActivity(act);
+  const handleToSelectedActivity = (activity) => {
+    setSelectedActivity(activity);
     setShowActivity(true);
   };
 
-  // Extract unique status values from activity data
-  const uniqueStatuses = [...new Set(activity.map((act) => act.status))];
-
-  // Generate options for the status filter dropdown
-  const statusFilterOptions = uniqueStatuses.map((status) => (
-    <option key={status} value={status}>
-      {status}
-    </option>
-  ));
-
-  // Filter activities based on search input and selected status
-  const filteredActivities = activity.filter((act) => {
-    const isStatusMatch =
-      selectedStatus === "All" || act.status === selectedStatus;
-    const isSearchMatch =
-      act.name.toLowerCase().includes(searchInput.toLowerCase()) ||
-      act.description.toLowerCase().includes(searchInput.toLowerCase());
-
-    return isStatusMatch && isSearchMatch;
-  });
-
   return (
     <div className="container-md">
-      <div className="container-md d-flex flex-column gap-5 mt-5 pr-3 pl-3">
+      <div className="container-md d-flex flex-column gap-3 mt-5 pr-3 pl-3">
         <div className="d-flex flex-row justify-content-between">
-          <h3 className="fw-bold">Activities</h3>
+          <h4 className="fw-bold">Activities</h4>
           <div>
             <button
               className="btn btn-secondary btn-block fw-bold bw-3"
@@ -75,7 +51,7 @@ export const Teacher_ActivitySection = ({ isSidebarOpen }) => {
             </button>
           </div>
         </div>
-        <hr className="text-dark m-0 " />
+        <hr className="text-dark" />
 
         <div className="d-flex flex-row gap-3 ">
         <div className="input-group align-items-center">
@@ -87,27 +63,23 @@ export const Teacher_ActivitySection = ({ isSidebarOpen }) => {
             onChange={(e) => setSearchInput(e.target.value)}
           />
         </div>
-        <div className="d-flex flex-row gap-3 align-items-center ">
+        <div className="d-flex flex-row gap-3 align-items-center w-25">
             <label htmlFor="statusFilter" className="m-0">
               Status:
             </label>
             <select
               id="statusFilter"
-              className="form-select border-dark"
-              value={selectedStatus}
-              onChange={(e) => setSelectedStatus(e.target.value)}
+              className="form-select border-dark "
             >
               <option value="All">All</option>
-              {statusFilterOptions}
             </select>
           </div>
         </div>
 
         <div className="d-flex flex-column gap-3">
-          {filteredActivities.map((act, index) => (
-            <ActivityRowCard
+          {activity.map((act, index) => (
+            <ActivityCard
               key={index}
-              {...act}
               onClick={() => handleToSelectedActivity(act)}
             />
           ))}
@@ -119,7 +91,7 @@ export const Teacher_ActivitySection = ({ isSidebarOpen }) => {
           <ActivityPopup
             show={showActivity}
             handleClose={handleCloseActivity}
-            act={selectedActivity}
+            activity={selectedActivity}
           />
         )}
       </div>

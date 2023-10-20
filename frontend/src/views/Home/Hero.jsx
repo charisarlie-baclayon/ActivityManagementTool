@@ -25,7 +25,6 @@ export const Home_HeroSection = () => {
                     <h6 className='fw-bold'>Create your Idea</h6>
                     <p>
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                      <br /><br />Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     </p>
                     <button className="btn w-100 bw-3 fw-bold btn-outline-dark">Learn More</button>
                   </div>
@@ -37,7 +36,6 @@ export const Home_HeroSection = () => {
                     <h6 className='fw-bold'>Know us Better</h6>
                     <p>
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                      <br /><br />Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     </p>
                     <button className="btn w-100 bw-3 fw-bold btn-outline-light">Learn More</button>
                   </div>
