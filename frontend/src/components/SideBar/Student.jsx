@@ -22,7 +22,11 @@ export const Student_SideBar = () => {
   };
 
   return (
+<<<<<<< HEAD:frontend/src/components/SideBar/Student.jsx
     <aside className={`sidebar fixed-top bg-dark shadow-lg`}>
+=======
+    <aside className={`sidebar fixed-top bg-dark shadow-lg ${isSidebarCollapsed ? 'collapsed' : ''}`}>
+>>>>>>> 190f2debb8dc343bc169b841ae312bd701f0dcdf:frontend/src/components/SideBar/SideBar.Student.jsx
       <div className="d-flex flex-column align-items-center vh-100 gap-3 mt-3">
         <div className="sidebar-logo">
           <a href='/home' className='sidebar-logo-link'>

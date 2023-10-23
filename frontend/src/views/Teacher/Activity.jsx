@@ -1,9 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD:frontend/src/views/Teacher/Activity.jsx
 import { ActivityPopup } from "../../components/popups/activity/teacher-view-activity";
 import { CreateActivityPopup } from "../../components/popups/activity/teacher-create-activity";
 import { readActivities } from "../../api/Activity";
 import { ActivityCard } from "../../components/Cards/Card.Activity";
+=======
+import { ActivityRowCard } from "../../assets/common/Activity/activity-row-card";
+import { ActivityPopup } from "../../components/popups/activity/teacher-view-activity";
+import { CreateActivityPopup } from "../../components/popups/activity/teacher-create-activity";
+import { readActivities } from "../../Api/Activity";
+>>>>>>> 190f2debb8dc343bc169b841ae312bd701f0dcdf:frontend/src/views/Teacher/Teacher.Activity.jsx
 
 export const Teacher_ActivitySection = () => {
   const navigate = useNavigate();
@@ -69,7 +76,11 @@ export const Teacher_ActivitySection = () => {
             </label>
             <select
               id="statusFilter"
+<<<<<<< HEAD:frontend/src/views/Teacher/Activity.jsx
               className="form-select border-dark "
+=======
+              className="form-select border-dark"
+>>>>>>> 190f2debb8dc343bc169b841ae312bd701f0dcdf:frontend/src/views/Teacher/Teacher.Activity.jsx
             >
               <option value="All">All</option>
             </select>
@@ -78,7 +89,11 @@ export const Teacher_ActivitySection = () => {
 
         <div className="d-flex flex-column gap-3">
           {activity.map((act, index) => (
+<<<<<<< HEAD:frontend/src/views/Teacher/Activity.jsx
             <ActivityCard
+=======
+            <ActivityRowCard
+>>>>>>> 190f2debb8dc343bc169b841ae312bd701f0dcdf:frontend/src/views/Teacher/Teacher.Activity.jsx
               key={index}
               onClick={() => handleToSelectedActivity(act)}
             />
