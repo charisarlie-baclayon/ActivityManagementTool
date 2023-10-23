@@ -26,6 +26,7 @@ class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cre
         else:
             return [IsAuthenticated()]
         
+    
     #@action(detail=False, methods=['POST'])
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -89,6 +90,27 @@ class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cre
                 return Response({"error": "Template not found"}, status=status.HTTP_404_NOT_FOUND)
         else:
             return Response({"error": "Template ID not provided"}, status=status.HTTP_400_BAD_REQUEST)
+        
+    def list(self, request, *args, **kwargs):
+        team_id = request.query_params.get('team_id')
+
+        if team_id is None:
+            return Response(
+                {"error": "The 'team_id' query parameter is required."},
+                status=status.HTTP_BAD_REQUEST
+            )
+
+        try:
+            activities = Activity.objects.filter(activity_team=team_id)
+            serializer = ActivitySerializer(activities, many=True)
+            return Response(serializer.data)
+        except Team.DoesNotExist:
+            return Response(
+                {"error": f"Team with ID {team_id} not found."},
+                status=status.HTTP_NOT_FOUND
+            )
+        
+
     # def get_all_activities(self, request):
     #     try:
     #         instances = self.get_queryset()

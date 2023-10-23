@@ -9,8 +9,6 @@ from amt.models import User
 from amt.serializers import UserSerializer
 from amt.serializers import LoginSerializer as Login
 
-class TeacherController(GenericViewSet):
-    serializer_class = TeacherSerializer
 
 class TeacherController(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin):
     queryset = User.objects.all()

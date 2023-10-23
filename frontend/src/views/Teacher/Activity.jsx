@@ -24,6 +24,9 @@ export const Teacher_ActivitySection = () => {
       try {
         const response = await readActivities();
         setActivity(response);
+
+        setActivity([{ title: 'Activity 1', description: 'description' }, { title: 'Activity 2', description: 'description' }])
+        console.log(activity);
       } catch (error) {
         console.error("Error fetching activity data:", error);
       }
@@ -80,6 +83,7 @@ export const Teacher_ActivitySection = () => {
           {activity.map((act, index) => (
             <ActivityCard
               key={index}
+              {...act}
               onClick={() => handleToSelectedActivity(act)}
             />
           ))}

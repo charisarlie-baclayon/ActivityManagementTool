@@ -6,11 +6,10 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import action
 from django.contrib.auth.models import Group
 from amt.models import Student, Team
-from amt.serializers import UserSerializer 
+from amt.serializers import UserSerializer, StudentSerializer
 from amt.serializers import LoginSerializer as Login
 
-class StudentController(GenericViewSet):
-    serializer_class = StudentSerializer
+
 
 class StudentController(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin):
     queryset = Student.objects.all()
@@ -32,6 +31,29 @@ class StudentController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Crea
     def retrieve(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)
     
+    # def retrieve(self, request, *args, **kwargs):
+    #     # Get the team_id from the URL kwargs
+    #     team_id = self.kwargs.get('pk')
+        
+    #     # Fetch all students associated with the team
+    #     students = self.queryset.filter(student_team=team_id)
+        
+    #     # Serialize the list of students using your StudentSerializer
+    #     serializer = StudentSerializer(students, many=True)
+        
+    #     return Response(serializer.data)
+
+    def list(self, request, *args, **kwargs):
+        team_id = request.query_params.get('team_id')
+        
+        
+        # Fetch all students associated with the team
+        students = self.queryset.filter(student_team=team_id)
+        
+        # Serialize the list of students using your StudentSerializer
+        serializer = StudentSerializer(students, many=True)
+        
+        return Response(serializer.data)
     
     def create(self, request, *args, **kwargs):
         serializer = UserSerializer(data=request.data)
@@ -72,7 +94,8 @@ class StudentController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Crea
         student.save()
 
         return Response({'message': 'Student assigned to the team successfully'}, status=status.HTTP_200_OK)
-
+    
+    
 
 # from rest_framework.response import Response
 # from rest_framework.decorators import action, authentication_classes, permission_classes

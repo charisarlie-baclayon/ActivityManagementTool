@@ -36,7 +36,6 @@ export const Teacher_SelectedClassSection = () => {
                 <div>
                   {classData ? (
                     <div>
-                      <h4 className="fw-bold">Class Details</h4>
                       <p>Name: {classData.name}</p>
                       <p>Course Name: {classData.course_name}</p>
                       <p>Year Level: {classData.year_level}</p>

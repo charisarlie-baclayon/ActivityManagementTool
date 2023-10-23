@@ -11,7 +11,6 @@ export const Student_SideBar = () => {
   const routes = [
     { path: '/student/home', icon: <FiHome />, name: 'Dashboard' },
     { path: '/student/teams', icon: <FiUsers />, name: 'Teams' },
-    { path: '/student/classes', icon: <FiBook />, name: 'Class' },
     { path: '/student/activities', icon: <FiActivity />, name: 'Activity' },
   ];
 
