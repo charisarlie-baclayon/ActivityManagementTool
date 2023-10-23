@@ -24,13 +24,9 @@ export const ActivityPopup = ({ show, handleClose, activity }) => {
       console.log(id);
       await deleteActivity(id);
       handleClose();
-<<<<<<< HEAD
       if (window.confirm("Deleted Successfully.")) {
         window.location.reload();
       }
-=======
-      window.confirm("Deleted Successfully");
->>>>>>> 190f2debb8dc343bc169b841ae312bd701f0dcdf
     } catch (error) {
       console.error(error);
     }
