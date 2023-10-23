@@ -52,7 +52,9 @@ $border-widths: (
   5: 5px
 );
 
-
+.clickable:hover {
+  cursor: pointer;
+}
 
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 

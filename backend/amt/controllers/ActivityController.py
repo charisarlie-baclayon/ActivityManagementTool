@@ -2,15 +2,114 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin
 from rest_framework import status
-from rest_framework.serializers import ValidationError
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.decorators import action
+
+from rest_framework.permissions import IsAuthenticated
+from amt.permissions.permissions import IsTeacher
 
 from amt.models import Activity
+from amt.models import Team
+from amt.models import Template
 from amt.serializers import ActivitySerializer
+from amt.serializers import TemplateSerializer
 
 
 class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
+    authentication_classes = [JWTAuthentication]
+
+    def get_permissions(self):
+        if self.action in ['create', 'create_from_template']:
+            return [IsAuthenticated(), IsTeacher()]
+        else:
+            return [IsAuthenticated()]
+        
+    
+    #@action(detail=False, methods=['POST'])
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            # Save the activity without committing to the database
+            activity = serializer.save(activity_team=None)
+            
+            # Get the team_id from the request data (you may want to validate this)
+            team_id = request.data.get('team_id', None)
+            
+            if team_id:
+                try:
+                    team = Team.objects.get(pk=team_id)
+                    activity.activity_team = team
+                    activity.save()  # Commit the activity to the database with the assigned team
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                except Team.DoesNotExist:
+                    return Response({'error': 'Team not found'}, status=status.HTTP_404_NOT_FOUND)
+            else:
+                return Response({'error': 'Team ID not provided'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=['POST'])
+    def create_from_template(self, request):
+        template_id = request.data.get('template_id', None)
+        team_id = request.data.get('team_id', None)
+
+        if template_id is not None:
+            try:
+                template = Template.objects.get(pk=template_id)
+
+                # Create a new activity based on the template
+                new_activity = Activity.create_activity_from_template(template)
+
+                # Update additional fields, such as the team and any other desired fields
+                if team_id:
+                    try:
+                        team = Team.objects.get(pk=team_id)
+                        new_activity.activity_team = team
+                    except Team.DoesNotExist:
+                        return Response({"error": "Team not found"}, status=status.HTTP_404_NOT_FOUND)
+
+                # Save the updated activity
+                new_activity.save()
+
+                # Serialize the template and activity
+                template_serializer = TemplateSerializer(template)
+                activity_serializer = ActivitySerializer(new_activity)
+
+                return Response(
+                    {
+                        "success": "Activity created from template",
+                        "activity": activity_serializer.data,
+                        "template": template_serializer.data
+                    },
+                    status=status.HTTP_201_CREATED
+                )
+            except Template.DoesNotExist:
+                return Response({"error": "Template not found"}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response({"error": "Template ID not provided"}, status=status.HTTP_400_BAD_REQUEST)
+        
+    def list(self, request, *args, **kwargs):
+        team_id = request.query_params.get('team_id')
+
+        if team_id is None:
+            return Response(
+                {"error": "The 'team_id' query parameter is required."},
+                status=status.HTTP_BAD_REQUEST
+            )
+
+        try:
+            activities = Activity.objects.filter(activity_team=team_id)
+            serializer = ActivitySerializer(activities, many=True)
+            return Response(serializer.data)
+        except Team.DoesNotExist:
+            return Response(
+                {"error": f"Team with ID {team_id} not found."},
+                status=status.HTTP_NOT_FOUND
+            )
+        
 
     # def get_all_activities(self, request):
     #     try:

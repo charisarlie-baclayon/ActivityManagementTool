@@ -6,3 +6,6 @@ class Work(models.Model):
     file_attachment = models.FileField(upload_to='work_submissions/', blank=True)
     date_added = models.DateTimeField(auto_now=True)
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.work

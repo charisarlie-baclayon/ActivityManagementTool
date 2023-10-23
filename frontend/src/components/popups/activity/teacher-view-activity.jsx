@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import {deleteActivity, updateActivity } from "../../../Api/Activity";
+import {deleteActivity, updateActivity } from "../../../api/Activity";
 
 export const ActivityPopup = ({ show, handleClose, activity }) => {
   const { id, name, description, link } = activity;
@@ -24,7 +24,9 @@ export const ActivityPopup = ({ show, handleClose, activity }) => {
       console.log(id);
       await deleteActivity(id);
       handleClose();
-      window.confirm("Deleted Successfully");
+      if (window.confirm("Deleted Successfully.")) {
+        window.location.reload();
+      }
     } catch (error) {
       console.error(error);
     }

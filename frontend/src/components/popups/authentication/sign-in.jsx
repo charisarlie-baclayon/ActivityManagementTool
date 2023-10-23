@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import axios from 'axios';
 import "./sign-in.css";
 import { SignUpPopup } from './sign-up';
 
@@ -14,6 +15,7 @@ export const SignInPopup = ({ show, handleClose }) => {
   const handleCloseSignUp = () => {
     setShowSignUp(false);
   };
+  
 
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
@@ -29,19 +31,19 @@ export const SignInPopup = ({ show, handleClose }) => {
           </Modal.Header>
           <Modal.Body>
             <Form className='d-flex flex-column gap-3'>
-              <Form.Group controlId="email">
+              <Form.Group controlId="signinEmail">
                 <Form.Label>Email</Form.Label>
                 <Form.Control type="email" placeholder="Enter your email" required />
               </Form.Group>
               <Form.Group controlId="password">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Enter your password" required />
+                <Form.Control type="signinPassword" placeholder="Enter your password" required />
               </Form.Group>
               <Form.Group controlId="remember">
-                  <Form.Check type="checkbox" label="Remember me" required />
+                  <Form.Check type="checkbox" label="Remember me" />
               </Form.Group>
               <button className="btn btn-outline-secondary bw-3 btn-block fw-bold">Incubatee</button>
-              <button className="btn btn-secondary bw-3 btn-block fw-bold">Incubator</button>
+              <button className="btn btn-secondary bw-3 btn-block fw-bold" >Incubator</button>
             </Form>
 
             <br/>
