@@ -1,23 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { readClass } from '../../api/Classes';
 import { useParams } from 'react-router-dom';
+import { useFetchClass } from '../../hooks/Class/useClass';
 
 export const Teacher_SelectedClassSection = () => {
-  const [classData, setClassData] = useState(null);
   const { id } = useParams(); 
-
-  useEffect(() => {
-    const fetchClass = async () => {
-      try {
-        const response = await readClass(id);
-        setClassData(response);
-      } catch (error) {
-        console.error("Error fetching class data:", error);
-      }
-    };
-
-    fetchClass();
-  }, [id]);
+  const classData = useFetchClass(id);
 
   return (
     <div className="container-md">

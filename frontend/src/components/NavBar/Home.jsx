@@ -2,21 +2,15 @@ import React, { useEffect, useState } from 'react';
 import logo from '../../assets/img/logo/logo-incubatee-primary-1.png';
 import './Home.css';
 import { Link, animateScroll as scroll } from 'react-scroll';
-import { SignInPopup } from '../popups/authentication/sign-in';
-import { SignUpPopup } from '../popups/authentication/sign-up';
+import { useNavigate } from 'react-router-dom';
 
 const sections = ['hero-section', 'about-section', 'team-section', 'contact-section'];
 
 export const NavBar = () => {
   const [activeSection, setActiveSection] = useState('');
   const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
-  const [showSignInModal, setShowSignInModal] = useState(false);
-  const [showSignUpModal, setShowSignUpModal] = useState(false);
-  
-  const handleCloseSignInModal = () => setShowSignInModal(false);
-  const handleShowSignInModal = () => setShowSignInModal(true);
-  const handleCloseSignUpModal = () => setShowSignUpModal(false);
-  const handleShowSignUpModal = () => setShowSignUpModal(true);
+
+  const navigate = useNavigate();
 
   const handleSetActive = (to) => {
     setActiveSection(to);
@@ -46,6 +40,14 @@ export const NavBar = () => {
   const handleNavbarToggle = () => {
     setIsNavbarCollapsed(!isNavbarCollapsed);
   };
+
+  const handleIncubator = () => {
+    navigate('/teacher/signin');
+  }
+
+  const handleIncubatee = () => {
+    navigate('/student/signin');
+  }
 
   return (
     <nav className='navbar navbar-expand-md navbar-dark bg-dark fixed-top'>
@@ -82,16 +84,13 @@ export const NavBar = () => {
               </li>
             ))}
             <li className='nav-item d-flex align-items-md-center'>
-              <button className='btn fw-bold bw-3 btn-outline-primary btn-block' onClick={handleShowSignInModal}>Sign In</button>
+              <button className='btn fw-bold bw-3 btn-outline-primary btn-block' onClick={handleIncubator}>Incubator</button>
             </li>
             <li className='nav-item d-flex align-items-md-center'>
-              <button className='btn fw-bold bw-3 btn-primary btn-block' onClick={handleShowSignUpModal}>Sign Up</button>
+              <button className='btn fw-bold bw-3 btn-primary btn-block' onClick={handleIncubatee}>Incubatee</button>
             </li>
           </ul>
         </div>
-
-        <SignInPopup show={showSignInModal} handleClose={handleCloseSignInModal} />
-        <SignUpPopup show={showSignUpModal} handleClose={handleCloseSignUpModal} />
       </div>
     </nav>
   );

@@ -1,30 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { readClasses } from '../../api/Classes';
 import { ClassCard } from '../../components/Cards/Card.Class';
 import { CreateClassPopup } from '../../components/popups/class/teacher-create-class';
+import { useFetchClasses } from '../../hooks/Class/useClass';
+import { useNavigate } from 'react-router-dom';
 
 export const Teacher_ClassSection = () => {
-  const [showModal, setShowModal] = useState(false);
-  const handleShowModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
-  const [classes, setClasses] = useState([]);
-  
-  const navigateToClass = (id) => {
-    window.location.href = `classes/${id}`;
-  };
+    const classes = useFetchClasses();
+    const [showModal, setShowModal] = useState(false);
+    const handleShowModal = () => setShowModal(true);
+    const handleCloseModal = () => setShowModal(false);
 
-    useEffect(() => {
-        const fetchClasses = async () => {
-            try {
-                const response = await readClasses();
-                setClasses(response);
-            } catch (error) {
-                console.log(error.response);
-            }
-        };
-
-        fetchClasses();
-    }, []);
+    const navigate = useNavigate();
+    
+    const navigateToClass = (id) => {
+        navigate(`${id}`);
+    };
 
     return (
         <div className="container-md">

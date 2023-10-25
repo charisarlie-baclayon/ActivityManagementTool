@@ -1,23 +1,30 @@
 
 .sign-in-img{
     display: flex;
-    background-image: url('../../../assets/img/home/sign-in-background.png'); /* Replace with your image URL */
+    background-image: url('@assets/img/home/sign-in-background.png'); /* Replace with your image URL */
     background-size: cover;
     background-position: center;
     width: 100%;
     height: 100%;
-    position: absolute;
     padding: 0px;
-    margin-left: -20px;
-    border-radius: 10px;
+    border-radius: 5px;
     overflow: hidden;
+}
+
+.sign-in-left {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.sign-in-right {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
 .sign-in-img-overlay{
     background-color: #B8860B50; /* Change this to your desired color and opacity */
     width: 100%;
     height: 100%;
-    position: absolute;
     top: 0;
     left: 0;
 }
