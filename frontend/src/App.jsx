@@ -14,13 +14,18 @@ import { PrivateRoutes } from "./utils/PrivateRoute";
 import { Teacher_TeamSection } from "./views/Teacher/Team";
 import { Student_ClassSection } from "./views/Student/Class";
 import { Student_TeamSection } from "./views/Student/Team";
+import { Student_SignIn } from "./views/Student/SignIn";
+import { Teacher_SignIn } from "./views/Teacher/SignIn";
 
 function App() {
   return (
       <>
         <Routes>
-            <Route path="/" element={<Home/>} />
-            <Route path="home" element={<Home/>} />
+          <Route path="/" element={<Home/>} />
+          <Route path="home" element={<Home/>} />
+          <Route path="teacher/signin" element={<Teacher_SignIn/>}/>
+          <Route path="student/signin" element={<Student_SignIn/>}/>
+          <Route path="*" element={<NotFound />} />
         </Routes>
 
         <Routes>
@@ -46,10 +51,6 @@ function App() {
               <Route path="teams" element={<Student_TeamSection/>}/>
             </Route>
           </Route>
-        </Routes>
-        
-        <Routes>
-          <Route path="*" element={<NotFound />} />
         </Routes>
       </>
   );
