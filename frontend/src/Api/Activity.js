@@ -1,14 +1,17 @@
 import axios from "axios";
 
-export const readActivities = async () => {
+export const readActivities = async (accessToken) => {
   try {
-    const response = await axios.get(
-      "http://127.0.0.1:8000/api/activities/"
-    );
-    console.log(response.data); // Handle the response data
-    return response.data
+    const response = await axios.get("http://127.0.0.1:8000/api/activities/", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    console.log(response.data);
+    return response.data;
   } catch (error) {
     console.log(error.response.data);
+    throw error;
   }
 };
 

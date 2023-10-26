@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useFetchClass } from '../../hooks/Class/useClass';
+import { useFetchClass } from '../../hooks/Teacher/useClass';
 
 export const Teacher_SelectedClassSection = () => {
   const { id } = useParams(); 

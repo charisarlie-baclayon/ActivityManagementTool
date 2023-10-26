@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ClassCard } from '../../components/Cards/Card.Class';
 import { CreateClassPopup } from '../../components/popups/class/teacher-create-class';
-import { useFetchClasses } from '../../hooks/Class/useClass';
+import { useFetchClasses } from '../../hooks/Teacher/useClass';
 import { useNavigate } from 'react-router-dom';
 
 export const Teacher_ClassSection = () => {
@@ -35,7 +35,6 @@ export const Teacher_ClassSection = () => {
                     {Array.isArray(classes) &&
                         classes.map((classItem) => (
                             <div key={classItem.id} className="col-md-3 mb-3">
-                                {/* Render your class card here */}
                                 <ClassCard classData={classItem} onClick={() => navigateToClass(classItem.id)}/>
                             </div>
                         ))}

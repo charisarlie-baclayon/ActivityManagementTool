@@ -45,7 +45,6 @@ export const Student_ClassSection = () => {
                     {Array.isArray(classes) &&
                         classes.map((classItem) => (
                             <div key={classItem.id} className="col-md-3 mb-3">
-                                {/* Render your class card here */}
                                 <ClassCard classData={classItem} onClick={() => navigateToClass(classItem.id)}/>
                             </div>
                         ))}
