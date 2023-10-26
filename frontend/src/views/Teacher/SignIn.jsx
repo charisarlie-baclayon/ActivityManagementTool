@@ -1,12 +1,46 @@
 import "@assets/css/sign-in.css";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { acquireToken, loginTeacher } from "../../api/Authentication";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 export const Teacher_SignIn = () => {
+  const [refresh, setRefresh] = useLocalStorage('refresh', '');
+  const [access, setAccess] = useLocalStorage('access', '');
+  const [role, setRole] = useLocalStorage('role', '');
+
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleCancel = () => {
     navigate('/');
   }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    try {
+      const response = await loginTeacher(
+        email, 
+        password
+      );
+      const tokens = await acquireToken(
+        email,
+        password
+      );
+  
+      if (response) {
+        console.log(response);
+        setRole(response.role);
+        setRefresh(tokens.refresh);
+        setAccess(tokens.access);
+        navigate('/teacher/home');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="bg-dark">
@@ -17,15 +51,27 @@ export const Teacher_SignIn = () => {
               <h4 className="m-0 fw-bold">Sign In</h4>
               <hr/>
             </div>
-            <form className="d-flex flex-column gap-3">
+            <form 
+              className="d-flex flex-column gap-3"
+              onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label htmlFor="email" className="form-label">Email</label>
-                <input type="email" className="form-control" id="email" name="email" />
+                <input 
+                  type="email" 
+                  className="form-control" 
+                  id="email" 
+                  name="email" 
+                  onChange={e => setEmail(e.target.value)}/>
               </div>
 
               <div className="mb-3">
                 <label htmlFor="password" className="form-label">Password</label>
-                <input type="password" className="form-control" id="password" name="password" />
+                <input 
+                  type="password" 
+                  className="form-control" 
+                  id="password" 
+                  name="password" 
+                  onChange={e => setPassword(e.target.value)}/>
               </div>
 
               <div className="mb-3 form-check">

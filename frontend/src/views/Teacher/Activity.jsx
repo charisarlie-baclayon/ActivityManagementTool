@@ -4,11 +4,13 @@ import { ActivityPopup } from "../../components/popups/activity/teacher-view-act
 import { CreateActivityPopup } from "../../components/popups/activity/teacher-create-activity";
 import { readActivities } from "../../api/Activity";
 import { ActivityCard } from "../../components/Cards/Card.Activity";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 export const Teacher_ActivitySection = () => {
   const navigate = useNavigate();
   const [activity, setActivity] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [access, setAccess] = useLocalStorage('access', '');
 
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => setShowModal(false);
@@ -22,10 +24,9 @@ export const Teacher_ActivitySection = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await readActivities();
+        const response = await readActivities(access);
         setActivity(response);
 
-        setActivity([{ title: 'Activity 1', description: 'description' }, { title: 'Activity 2', description: 'description' }])
         console.log(activity);
       } catch (error) {
         console.error("Error fetching activity data:", error);
