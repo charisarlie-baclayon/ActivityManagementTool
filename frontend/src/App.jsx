@@ -10,7 +10,7 @@ import { Teacher_ActivitySection } from "./views/Teacher/Activity";
 import { Teacher_ClassSection } from "./views/Teacher/Class";
 import { Teacher_SelectedClassSection } from "./views/Teacher/Class-Selected";
 import { Student_ActivitySection } from "./views/Student/Activity";
-import { PrivateRoutes } from "./utils/PrivateRoute";
+import { PrivateRoutes } from "./features/auth/PrivateRoute";
 import { Teacher_TeamSection } from "./views/Teacher/Team";
 import { Student_ClassSection } from "./views/Student/Class";
 import { Student_TeamSection } from "./views/Student/Team";
@@ -19,35 +19,38 @@ import { Teacher_SignIn } from "./views/Teacher/SignIn";
 
 function App() {
   return (
-      <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="home" element={<Home/>} />
-        <Route path="teacher/signin" element={<Teacher_SignIn/>}/>
-        <Route path="student/signin" element={<Student_SignIn/>}/>
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='home' element={<Home />} />
+      <Route path='teacher/signin' element={<Teacher_SignIn />} />
+      <Route path='student/signin' element={<Student_SignIn />} />
 
-        <Route element={<PrivateRoutes/>}>
-          <Route path="teacher" element={<Teacher/>}>
-            <Route index element={<Teacher_HomeSection />} />
-            <Route path="home" element={<Teacher_HomeSection/>} />
-            <Route path="activities" element={<Teacher_ActivitySection/>} />
-            <Route path="classes" element={<Teacher_ClassSection/>}/>
-            <Route path="classes/:id" element={<Teacher_SelectedClassSection />} />
-            <Route path="teams" element={<Teacher_TeamSection />}/>
-          </Route>
+      <Route element={<PrivateRoutes />}>
+        <Route path='teacher' element={<Teacher />}>
+          <Route index element={<Teacher_HomeSection />} />
+          <Route path='home' element={<Teacher_HomeSection />} />
+          <Route path='activities' element={<Teacher_ActivitySection />} />
+          <Route path='classes' element={<Teacher_ClassSection />} />
+          <Route
+            path='classes/:id'
+            element={<Teacher_SelectedClassSection />}
+          />
+          <Route path='teams' element={<Teacher_TeamSection />} />
         </Route>
+      </Route>
 
-        <Route element={<PrivateRoutes/>}>
-          <Route path="student" element={<Student/>}>
-            <Route index element={<Student_HomeSection />} />
-            <Route path="home" element={<Student_HomeSection/>} />
-            <Route path="activities" element={<Student_ActivitySection/>} />
-            <Route path="classes" element={<Student_ClassSection/>}/>
-            <Route path="teams" element={<Student_TeamSection/>}/>
-          </Route>
+      <Route element={<PrivateRoutes />}>
+        <Route path='student' element={<Student />}>
+          <Route index element={<Student_HomeSection />} />
+          <Route path='home' element={<Student_HomeSection />} />
+          <Route path='activities' element={<Student_ActivitySection />} />
+          <Route path='classes' element={<Student_ClassSection />} />
+          <Route path='teams' element={<Student_TeamSection />} />
         </Route>
+      </Route>
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <Route path='*' element={<NotFound />} />
+    </Routes>
   );
 }
 
