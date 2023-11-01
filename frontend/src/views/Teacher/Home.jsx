@@ -1,24 +1,43 @@
 import { useSelector } from "react-redux";
 import {
-    selectCurrentUser,
-    selectCurrentToken,
+  selectCurrentUser,
+  selectCurrentToken,
+  logOut,
 } from "../../features/auth/authSlice";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { persistor } from "../../store";
 
 export const Teacher_HomeSection = () => {
-    const user = useSelector(selectCurrentUser);
-    const token = useSelector(selectCurrentToken);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const currentUser = user ? user : "no name!";
-    const tokenAbbr = `${token.slice(0, 20)}...`;
+  const user = useSelector(selectCurrentUser);
+  //const token = useSelector(selectCurrentToken);
+  const currentUser = user ? user : "no name!";
+  //const tokenAbbr = `${token.slice(0, 20)}...`;
 
-    return (
-        <div className='container'>
-            <div className='container-md d-flex flex-column gap-3 mt-5 pr-3 pl-3'>
-                <h4 className='fw-bold'>Good Afternoon, {currentUser}!</h4>
-                <h4 className='fw-bold'>token, {tokenAbbr}!</h4>
-                <hr className='text-dark' />
-            </div>
-        </div>
-    );
+  const handleLogout = async (e) => {
+    e.preventDefault();
+
+    try {
+      dispatch(logOut);
+      persistor.purge();
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  return (
+    <div className='container'>
+      <div className='container-md d-flex flex-column gap-3 mt-5 pr-3 pl-3'>
+        <h4 className='fw-bold'>Good Afternoon, {currentUser}!</h4>
+        <hr className='text-dark' />
+
+        <button className='btn btn-primary' onClick={handleLogout}>
+          LogOut
+        </button>
+      </div>
+    </div>
+  );
 };
