@@ -11,6 +11,7 @@ from amt.permissions.permissions import IsTeacher
 from amt.models import Activity
 from amt.models import Team
 from amt.models import Template
+from amt.models import Class
 from amt.serializers import ActivitySerializer
 from amt.serializers import TemplateSerializer
 
@@ -21,13 +22,15 @@ class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cre
     authentication_classes = [JWTAuthentication]
 
     def get_permissions(self):
-        if self.action in ['create', 'create_from_template']:
+        if self.action in ['create', 'create_from_template', 'destroy', 'get_activities_by_class', 'get_submitted_activities_by_class',
+                           ]:
             return [IsAuthenticated(), IsTeacher()]
         else:
             return [IsAuthenticated()]
         
     
     #@action(detail=False, methods=['POST'])
+    #CREATE ACTIVITY
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
 
@@ -51,6 +54,7 @@ class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cre
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    #CREATE ACTIVITY FROM TEMPLATE
     @action(detail=False, methods=['POST'])
     def create_from_template(self, request):
         template_id = request.data.get('template_id', None)
@@ -91,6 +95,7 @@ class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cre
         else:
             return Response({"error": "Template ID not provided"}, status=status.HTTP_400_BAD_REQUEST)
         
+    #GET ACTIVITY FROM TEAM ID
     def list(self, request, *args, **kwargs):
         team_id = request.query_params.get('team_id')
 
@@ -109,6 +114,143 @@ class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cre
                 {"error": f"Team with ID {team_id} not found."},
                 status=status.HTTP_NOT_FOUND
             )
+        
+    # @action(detail=False, methods=['GET'])
+    # def get_all_activities_by_team(self, request):
+    #     team_id = request.query_params.get('team_id')
+
+    #     if team_id is None:
+    #         return Response(
+    #             {"error": "The 'team_id' query parameter is required."},
+    #             status=status.HTTP_BAD_REQUEST
+    #         )
+
+    #     try:
+    #         # Fetch the team based on the provided 'team_id'
+    #         team_instance = Team.objects.get(pk=team_id)
+
+    #         # Get all activities in the team
+    #         activities = Activity.objects.filter(activity_team=team_instance)
+
+    #         serializer = ActivitySerializer(activities, many=True)
+
+    #         return Response(serializer.data)
+    #     except Team.DoesNotExist:
+    #         return Response(
+    #             {"error": f"Team with ID {team_id} not found."},
+    #             status=status.HTTP_NOT_FOUND
+    #         )
+        
+    @action(detail=False, methods=['GET'])
+    def get_submitted_activities_by_team(self, request):
+        team_id = request.query_params.get('team_id')
+
+        if team_id is None:
+            return Response(
+                {"error": "The 'team_id' query parameter is required."},
+                status=status.HTTP_BAD_REQUEST
+            )
+
+        try:
+            # Fetch the team based on the provided 'team_id'
+            team_instance = Team.objects.get(pk=team_id)
+
+            # Get all submitted activities in the team
+            submitted_activities = Activity.objects.filter(
+                activity_team=team_instance, submission_status=True
+            )
+
+            serializer = ActivitySerializer(submitted_activities, many=True)
+
+            return Response(serializer.data)
+        except Team.DoesNotExist:
+            return Response(
+                {"error": f"Team with ID {team_id} not found."},
+                status=status.HTTP_NOT_FOUND
+            )
+        
+    @action(detail=False, methods=['GET'])
+    def get_activities_by_class(self, request):
+        class_id = request.query_params.get('class_id')
+
+        if class_id is None:
+            return Response(
+                {"error": "The 'class_id' query parameter is required."},
+                status=status.HTTP_BAD_REQUEST
+            )
+
+        try:
+            # Fetch the class based on the provided 'class_id'
+            class_instance = Class.objects.get(pk=class_id)
+            
+            # Get all teams that belong to the specified class
+            teams_in_class = Team.objects.filter(team_class=class_instance)
+
+            # Get all activities in teams of the specified class
+            activities = Activity.objects.filter(activity_team__in=teams_in_class)
+            
+            serializer = ActivitySerializer(activities, many=True)
+            
+            return Response(serializer.data)
+        except Class.DoesNotExist:
+            return Response(
+                {"error": f"Class with ID {class_id} not found."},
+                status=status.HTTP_NOT_FOUND
+            )
+        
+    #Toggle Status to true or false
+    @action(detail=True, methods=['POST'])
+    def submit(self, request, pk=None):
+        try:
+            activity = Activity.objects.get(pk=pk)
+        except Activity.DoesNotExist:
+            return Response({"error": "Activity not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        # Toggle the submission_status field
+        activity.submission_status = not activity.submission_status
+        activity.save()
+
+        # Serialize the updated activity
+        serializer = ActivitySerializer(activity)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    @action(detail=False, methods=['GET'])
+    def get_submitted_activities_by_class(self, request):
+        class_id = request.query_params.get('class_id')
+
+        if class_id is None:
+            return Response(
+                {"error": "The 'class_id' query parameter is required."},
+                status=status.HTTP_BAD_REQUEST
+            )
+
+        try:
+            # Fetch the class based on the provided 'class_id'
+            class_instance = Class.objects.get(pk=class_id)
+            
+            # Get all teams that belong to the specified class
+            teams_in_class = Team.objects.filter(team_class=class_instance)
+            
+            # Get all submitted activities in teams of the specified class
+            submitted_activities = Activity.objects.filter(
+                activity_team__in=teams_in_class, submission_status=True
+            )
+            
+            serializer = ActivitySerializer(submitted_activities, many=True)
+            
+            return Response(serializer.data)
+        except Class.DoesNotExist:
+            return Response(
+                {"error": f"Class with ID {class_id} not found."},
+                status=status.HTTP_NOT_FOUND
+            )
+
+
+
+
+
+
         
 
     # def get_all_activities(self, request):

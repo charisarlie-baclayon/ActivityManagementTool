@@ -53,3 +53,16 @@ class LoginSerializer(serializers.Serializer):
 
         serializer_data = UserSerializer(user).data
         return serializer_data
+    
+class SuperUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'first_name', 'last_name', 'email', 'is_staff', 'is_superuser']
+        
+        extra_kwargs = {
+            'first_name': {'read_only': True, 'required': False},
+            'last_name': {'read_only': True, 'required': False},
+            'email': {'read_only': True, 'required': False},
+            'is_staff': {'read_only': True, 'required': False},
+            'is_superuser': {'read_only': True, 'required': False}
+        }
