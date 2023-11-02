@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ClassCard } from "../../components/Cards/Card.Class";
 import { CreateTeamPopup } from "../../components/popups/team/teacher-create-team";
-import { useFetchTeams } from "../../hooks/Teacher/useTeam";
+import { useFetchTeams } from "../../hooks/useTeam";
 import { useNavigate } from "react-router-dom";
 
 export const Teacher_TeamSection = () => {

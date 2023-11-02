@@ -1,16 +1,12 @@
-import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { ActivityPopup } from "../../components/popups/activity/teacher-view-activity";
 import { CreateActivityPopup } from "../../components/popups/activity/teacher-create-activity";
-import { readActivities } from "../../api/Activity";
 import { ActivityCard } from "../../components/Cards/Card.Activity";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useFetchActivities } from "../../hooks/useActivity";
 
 export const Teacher_ActivitySection = () => {
-  const navigate = useNavigate();
-  const [activity, setActivity] = useState([]);
+  const activity = useFetchActivities();
   const [searchInput, setSearchInput] = useState("");
-  const [access, setAccess] = useLocalStorage('access', '');
 
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => setShowModal(false);
@@ -21,20 +17,6 @@ export const Teacher_ActivitySection = () => {
 
   const [selectedActivity, setSelectedActivity] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await readActivities(access);
-        setActivity(response);
-
-        console.log(activity);
-      } catch (error) {
-        console.error("Error fetching activity data:", error);
-      }
-    };
-
-    fetchData();
-  }, [showModal, showActivity]);
 
   const handleToSelectedActivity = (activity) => {
     setSelectedActivity(activity);

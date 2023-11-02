@@ -1,20 +1,16 @@
 import "@assets/css/sign-in.css";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
-//import { acquireToken, authentication, loginTeacher } from "../../api/Authentication";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
-
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../features/auth/authSlice";
 // import {
 //     useLoginMutation,
 //     useAcquireTokenMutation,
 // } from "../../features/auth/authApiSlice";
-import { Authentication } from "../../api/Authentication";
 import {
   useLoginTeacherMutation,
   useAcquireTokenMutation,
-} from "../../Api/Authentication";
+} from "../../api/Authentication";
 
 export const Teacher_SignIn = () => {
   const userRef = useRef();
@@ -40,12 +36,6 @@ export const Teacher_SignIn = () => {
     setErrorMessage("");
   }, [email, password]);
 
-  // delikado mag butang og credentials sa local storage kay pwede ma access sa ibang tao
-
-  const [refresh, setRefresh] = useLocalStorage("refresh", "");
-  const [access, setAccess] = useLocalStorage("access", "");
-  const [role, setRole] = useLocalStorage("role", "");
-
   const handleCancel = () => {
     navigate("/");
   };
@@ -63,10 +53,6 @@ export const Teacher_SignIn = () => {
           email,
           password,
         }).unwrap();
-        // setRole(response.role);
-        // setRefresh(tokens.refresh);
-        // setAccess(tokens.access);
-        //const token = response.access;
         dispatch(
           setCredentials({
             user: `${loginUser.first_name} ${loginUser.last_name}`,
