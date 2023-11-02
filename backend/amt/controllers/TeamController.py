@@ -1,18 +1,12 @@
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import action
-
-from rest_framework.permissions import IsAuthenticated
-from amt.permissions.permissions import IsTeacher
 from django.contrib.auth.models import Group
-# from amt.models import Student
-
-from amt.models import Team
-from amt.serializers import TeamSerializer
-
+from amt.models import Team, Class  # Import the Class model
+from amt.serializers import TeamSerializer, ClassSerializer  # Import the ClassSerializer
 
 class TeamController(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin):
     queryset = Team.objects.all()
@@ -20,34 +14,33 @@ class TeamController(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateM
     authentication_classes = [JWTAuthentication]
 
     def get_permissions(self):
-        if self.action in ['add_member', 'create_team']:
-            return [IsAuthenticated(), IsTeacher()]
-        else:
-            return [IsAuthenticated()]
-        
+        # If Action is Create, allow any
+        if self.action == 'create':
+            return [permissions.IsAuthenticated()]  # Adjust permissions as needed
+        # If Action is retrieve, update, partial_update, destroy, then only authenticated user allowed
+        elif self.action in ['retrieve', 'update', 'partial_update', 'destroy']:
+            return [permissions.IsAuthenticated()]
+        return super().get_permissions()
 
-    @action(detail=False, methods=['POST'])
-    def create_team(self, request):
-        serializer = self.get_serializer(data=request.data)
-
+    def create(self, request, *args, **kwargs):
+        serializer = TeamSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
+            # Create the team
+            team = serializer.save()
 
-        return Response(serializer.errors, status=400)
+            # Check if the request data includes a 'class_id' to associate the team with a class
+            class_id = request.data.get('class_id', None)
+            if class_id is not None:
+                try:
+                    # Fetch the class based on the provided 'class_id'
+                    class_instance = Class.objects.get(pk=class_id)
+                    # Assign the team to the class
+                    team.team_class = class_instance
+                    team.save()
 
-    # @action(detail=True, methods=['post'])
-    # def add_members(self, request, pk=None):
-    #     try:
-    #         team = self.get_object()
-    #         student_emails = request.data.get('student_emails', [])
+                except Class.DoesNotExist:
+                    return Response({"error": "Class not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    #         # Filter students by email and get their IDs
-    #         student_ids = list(Student.objects.filter(email__in=student_emails).values_list('id', flat=True))
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    #         # Associate the selected students with the team by updating their team_id
-    #         Student.objects.filter(id__in=student_ids).update(team_id=team.id)
-
-    #         return Response({'success': True, 'message': 'Members added successfully'}, status=status.HTTP_200_OK)
-    #     except Team.DoesNotExist:
-    #         return Response({'success': False, 'message': 'Team not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

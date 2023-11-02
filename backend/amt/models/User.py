@@ -13,6 +13,7 @@ class User(AbstractUser):
 
     date_joined =None
     username = None
+    
     STUDENT = 'student'
     TEACHER = 'teacher'
 

@@ -9,4 +9,4 @@ class TeamSerializer(serializers.ModelSerializer):
     #activities = ActivitySerializer(many=True, read_only=True, source='activity_set')
     class Meta:
         model = Team
-        fields = ('id', 'name', 'date_added')
+        fields = ('id', 'name', 'date_added', 'team_class')
