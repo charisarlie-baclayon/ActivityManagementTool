@@ -10,6 +10,7 @@ class Activity(models.Model):
     due_date = models.DateTimeField(null=True)
     activity_team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
     evaluation = models.IntegerField(null=True)
+    total_score = models.IntegerField(default=100, null=False)
     #activity_class = models.ForeignKey(Class, on_delete=models.CASCADE, null=True)
 
     @classmethod

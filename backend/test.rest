@@ -84,7 +84,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
     "description": "This is a sample activity.",
     "submission_status": true,
     "due_date": "2023-10-31T23:59:59Z",
-    "team_id": 1
+    "team_id": 1,
+    "evaluation": 85,  ### The evaluation score
+    "total_score": 100  ### The total score for the activity
 }
 
 ####
