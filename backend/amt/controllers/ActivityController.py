@@ -246,6 +246,43 @@ class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cre
                 status=status.HTTP_NOT_FOUND
             )
 
+    @action(detail=True, methods=['POST'], permission_classes=[IsTeacher])
+    def add_evaluation(self, request, pk=None):
+        try:
+            activity = Activity.objects.get(pk=pk)
+        except Activity.DoesNotExist:
+            return Response({"error": "Activity not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        if not activity.submission_status:
+            return Response({"error": "Cannot add evaluation to activities with submission status as False"}, status=status.HTTP_400_BAD_REQUEST)
+
+        evaluation_value = request.data.get('evaluation', None)
+
+        if evaluation_value is not None:
+            activity.evaluation = evaluation_value
+            activity.save()
+
+            serializer = ActivitySerializer(activity)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "Evaluation value is required"}, status=status.HTTP_400_BAD_REQUEST)
+        
+    @action(detail=True, methods=['DELETE'], permission_classes=[IsTeacher])
+    def delete_evaluation(self, request, pk=None):
+        try:
+            activity = Activity.objects.get(pk=pk)
+        except Activity.DoesNotExist:
+            return Response({"error": "Activity not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        if not activity.submission_status:
+            return Response({"error": "Cannot delete evaluation for activities with submission status as False"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Set the evaluation to None to delete it
+        activity.evaluation = None
+        activity.save()
+
+        serializer = ActivitySerializer(activity)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 
