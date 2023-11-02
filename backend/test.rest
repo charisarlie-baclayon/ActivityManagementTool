@@ -132,6 +132,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
     "activity_id" : 1
 }
 
+### ADD EVALUATION TO ACTIVITY (can also be used for updateing same endpoint)
+POST http://127.0.0.1:8000/api/activities/1/add_evaluation/
+Content-Type: application/json
+Authorization: Bearer <your-access-token>
+
+{
+    "evaluation": 90  # Your desired evaluation score
+}
+
+### DELETE EVALUATION FROM ACTIVITY
+DELETE http://127.0.0.1:8000/api/activities/1/delete_evaluation/
+Content-Type: application/json
+Authorization: Bearer <your-access-token>
+
 #### ASSIGN STUDENT TO TEAM (PARAMETER IS STUDENT ID NOT USER ID)
 POST http://127.0.0.1:8000/api/students/2/assign_to_team/
 Content-Type:application/json
