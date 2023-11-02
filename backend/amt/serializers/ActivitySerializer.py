@@ -11,7 +11,7 @@ class ActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Activity
-        fields = ('id', 'title', 'description', 'date_added', 'submission_status', 'due_date', 'activity_team')
+        fields = ('id', 'title', 'description', 'date_added', 'submission_status', 'due_date', 'activity_team', 'evaluation')
 
 
     # class Meta:
