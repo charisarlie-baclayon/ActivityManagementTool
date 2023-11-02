@@ -12,7 +12,6 @@ import { Teacher_SelectedClassSection } from "./views/Teacher/Class-Selected";
 import { Student_ActivitySection } from "./views/Student/Activity";
 import { PrivateRoutes } from "./features/auth/PrivateRoute";
 import { Teacher_TeamSection } from "./views/Teacher/Team";
-import { Student_ClassSection } from "./views/Student/Class";
 import { Student_TeamSection } from "./views/Student/Team";
 import { Student_SignIn } from "./views/Student/SignIn";
 import { Teacher_SignIn } from "./views/Teacher/SignIn";
@@ -44,7 +43,6 @@ function App() {
           <Route index element={<Student_HomeSection />} />
           <Route path='home' element={<Student_HomeSection />} />
           <Route path='activities' element={<Student_ActivitySection />} />
-          <Route path='classes' element={<Student_ClassSection />} />
           <Route path='teams' element={<Student_TeamSection />} />
         </Route>
       </Route>

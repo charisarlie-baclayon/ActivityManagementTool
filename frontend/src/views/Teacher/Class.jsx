@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ClassCard } from '../../components/Cards/Card.Class';
 import { CreateClassPopup } from '../../components/popups/class/teacher-create-class';
-import { useFetchClasses } from '../../hooks/Teacher/useClass';
+import { useFetchClasses } from '../../hooks/useClass';
 import { useNavigate } from 'react-router-dom';
 
 export const Teacher_ClassSection = () => {
