@@ -1,90 +1,92 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { selectCurrentToken } from "../features/auth/authSlice";
-import { readClass, readClasses, createClass, deleteClass, updateClass } from "../api/Classes";
+import {
+	useReadClassesMutation,
+	useReadClassMutation,
+	useCreateClassMutation,
+	useDeleteClassMutation,
+	useUpdateClassMutation,
+} from "../api/Classes";
 
 export function useFetchClass(id) {
-    const [classData, setClassData] = useState(null);
-    const accessToken = useSelector(selectCurrentToken);
+	const [readClass] = useReadClassMutation();
+	const [classData, setClassData] = useState(null);
 
-    useEffect(() => {
-        const fetchClass = async () => {
-            try {
-                const response = await readClass(id, accessToken);
-                setClassData(response);
-            } catch (error) {
-                console.error("Error fetching class data:", error);
-            }
-        };
+	useEffect(() => {
+		const fetchClass = async () => {
+			try {
+				const response = await readClass(id);
+				setClassData(response.data);
+			} catch (error) {
+				console.error("Error fetching class data:", error);
+			}
+		};
+		fetchClass();
+	}, [id, readClass]);
 
-        if (id) {
-            fetchClass();
-        }
-    }, [id, accessToken]);
-
-    return classData;
+	return classData;
 }
 
 export function useFetchClasses() {
-    const [classes, setClasses] = useState([]);
-    const accessToken = useSelector(selectCurrentToken);
-    useEffect (() => {
-        const fetchClasses = async () => {
-            try {
-                const response = await readClasses(accessToken);
-                setClasses(response);
-            } catch (error) {
-                console.log(error.response);
-            }
-        };
-    
-        fetchClasses();
-    }, [accessToken]);
+	const [readClasses] = useReadClassesMutation();
+	const [classes, setClasses] = useState([]);
 
-    return classes;
+	useEffect(() => {
+		const fetchClasses = async () => {
+			try {
+				const response = await readClasses();
+				setClasses(response.data);
+			} catch (error) {
+				console.error("Error fetching classes data:", error);
+			}
+		};
+
+		fetchClasses();
+	}, [readClasses]);
+
+	return classes;
 }
 
 export function useCreateClass() {
-    const accessToken = useSelector(selectCurrentToken);
+	const [createClass] = useCreateClassMutation();
 
-    const createNewClass = async (data) => {
-        try {
-            const response = await createClass(data, accessToken);
-            return response;
-        } catch (error) {
-            console.error("Error creating class:", error);
-        }
-    };
+	const createNewClass = async (data) => {
+		try {
+			const response = await createClass({ ...data });
+			return response;
+		} catch (error) {
+			console.error("Error creating class:", error);
+		}
+	};
 
-    return createNewClass;
+	return createNewClass;
 }
 
 export function useUpdateClass() {
-    const accessToken = useSelector(selectCurrentToken);
+	const [updateClass] = useUpdateClassMutation();
 
-    const updateExistingClass = async (id, data) => {
-        try {
-            const response = await updateClass(id, data, accessToken);
-            return response;
-        } catch (error) {
-            console.error("Error updating class:", error);
-        }
-    };
+	const updateExistingClass = async (id, data) => {
+		try {
+			const response = await updateClass(id, { ...data });
+			return response;
+		} catch (error) {
+			console.error("Error updating class:", error);
+		}
+	};
 
-    return updateExistingClass;
+	return updateExistingClass;
 }
 
 export function useDeleteClass() {
-    const accessToken = useSelector(selectCurrentToken);
+	const [deleteClass] = useDeleteClassMutation();
 
-    const deleteClassById = async (id) => {
-        try {
-            const response = await deleteClass(id, accessToken);
-            return response;
-        } catch (error) {
-            console.error("Error deleting class:", error);
-        }
-    };
+	const deleteClassById = async (id) => {
+		try {
+			const response = await deleteClass(id);
+			return response;
+		} catch (error) {
+			console.error("Error deleting class:", error);
+		}
+	};
 
-    return deleteClassById;
+	return deleteClassById;
 }

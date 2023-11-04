@@ -1,92 +1,93 @@
 import { useEffect, useState } from "react";
-import { readTeam, readTeams } from "../api/Teams";
-import { useSelector } from "react-redux";
-import { selectCurrentToken } from "../features/auth/authSlice";
+import {
+	useReadTeamsMutation,
+	useReadTeamMutation,
+	useCreateTeamMutation,
+	useDeleteTeamMutation,
+	useUpdateTeamMutation,
+} from "../api/Teams";
 
 export function useFetchTeam(id) {
-  const [teamData, setTeamData] = useState(null);
-  const accessToken = useSelector(selectCurrentToken);
+	const [readTeam] = useReadTeamMutation();
+	const [team, setTeam] = useState(null);
 
-  useEffect(() => {
-    const fetchTeam = async () => {
-      try {
-        const response = await readTeam(id, accessToken);
-        setTeamData(response);
-      } catch (error) {
-        console.error("Error fetching team data:", error);
-      }
-    };
+	useEffect(() => {
+		const fetchTeam = async () => {
+			try {
+				const response = await readTeam(id);
+				setTeam(response.data);
+			} catch (error) {
+				console.error("Error fetching team data:", error);
+			}
+		};
 
-    if (id) {
-      fetchTeam();
-    }
-  }, [id, accessToken]);
+		fetchTeam();
+	}, [id, readTeam]);
 
-  return teamData;
+	return team;
 }
 
-
 export function useFetchTeams() {
-  const [teams, setTeams] = useState([]);
-  const accessToken = useSelector(selectCurrentToken);
+	const [readTeams] = useReadTeamsMutation();
+	const [teams, setTeams] = useState(null);
 
-  useEffect(() => {
-    const fetchTeams = async () => {
-      try {
-        const response = await readTeams(accessToken);
-        setTeams(response);
-      } catch (error) {
-        console.log(error.response);
-      }
-    };
+	useEffect(() => {
+		const fetchTeams = async () => {
+			try {
+				const response = await readTeams();
+				setTeams(response.data);
+			} catch (error) {
+				console.error("Error fetching teams data:", error);
+			}
+		};
 
-    fetchTeams();
-  }, []);
+		fetchTeams();
+	}, [readTeams]);
 
-  return teams;
+	return teams;
 }
 
 export function useCreateTeam() {
-  const accessToken = useSelector(selectCurrentToken);
+	const [createTeam] = useCreateTeamMutation();
 
-  const createNewTeam = async (data) => {
-    try {
-      const response = await createTeam(data, accessToken);
-      return response;
-    } catch (error) {
-      console.error("Error creating team:", error);
-    }
-  };
+	const createNewTeam = async (data) => {
+		try {
+			const response = await createTeam({ ...data });
+			return response;
+		} catch (error) {
+			console.error("Error creating team:", error);
+		}
+	};
 
-  return createNewTeam;
+	return createNewTeam;
 }
 
 export function useUpdateTeam() {
-  const accessToken = useSelector(selectCurrentToken);
+	const [updateTeam] = useUpdateTeamMutation();
 
-  const updateExistingTeam = async (id, data) => {
-    try {
-      const response = await updateTeam(id, data, accessToken);
-      return response;
-    } catch (error) {
-      console.error("Error updating team:", error);
-    }
-  };
+	const updateExistingTeam = async (id, data) => {
+		try {
+			const response = await updateTeam({ ...data });
+			return response;
+		} catch (error) {
+			console.error("Error updating team:", error);
+		}
+	};
 
-  return updateExistingTeam;
+	return updateExistingTeam;
 }
 
 export function useDeleteTeam() {
-  const accessToken = useSelector(selectCurrentToken);
+	const [deleteTeam] = useDeleteTeamMutation();
 
-  const deleteTeamById = async (id) => {
-    try {
-      const response = await deleteTeam(id, accessToken);
-      return response;
-    } catch (error) {
-      console.error("Error deleting team:", error);
-    }
-  };
+	const deleteTeamById = async (id) => {
+		try {
+			const response = await deleteTeam(id);
+			return response;
+		} catch (error) {
+			console.error("Error deleting team:", error);
+		}
+	};
 
-  return deleteTeamById;
+	return deleteTeamById;
 }

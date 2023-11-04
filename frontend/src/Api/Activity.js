@@ -1,71 +1,84 @@
-import axios from "axios";
+import { apiSlice } from "./apiSlice";
 
-export const readActivities = async (accessToken) => {
-  try {
-    const response = await axios.get("http://127.0.0.1:8000/api/activities/", {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
+export const Activity = apiSlice.injectEndpoints({
+	endpoints: (builder) => ({
+		createActivity: builder.mutation({
+			//
+			query: (data) => ({
+				url: "/api/activities/",
+				method: "POST",
+				body: { ...data },
+			}),
+		}),
 
-export const readActivity = async (id, accessToken) => {
-  try {
-    const response = await axios.get(`http://127.0.0.1:8000/api/activities/${id}/`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
-
-export const createActivity = async (data, accessToken) => {
-  try {
-    const response = await axios.post("http://127.0.0.1:8000/api/activities/", data, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
-
-export const deleteActivity = async (id, accessToken) => {
-  try {
-    const response = await axios.delete(`http://127.0.0.1:8000/api/activities/${id}/`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
-
-export const updateActivity = async (id, data, accessToken) => {
-  try {
-    const response = await axios.put(`http://127.0.0.1:8000/api/activities/${id}/`, data, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
+		createActivityFromTemplate: builder.mutation({
+			//
+			query: (data) => ({
+				url: "/api/activities/create_from_template/",
+				method: "POST",
+				body: { ...data },
+			}),
+		}),
+		addEvaluationToActivity: builder.mutation({
+			//
+			query: (id, data) => ({
+				url: `/api/activities/${id}/add_evaluation/`,
+				method: "POST",
+				body: { ...data },
+			}),
+		}),
+		deleteEvaluationFromActivity: builder.mutation({
+			//
+			query: (id) => ({
+				url: `/api/activities/${id}/delete_evaluation/`,
+				method: "DELETE",
+			}),
+		}),
+		submitActivity: builder.mutation({
+			//
+			query: (id) => ({
+				url: `/api/activities/${id}/submit/`,
+				method: "POST",
+			}),
+		}),
+		getActivitiesByClass: builder.mutation({
+			//
+			query: (id) => ({
+				url: `/api/activities/get_activities_by_class/?class_id=${id}/`,
+				method: "GET",
+			}),
+		}),
+		getSubmittedActivitiesByClass: builder.mutation({
+			//
+			query: (id) => ({
+				url: `/api/activities/get_submitted_activities_by_class/?class_id=${id}/`,
+				method: "GET",
+			}),
+		}),
+		getSubmittedActivitiesByTeam: builder.mutation({
+			//
+			query: (id) => ({
+				url: `/api/activities/get_submitted_activities_by_team/?team_id=${id}/`,
+				method: "GET",
+			}),
+		}),
+		getActivitiesByTeam: builder.mutation({
+			///
+			query: (id) => ({
+				url: `/api/activities/?team_id=${id}/`,
+				method: "GET",
+			}),
+		}),
+	}),
+});
+export const {
+	useCreateActivityMutation,
+	useCreateActivityFromTemplateMutation,
+	useAddEvaluationToActivityMutation,
+	useDeleteEvaluationFromActivityMutation,
+	useSubmitActivityMutation,
+	useGetActivitiesByClassMutation,
+	useGetSubmittedActivitiesByClassMutation,
+	useGetSubmittedActivitiesByTeamMutation,
+	useGetActivitiesByTeamMutation,
+} = Activity;
