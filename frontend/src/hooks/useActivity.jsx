@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentToken } from "../features/auth/authSlice";
-import { readActivity, readActivities, createActivity, deleteActivity, updateActivity } from "../api/Activity";
 
 export function useFetchActivity(id) {
     const [activityData, setActivityData] = useState(null);

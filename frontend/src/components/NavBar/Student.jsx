@@ -5,13 +5,36 @@ import {
   FiSettings,
   FiHelpCircle,
   FiUser,
+  FiLogOut,
 } from 'react-icons/fi';
+import {
+  selectCurrentUser,
+  selectCurrentToken,
+  logOut,
+} from "../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { persistor } from "../../store";
 
 export const Student_NavBar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
 
   const handleNavbarToggle = () => {
     setIsNavbarCollapsed(!isNavbarCollapsed);
+  };
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+
+    try {
+      dispatch(logOut);
+      persistor.purge();
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -37,13 +60,10 @@ export const Student_NavBar = () => {
               {isNavbarCollapsed ? <FiBell /> : 'Notification'}
             </span>
             <span className="nav-item nav-link">
-              {isNavbarCollapsed ? <FiSettings /> : 'Settings'}
-            </span>
-            <span className="nav-item nav-link">
-              {isNavbarCollapsed ? <FiHelpCircle /> : 'Help'}
-            </span>
-            <span className="nav-item nav-link">
               {isNavbarCollapsed ? <FiUser /> : 'User'}
+            </span>
+            <span className="nav-item nav-link" onClick={handleLogout}>
+              {isNavbarCollapsed ? <FiLogOut /> : 'Logout'}
             </span>
           </div>
         </div>
