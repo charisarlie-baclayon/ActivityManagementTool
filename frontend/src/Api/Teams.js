@@ -1,71 +1,46 @@
-import axios from "axios";
+import { apiSlice } from "./apiSlice";
 
-export const readTeams = async (accessToken) => {
-  try {
-    const response = await axios.get("http://127.0.0.1:8000/api/teams/", {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
+export const Teams = apiSlice.injectEndpoints({
+	endpoints: (builder) => ({
+		readTeams: builder.mutation({
+			query: () => ({
+				url: "/api/teams/",
+				method: "GET",
+			}),
+		}),
+		readTeam: builder.mutation({
+			query: (id) => ({
+				url: `/api/teams/${id}/`,
+				method: "GET",
+			}),
+		}),
+		createTeam: builder.mutation({
+			query: (data) => ({
+				url: "/api/teams/",
+				method: "POST",
+				body: { ...data },
+			}),
+		}),
+		deleteTeam: builder.mutation({
+			query: (id) => ({
+				url: `/api/teams/${id}/`,
+				method: "DELETE",
+			}),
+		}),
+		updateTeam: builder.mutation({
+			query: (id, data) => ({
+				url: `/api/teams/${id}/`,
+				method: "PUT",
+				body: { ...data },
+			}),
+		}),
+	}),
+});
 
-export const readTeam = async (id, accessToken) => {
-  try {
-    const response = await axios.get(`http://127.0.0.1:8000/api/teams/${id}/`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
-
-export const createTeam = async (data, accessToken) => {
-  try {
-    const response = await axios.post("http://127.0.0.1:8000/api/teams/", data, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
-
-export const deleteTeam = async (id, accessToken) => {
-  try {
-    const response = await axios.delete(`http://127.0.0.1:8000/api/teams/${id}/`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
-
-export const updateTeam = async (id, data, accessToken) => {
-  try {
-    const response = await axios.put(`http://127.0.0.1:8000/api/teams/${id}/`, data, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
+export const {
+	useReadTeamsMutation,
+	useReadTeamMutation,
+	useCreateTeamMutation,
+	useDeleteTeamMutation,
+	useUpdateTeamMutation,
+} = Teams;
