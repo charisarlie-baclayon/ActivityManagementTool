@@ -38,6 +38,10 @@ export const Student_ActivitySection = () => {
     setShowActivity(true);
   };
 
+  const handleNavigateToCreateActivity = () => {
+    navigate("/student/activities/new"); // Navigate to the desired route
+  };
+
   return (
     <div className="container-md">
       <div className="container-md d-flex flex-column gap-3 mt-5 pr-3 pl-3">
@@ -46,7 +50,7 @@ export const Student_ActivitySection = () => {
           <div>
             <button
               className="btn btn-secondary btn-block fw-bold bw-3"
-              onClick={handleShowModal}
+              onClick={handleNavigateToCreateActivity} // Navigate to the desired route
             >
               Add Activity
             </button>
