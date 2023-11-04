@@ -11,7 +11,8 @@ from amt.serializers import LoginSerializer as Login
 
 
 class TeacherController(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin):
-    queryset = User.objects.all()
+    # queryset = User.objects.all()
+    queryset = User.objects.filter(role='teacher')
     serializer_class = UserSerializer
     authentication_classes = [JWTAuthentication]
 

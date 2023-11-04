@@ -7,7 +7,7 @@ import { Authentication } from "../../api/Authentication";
 import {
   useLoginStudentMutation,
   useAcquireTokenMutation,
-} from "../../Api/Authentication";
+} from "../../api/Authentication";
 
 export const Student_SignIn = () => {
   const userRef = useRef();
@@ -43,6 +43,11 @@ export const Student_SignIn = () => {
       const loginUser = await login({ email, password }).unwrap();
 
       if (loginUser) {
+        if(loginUser.role !== "student") {
+          alert("Unauthorized: You are not authorized to access this resource.");
+          return;
+        }
+
         const response = await acquireToken({
           email,
           password,

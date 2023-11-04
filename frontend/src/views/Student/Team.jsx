@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { readClasses } from '../../api/Classes';
 
 export const Student_TeamSection = () => {
 

@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { createActivity } from "../../../api/Activity";
+//import { createActivity } from "../../../api/Activity";
 
 export const CreateActivityPopup = ({ show, handleClose }) => {
     const handleSubmit = async () => {
@@ -16,7 +16,7 @@ export const CreateActivityPopup = ({ show, handleClose }) => {
     };
     console.log(newActivity);
     try {
-      await createActivity(newActivity);
+      //await createActivity(newActivity);
       handleClose();
       
       if (window.confirm("Created Successfully.")) {

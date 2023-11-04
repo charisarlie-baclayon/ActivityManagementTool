@@ -42,9 +42,12 @@ export const Teacher_SignIn = () => {
 		try {
 			const loginUser = await login({ email, password }).unwrap();
 
-			// ngano ang login og acquire tokens kay dili pareha
-
 			if (loginUser) {
+				if(loginUser.role !== "teacher") {
+					alert("Unauthorized: You are not authorized to access this resource.");
+					return;
+				}
+        
 				const response = await acquireToken({
 					email,
 					password,

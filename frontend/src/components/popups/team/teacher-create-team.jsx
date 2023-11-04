@@ -29,7 +29,7 @@ export const CreateTeamPopup = ({ show, handleClose }) => {
 					"Created Successfully. Click 'Okay' to refresh the page."
 				)
 			) {
-				window.location.reload(); //bati mani
+				//window.location.reload(); //bati mani
 			}
 		} catch (error) {
 			console.error(error);

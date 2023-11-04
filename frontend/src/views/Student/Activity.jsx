@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { ActivityPopup } from "../../components/popups/activity/teacher-view-activity";
 import { CreateActivityPopup } from "../../components/popups/activity/teacher-create-activity";
-import { readActivities } from "../../api/Activity";
 import { ActivityCard } from "../../components/Cards/Card.Activity";
 
 export const Student_ActivitySection = () => {
@@ -22,7 +21,6 @@ export const Student_ActivitySection = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await readActivities();
         setActivity(response);
 
         setActivity([{ title: 'Activity 1', description: 'description' }, { title: 'Activity 2', description: 'description' }])
