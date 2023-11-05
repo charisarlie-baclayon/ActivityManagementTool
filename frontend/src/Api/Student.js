@@ -1,71 +1,71 @@
-import axios from "axios";
+import { apiSlice } from "./apiSlice";
 
-export const readStudents = async (accessToken) => {
-  try {
-    const response = await axios.get("http://127.0.0.1:8000/api/students/", {
-      headers: {
-        //Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
+export const Students = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    readStudents: builder.mutation({
+      query: (accessToken) => ({
+        url: "/api/students/",
+        method: "GET",
+        headers: {
+          // Authorization: `Bearer ${accessToken}`,
+        },
+      }),
+    }),
+    readStudentsByTeam: builder.mutation({
+      query: (id, accessToken) => ({
+        url: `/api/students/?team_id=${id}`,
+        method: "GET",
+        headers: {
+          // Authorization: `Bearer ${accessToken}`,
+        },
+      }),
+    }),
+    readStudent: builder.mutation({
+      query: (id, accessToken) => ({
+        url: `/api/students/${id}/`,
+        method: "GET",
+        headers: {
+          // Authorization: `Bearer ${accessToken}`,
+        },
+      }),
+    }),
+    createStudent: builder.mutation({
+      query: (data, accessToken) => ({
+        url: "/api/students/",
+        method: "POST",
+        body: { ...data },
+        headers: {
+          // Authorization: `Bearer ${accessToken}`,
+        },
+      }),
+    }),
+    deleteStudent: builder.mutation({
+      query: (id, accessToken) => ({
+        url: `/api/students/${id}/`,
+        method: "DELETE",
+        headers: {
+          // Authorization: `Bearer ${accessToken}`,
+        },
+      }),
+    }),
+    updateStudent: builder.mutation({
+      query: (id, data, accessToken) => ({
+        url: `/api/students/${id}/`,
+        method: "PUT",
+        body: { ...data },
+        headers: {
+          // Authorization: `Bearer ${accessToken}`,
+        },
+      }),
+    }),
+  }),
+});
 
-export const readStudent = async (id, accessToken) => {
-  try {
-    const response = await axios.get(`http://127.0.0.1:8000/api/students/${id}/`, {
-      headers: {
-        //Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
-
-export const createStudent = async (data, accessToken) => {
-  try {
-    const response = await axios.post("http://127.0.0.1:8000/api/students/", data, {
-      headers: {
-        //Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
-
-export const deleteStudent = async (id, accessToken) => {
-  try {
-    const response = await axios.delete(`http://127.0.0.1:8000/api/students/${id}/`, {
-      headers: {
-        //Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
-
-export const updateStudent = async (id, data, accessToken) => {
-  try {
-    const response = await axios.put(`http://127.0.0.1:8000/api/students/${id}/`, data, {
-      headers: {
-        //Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
+export const {
+  useReadStudentsMutation,
+  useReadStudentsByTeamMutation,
+  useReadStudentMutation,
+  useCreateStudentMutation,
+  useDeleteStudentMutation,
+  useUpdateStudentMutation,
+} = Students;

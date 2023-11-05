@@ -15,6 +15,7 @@ import { Teacher_TeamSection } from "./views/Teacher/Team";
 import { Student_TeamSection } from "./views/Student/Team";
 import { Student_SignIn } from "./views/Student/SignIn";
 import { Teacher_SignIn } from "./views/Teacher/SignIn";
+import { Student_CreateActivity } from './components/popups/activity/student-create-activity';
 
 function App() {
   return (
@@ -43,6 +44,10 @@ function App() {
           <Route index element={<Student_HomeSection />} />
           <Route path='home' element={<Student_HomeSection />} />
           <Route path='activities' element={<Student_ActivitySection />} />
+          <Route
+            path='activities/new' 
+            element={<Student_CreateActivity />} 
+          />
           <Route path='teams' element={<Student_TeamSection />} />
         </Route>
       </Route>
