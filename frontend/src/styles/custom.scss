@@ -1,11 +1,34 @@
 // Variables
-$primary: #FFEC8B;
-$secondary: #B8860B;
-$body-bg: #dfdfdf;
-$body-color: #202020;
-$border-color: #dfdfdf;
-$light: $body-bg;
-$dark: $body-color;
+$primary:    #FFC000;
+$secondary:  #966919;
+$success:    #60B060;
+$info:       #FFB060;
+$warning:    #FFFF60;
+$danger:     #FF6060;
+$light:      #FDFDEE;
+$dark:       #202020;
+
+$theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark
+) !default;
+
+.light-mode {
+  background-color: $light;
+  color: $dark;
+}
+
+.dark-mode {
+  background-color: $dark;
+  color: $light;
+}
+
 $font-family: 'Roboto Condensed', sans-serif;
 
 // Global font settings

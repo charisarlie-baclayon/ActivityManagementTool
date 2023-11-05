@@ -66,7 +66,7 @@ export const NavBar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className={`collapse navbar-collapse bg-dark p-3 rounded-3  ${isNavbarCollapsed ? '' : 'show'}`}>
+        <div className={`collapse navbar-collapse p-3 rounded-3  ${isNavbarCollapsed ? '' : 'show'}`}>
           <ul className='navbar-nav ml-auto gap-3'>
             {sections.map((sectionId) => (
               <li key={sectionId} className='nav-item d-flex align-items-center'>

@@ -18,37 +18,39 @@ export const ActivityPopup = ({ show, handleClose, activity }) => {
 		handleClose();
 	};
 
-	const handleDelete = async () => {
-		try {
-			console.log(id);
-			await deleteActivity(id);
-			handleClose();
-			if (window.confirm("Deleted Successfully.")) {
-				window.location.reload();
-			}
-		} catch (error) {
-			console.error(error);
-		}
-	};
+
+  const handleDelete = async () => {
+    try {
+      console.log(id);
+      //await deleteActivity(id);
+      handleClose();
+      if (window.confirm("Deleted Successfully.")) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 	const handleUpdate = async () => {
 		const titleInput = document.getElementById("title-input");
 		const descriptionInput = document.getElementById("description-input");
 		const linkInput = document.getElementById("link-input");
 
-		try {
-			const updatedActivity = {
-				name: titleInput.value,
-				description: descriptionInput.value,
-				link: linkInput.value,
-			};
-			// Call the API or perform the update operation
-			await updateActivity(id, updatedActivity);
-			handleClose();
-			console.log(updatedActivity);
-			// handle the update logic here
-			setDisable(true);
-			setEditable(true);
+
+    try {
+      const updatedActivity = {
+        name: titleInput.value,
+        description: descriptionInput.value,
+        link: linkInput.value,
+      };
+      // Call the API or perform the update operation
+      //await updateActivity(id, updatedActivity);
+      handleClose();
+      console.log(updatedActivity);
+      // handle the update logic here
+      setDisable(true);
+      setEditable(true);
 
 			window.confirm("Updated Successfully");
 		} catch (error) {
