@@ -66,7 +66,7 @@ export function useUpdateClass() {
 
 	const updateExistingClass = async (id, data) => {
 		try {
-			const response = await updateClass(id, { ...data });
+			const response = await updateClass({ id, ...data });
 			return response;
 		} catch (error) {
 			console.error("Error updating class:", error);
