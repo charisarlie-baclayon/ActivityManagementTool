@@ -19,17 +19,20 @@ export const CreateTeamPopup = ({ show, handleClose }) => {
 		});
 	};
 
-	const handleSubmit = async () => {
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
 		try {
 			await createNewTeam(teamData);
-			await handleClose();
 
 			if (
 				window.confirm(
 					"Created Successfully. Click 'Okay' to refresh the page."
 				)
 			) {
-				//window.location.reload(); //bati mani
+				await handleClose();
+				window.location.reload();
+				// not advisable
 			}
 		} catch (error) {
 			console.error(error);

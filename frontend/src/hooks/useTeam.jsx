@@ -67,10 +67,11 @@ export function useUpdateTeam() {
 
 	const updateExistingTeam = async (id, data) => {
 		try {
-			const response = await updateTeam({ ...data });
+			console.log("useEffect", id);
+			const response = await updateTeam({ id, ...data });
 			return response;
 		} catch (error) {
-			console.error("Error updating team:", error);
+			console.error("Error fetching team data:", error);
 		}
 	};
 

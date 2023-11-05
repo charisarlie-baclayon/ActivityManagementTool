@@ -21,8 +21,8 @@ export const Activity = apiSlice.injectEndpoints({
 		}),
 		addEvaluationToActivity: builder.mutation({
 			//
-			query: (id, data) => ({
-				url: `/api/activities/${id}/add_evaluation/`,
+			query: (data) => ({
+				url: `/api/activities/${data.id}/add_evaluation/`,
 				method: "POST",
 				body: { ...data },
 			}),

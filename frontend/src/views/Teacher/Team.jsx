@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ClassCard } from "../../components/Cards/Card.Class";
+import { TeamCard } from "../../components/Cards/Card.Team";
 import { CreateTeamPopup } from "../../components/popups/team/teacher-create-team";
 import { useFetchTeams } from "../../hooks/useTeam";
 import { useNavigate } from "react-router-dom";
@@ -10,13 +10,18 @@ export const Teacher_TeamSection = () => {
 	const handleCloseModal = () => setShowModal(false);
 	const teams = useFetchTeams();
 
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const navigate = useNavigate();
 
 	const navigateToTeam = (id) => {
 		navigate(`${id}`);
 	};
+
+	// this useEffect is not working, component should be rerendered once the modal is closed
+	// useEffect(() => {
+	// 	setTeams(fetchedTeams);
+	// }, [fetchedTeams, showModal]);
 
 	useEffect(() => {
 		if (teams && teams.length > 0) {
@@ -46,8 +51,8 @@ export const Teacher_TeamSection = () => {
 						{Array.isArray(teams) &&
 							teams.map((teamItem) => (
 								<div key={teamItem.id} className='col-md-3 mb-3'>
-									<ClassCard
-										classData={teamItem}
+									<TeamCard
+										teamData={teamItem}
 										onClick={() => navigateToTeam(teamItem.id)}
 									/>
 								</div>

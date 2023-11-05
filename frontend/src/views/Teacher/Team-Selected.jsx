@@ -1,51 +1,49 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
-	useFetchClass,
-	useUpdateClass,
-	useDeleteClass,
-} from "../../hooks/useClass";
+	useFetchTeam,
+	useUpdateTeam,
+	useDeleteTeam,
+} from "../../hooks/useTeam";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 
-export const Teacher_SelectedClassSection = () => {
+export const Teacher_SelectedTeamSection = () => {
 	const [showModal, setShowModal] = useState(false);
 	const handleCloseModal = () => setShowModal(false);
 	const navigate = useNavigate();
 
 	const { id } = useParams();
-	const updateClass = useUpdateClass();
-	const deleteClass = useDeleteClass();
-	const [classData, setClassData] = useState(null);
-	const fetchClassData = useFetchClass(id);
+	const updateTeam = useUpdateTeam();
+	const deleteTeam = useDeleteTeam();
+	const [teamData, setTeamData] = useState(null);
+	const fetchedTeamData = useFetchTeam(id);
 
-	const [updateClassData, setUpdateClassData] = useState({
+	const [updateTeamData, setUpdateTeamData] = useState({
 		id: "",
 		name: "",
-		course_name: "",
-		year_level: "",
-		section: "",
+		team_class: "",
 	});
 
 	useEffect(() => {
-		if (fetchClassData) {
-			setClassData(fetchClassData);
+		if (fetchedTeamData) {
+			setTeamData(fetchedTeamData);
 		}
-	}, [fetchClassData]);
+	}, [fetchedTeamData]);
 
 	useEffect(() => {
-		if (classData) {
-			setUpdateClassData({
-				...classData,
+		if (teamData) {
+			setUpdateTeamData({
+				...teamData,
 			});
 		}
-	}, [classData, showModal]);
+	}, [teamData, showModal]);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
-		setUpdateClassData({
-			...updateClassData,
+		setUpdateTeamData({
+			...updateTeamData,
 			[name]: value,
 		});
 	};
@@ -53,17 +51,17 @@ export const Teacher_SelectedClassSection = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const response = await updateClass(id, updateClassData);
+			const response = await updateTeam(id, updateTeamData);
 
 			// must add a conditional statement to check if response is successful
 			// like if status 200 then goods
 
 			// if response is successfully updated, then:
 			if (response) {
-				setClassData(updateClassData);
+				setTeamData(updateTeamData);
 				handleCloseModal();
 
-				console.log("Successfully updated class!");
+				console.log("Successfully updated team!");
 			}
 		} catch (error) {
 			console.error(error);
@@ -77,38 +75,38 @@ export const Teacher_SelectedClassSection = () => {
 
 	const handleDelete = async (e) => {
 		e.preventDefault();
+		console.log("Delete");
 
 		// todo: add a modal to confirm deletion
 
 		try {
-			const response = await deleteClass(id);
+			const response = await deleteTeam(id);
 
 			if (response) {
 				console.log("Successfully deleted team!");
-				navigate("/teacher/classes");
+				navigate("/teacher/teams");
 			}
 		} catch (error) {
 			console.error(error);
 		}
 	};
+
 	return (
 		<div className='container-md'>
 			<div className='container-md d-flex flex-column gap-3 mt-5 pr-3 pl-3'>
 				<div className='d-flex flex-row justify-content-between'>
-					<h4 className='fw-bold'>Classes</h4>
+					<h4 className='fw-bold'>Teams</h4>
 				</div>
 				<hr className='text-dark' />
 				<div>
-					{classData ? (
+					{teamData ? (
 						<div>
-							<p>Name: {classData.name}</p>
-							<p>Course Name: {classData.course_name}</p>
-							<p>Year Level: {classData.year_level}</p>
-							<p>Section: {classData.section}</p>
-							<p>Date Created: {classData.date_created}</p>
+							<p>Id: {teamData.id}</p>
+							<p>Name: {teamData.name}</p>
+							<p>Team Class: {teamData.team_class}</p>
 						</div>
 					) : (
-						<p>Loading class details...</p>
+						<p>Loading team details...</p>
 					)}
 				</div>
 				<button
@@ -124,9 +122,10 @@ export const Teacher_SelectedClassSection = () => {
 					Delete
 				</button>
 			</div>
-			<Modal show={showModal} onHide={handleCloseModal} size='lg' centered>
+
+			<Modal size='lg' centered show={showModal} onHide={handleCloseModal}>
 				<Modal.Header closeButton>
-					<Modal.Title className='fs-6 fw-bold'>Create Class</Modal.Title>
+					<Modal.Title className='fs-6 fw-bold'>Edit Team</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<Form className='d-flex flex-column gap-3 '>
@@ -135,34 +134,17 @@ export const Teacher_SelectedClassSection = () => {
 							<Form.Control
 								type='text'
 								name='name'
-								value={updateClassData?.name}
+								value={updateTeamData?.name}
 								onChange={handleChange}
 							/>
 						</Form.Group>
-						<Form.Group controlId='course-name-input'>
-							<Form.Label>Course Name</Form.Label>
+
+						<Form.Group controlId='name-input'>
+							<Form.Label>Team Class</Form.Label>
 							<Form.Control
 								type='text'
-								name='course_name'
-								value={updateClassData?.course_name}
-								onChange={handleChange}
-							/>
-						</Form.Group>
-						<Form.Group controlId='year-level-input'>
-							<Form.Label>Year Level</Form.Label>
-							<Form.Control
-								type='number'
-								name='year_level'
-								value={updateClassData?.year_level}
-								onChange={handleChange}
-							/>
-						</Form.Group>
-						<Form.Group controlId='section-input'>
-							<Form.Label>Section</Form.Label>
-							<Form.Control
-								type='text'
-								name='section'
-								value={updateClassData?.section}
+								name='team_class'
+								value={updateTeamData?.team_class}
 								onChange={handleChange}
 							/>
 						</Form.Group>
@@ -179,7 +161,7 @@ export const Teacher_SelectedClassSection = () => {
 						className='btn btn-secondary btn-block fw-bold'
 						onClick={handleSubmit}
 					>
-						Submit
+						Edit
 					</button>
 				</Modal.Footer>
 			</Modal>

@@ -28,8 +28,8 @@ export const Classes = apiSlice.injectEndpoints({
 			}),
 		}),
 		updateClass: builder.mutation({
-			query: (id, data) => ({
-				url: `/api/classes/${id}/`,
+			query: (data) => ({
+				url: `/api/classes/${data.id}/`,
 				method: "PUT",
 				body: { ...data },
 			}),

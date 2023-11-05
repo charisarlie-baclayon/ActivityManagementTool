@@ -28,8 +28,8 @@ export const Teams = apiSlice.injectEndpoints({
 			}),
 		}),
 		updateTeam: builder.mutation({
-			query: (id, data) => ({
-				url: `/api/teams/${id}/`,
+			query: (data) => ({
+				url: `/api/teams/${data.id}/`,
 				method: "PUT",
 				body: { ...data },
 			}),
