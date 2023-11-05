@@ -1,91 +1,220 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { selectCurrentToken } from "../features/auth/authSlice";
-import { readActivity, readActivities, createActivity, deleteActivity, updateActivity } from "../api/Activity";
+import {
+	useCreateActivityMutation,
+	useCreateActivityFromTemplateMutation,
+	useAddEvaluationToActivityMutation,
+	useDeleteEvaluationFromActivityMutation,
+	useSubmitActivityMutation,
+	useGetActivitiesByClassMutation,
+	useGetSubmittedActivitiesByClassMutation,
+	useGetSubmittedActivitiesByTeamMutation,
+	useGetActivitiesByTeamMutation,
+} from "../api/Activity";
 
-export function useFetchActivity(id) {
-    const [activityData, setActivityData] = useState(null);
-    const accessToken = useSelector(selectCurrentToken);
-    
-    useEffect(() => {
-        const fetchActivity = async () => {
-            try {
-                const response = await readActivity(id, accessToken);
-                setActivityData(response);
-            } catch (error) {
-                console.error("Error fetching activity data:", error);
-            }
-        };
-    
-        if (id) {
-            fetchActivity();
-        }
-    }, [id, accessToken]);
-    
-    return activityData;
-}
+//#region CREATE ACTIVITY
 
-export function useFetchActivities() {
-    const [activities, setActivities] = useState([]);
-    const accessToken = useSelector(selectCurrentToken);
-
-    useEffect (() => {
-        const fetchActivities = async () => {
-            try {
-                const response = await readActivities(accessToken);
-                setActivities(response);
-            } catch (error) {
-                console.log(error.response);
-            }
-        };
-
-        fetchActivities();
-    }, [accessToken]);
-
-    return activities;
-}
-
+/**
+ * @description Hook to create a new activity.
+ * @returns {function} createNewActivity - Function to create a new activity.
+ */
 export function useCreateActivity() {
-    const accessToken = useSelector(selectCurrentToken);
+	const [createActivity] = useCreateActivityMutation();
 
-    const createNewActivity = async (data) => {
-        try {
-            const response = await createActivity(data, accessToken);
-            return response;
-        } catch (error) {
-            console.error("Error creating activity:", error);
-        }
-    };
+	const createNewActivity = async (data) => {
+		try {
+			const response = await createActivity({ ...data });
+			return response;
+		} catch (error) {
+			console.error("Error creating activity:", error);
+		}
+	};
 
-    return createNewActivity;
+	return createNewActivity;
 }
 
-export function useUpdateActivity() {
-    const accessToken = useSelector(selectCurrentToken);
+/**
+ * @description Hook to create a new activity from a template.
+ * @returns {function} createNewActivity - Function to create a new activity from a template.
+ */
+export function useCreateActivityfromTemplate() {
+	const [createActivityFromTemplate] = useCreateActivityFromTemplateMutation();
 
-    const updateExistingActivity = async (id, data) => {
-        try {
-            const response = await updateActivity(id, data, accessToken);
-            return response;
-        } catch (error) {
-            console.error("Error updating activity:", error);
-        }
-    };
+	const createNewActivity = async (data) => {
+		try {
+			const response = await createActivityFromTemplate({ ...data });
+			return response;
+		} catch (error) {
+			console.error("Error creating activity:", error);
+		}
+	};
 
-    return updateExistingActivity;
+	return createNewActivity;
 }
 
+/**
+ * @description Hook to add an evaluation to an activity.
+ * @returns {function} addEvaluation - Function to add an evaluation to an activity.
+ */
+export function useAddEvaluationToActivity() {
+	const [addEvaluationToActivity] = useAddEvaluationToActivityMutation();
+
+	const addEvaluation = async (id, data) => {
+		try {
+			const response = await addEvaluationToActivity(id, { ...data });
+			return response;
+		} catch (error) {
+			console.error("Error adding evaluation to activity:", error);
+		}
+	};
+
+	return addEvaluation;
+}
+
+/**
+ * @description Hook to submit an activity.
+ * @returns {function} submitTheActivity - Function to submit an activity.
+ */
+export function useSubmitActivity() {
+	const [submitActivity] = useSubmitActivityMutation();
+
+	const submitTheActivity = async (id) => {
+		try {
+			const response = await submitActivity(id);
+			return response;
+		} catch (error) {
+			console.error("Error updating activity:", error);
+		}
+	};
+
+	return submitTheActivity;
+}
+//# endregion CREATE ACTIVITY
+
+//#region GET ACTIVITY
+
+/**
+ * @description Hook to get all activities from a team.
+ * @param {} id  - ID of the team.
+ * @returns {object} activity - Object containing all activities from a team.
+ */
+export function useGetActivityByTeam(id) {
+	const [getActivitiesByTeam] = useGetActivitiesByTeamMutation();
+	const [activity, setActivity] = useState(null);
+
+	useEffect(() => {
+		const fetchActivity = async () => {
+			try {
+				const response = await getActivitiesByTeam(id);
+				setActivity(response.data);
+			} catch (error) {
+				console.error("Error fetching activity data:", error);
+			}
+		};
+
+		fetchActivity();
+	}, [id, getActivitiesByTeam]);
+
+	return activity;
+}
+
+/**
+ * @description Hook to get all activities from a class.
+ * @param {*} id
+ * @returns {object} activity - Object containing all activities from a class.
+ */
+export function useGetActivitiesByClass(id) {
+	const [getActivitiesByClass] = useGetActivitiesByClassMutation();
+	const [activities, setActivities] = useState(null);
+
+	useEffect(() => {
+		const fetchActivities = async () => {
+			try {
+				const response = await getActivitiesByClass(id);
+				setActivities(response.data);
+			} catch (error) {
+				console.error("Error fetching activities data:", error);
+			}
+		};
+
+		fetchActivities();
+	}, [id, getActivitiesByClass]);
+
+	return activities;
+}
+
+/**
+ * @description Hook to get all submitted activities from a team.
+ * @param {} id
+ * @returns {object} activities - Object containing all submitted activities from a team.
+ */
+export function useGetSubmittedActivitiesByTeam(id) {
+	const [getSubmittedActivitiesByTeam] =
+		useGetSubmittedActivitiesByTeamMutation();
+	const [activities, setActivities] = useState(null);
+
+	useEffect(() => {
+		const fetchActivities = async () => {
+			try {
+				const response = await getSubmittedActivitiesByTeam(id);
+				setActivities(response.data);
+			} catch (error) {
+				console.error("Error fetching submitted activity data:", error);
+			}
+		};
+
+		fetchActivities();
+	}, [id, getSubmittedActivitiesByTeam]);
+
+	return activities;
+}
+
+/**
+ * @description Hook to get all submitted activities from a class.
+ * @param {*} id
+ * @returns {object} activities - Object containing all submitted activities from a class.
+ */
+export function useGetSubmittedActivitiesByClass(id) {
+	const [getSubmittedActivitiesByClass] =
+		useGetSubmittedActivitiesByClassMutation();
+	const [activities, setActivities] = useState(null);
+
+	useEffect(() => {
+		const fetchActivities = async () => {
+			try {
+				const response = await getSubmittedActivitiesByClass(id);
+				setActivities(response.data);
+			} catch (error) {
+				console.error("Error fetching submitted activities data:", error);
+			}
+		};
+
+		fetchActivities();
+	}, [id, getSubmittedActivitiesByClass]);
+
+	return activities;
+}
+//#endregion GET ACTIVITY
+
+//#region DELETE ACTIVITY
+
+/**
+ * @description Hook to delete an activity.
+ * @returns {function} deleteActivityById - Function to delete an activity.
+ */
 export function useDeleteActivity() {
-    const accessToken = useSelector(selectCurrentToken);
+	const [deleteEvaluationFromActivity] =
+		useDeleteEvaluationFromActivityMutation();
 
-    const deleteActivityById = async (id) => {
-        try {
-            const response = await deleteActivity(id, accessToken);
-            return response;
-        } catch (error) {
-            console.error("Error deleting activity:", error);
-        }
-    };
+	const deleteActivityById = async (id) => {
+		try {
+			const response = await deleteEvaluationFromActivity(id);
+			return response;
+		} catch (error) {
+			console.error("Error deleting activity:", error);
+		}
+	};
 
-    return deleteActivityById;
+	return deleteActivityById;
 }
+
+//#endregion DELETE ACTIVITY
