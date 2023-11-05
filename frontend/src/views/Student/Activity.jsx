@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import { ActivityPopup } from "../../components/popups/activity/teacher-view-activity";
 import { CreateActivityPopup } from "../../components/popups/activity/teacher-create-activity";
 import { ActivityCard } from "../../components/Cards/Card.Activity";
-import { useFetchActivities } from "../../hooks/useActivity";
+//import { useFetchActivities } from "../../hooks/useActivity";
 
 export const Student_ActivitySection = () => {
   const navigate = useNavigate();
-  const activity = useFetchActivities();
+  //const activity = useFetchActivities();
   const [searchInput, setSearchInput] = useState("");
 
   const [showModal, setShowModal] = useState(false);
