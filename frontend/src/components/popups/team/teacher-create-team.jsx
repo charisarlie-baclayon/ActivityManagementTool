@@ -6,7 +6,7 @@ import { useFetchClasses } from "../../../hooks/useClass"; // Import the hook fo
 
 export const CreateTeamPopup = ({ show, handleClose }) => {
 	const createNewTeam = useCreateTeam();
-	const classes = useFetchClasses(); // Fetch the list of classes
+	const classes = useFetchClasses() || []; // Fetch the list of classes
 
 	const [teamData, setTeamData] = useState({
 		name: "",

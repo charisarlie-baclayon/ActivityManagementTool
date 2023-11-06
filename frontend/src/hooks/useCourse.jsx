@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import {
-    useReadCoursesQuery,
-    useReadCourseQuery,
+    useReadCoursesMutation,
+    useReadCourseMutation,
     useCreateCourseMutation,
     useDeleteCourseMutation,
     useUpdateCourseMutation,
 } from "../api/Course";
 
 export function useFetchCourse(id) {
-    const [readCourse] = useReadCourseQuery();
+    const [readCourse] = useReadCourseMutation();
     const [courseData, setCourseData] = useState(null);
 
     useEffect(() => {
@@ -27,7 +27,7 @@ export function useFetchCourse(id) {
 }
 
 export function useFetchCourses() {
-    const [readCourses] = useReadCoursesQuery();
+    const [readCourses] = useReadCoursesMutation();
     const [courses, setCourses] = useState([]);
 
     useEffect(() => {

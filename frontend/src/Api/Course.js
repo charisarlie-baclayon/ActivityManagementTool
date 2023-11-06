@@ -2,11 +2,11 @@ import { apiSlice } from "./apiSlice";
 
 export const Course = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-        readCourses: builder.query({
+        readCourses: builder.mutation({
             query: () => "/api/courses/",
         }),
 
-        readCourse: builder.query({
+        readCourse: builder.mutation({
             query: (id) => `/api/courses/${id}/`,
         }),
 
@@ -36,8 +36,8 @@ export const Course = apiSlice.injectEndpoints({
 });
 
 export const {
-    useReadCoursesQuery,
-    useReadCourseQuery,
+    useReadCoursesMutation,
+    useReadCourseMutation,
     useCreateCourseMutation,
     useDeleteCourseMutation,
     useUpdateCourseMutation,
