@@ -46,6 +46,46 @@ export function useFetchClasses() {
 	return classes;
 }
 
+export function useFetchClassesBySection(section) {
+	const [readClasses] = useReadClassesBySectionMutation();
+	const [classes, setClasses] = useState([]);
+
+	useEffect(() => {
+		const fetchClasses = async () => {
+			try {
+				const response = await readClasses(section);
+				setClasses(response.data);
+			} catch (error) {
+				console.error("Error fetching classes data:", error);
+			}
+		};
+
+		fetchClasses();
+	}, [readClasses, section]);
+
+	return classes;
+}
+
+export function useFetchClassesByCourse(course_id) {
+	const [readClasses] = useReadClassesByCourseMutation();
+	const [classes, setClasses] = useState([]);
+
+	useEffect(() => {
+		const fetchClasses = async () => {
+			try {
+				const response = await readClasses(course_id);
+				setClasses(response.data);
+			} catch (error) {
+				console.error("Error fetching classes data:", error);
+			}
+		};
+
+		fetchClasses();
+	}, [readClasses, course_id]);
+
+	return classes;
+}
+
 export function useCreateClass() {
 	const [createClass] = useCreateClassMutation();
 
