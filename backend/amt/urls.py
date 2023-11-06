@@ -18,6 +18,7 @@ router.register(r'classes', ClassController, basename='class')
 router.register(r'teachers', TeacherController, basename='teacher')
 router.register(r'teams', TeamController, basename='team')
 router.register(r'students', StudentController, basename='student')
+router.register(r'courses', CourseController, basename='course')
 
 urlpatterns = [
     # path('activities/', ActivityController.as_view({

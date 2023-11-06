@@ -29,7 +29,7 @@ export function useFetchStudent(id) {
         if (id) {
             fetchStudent();
         }
-    }, [id, accessToken]);
+    }, [id, accessToken, readStudent]);
 
     return studentData;
 }
@@ -43,14 +43,14 @@ export function useFetchStudents() {
         const fetchStudents = async () => {
             try {
                 const response = await readStudents(accessToken);
-                setStudents(response);
+                setStudents(response.data);
             } catch (error) {
                 console.log(error.response);
             }
         };
 
         fetchStudents();
-    }, [accessToken]);
+    }, [accessToken, readStudents]);
 
     return students;
 }
@@ -64,14 +64,14 @@ export function useFetchStudentsByTeam(id) {
         const fetchStudentsByTeam = async () => {
             try {
                 const response = await readStudentsByTeam(id, accessToken);
-                setStudents(response);
+                setStudents(response.data);
             } catch (error) {
                 console.log(error.response);
             }
         };
 
         fetchStudentsByTeam();
-    }, [accessToken]);
+    }, [accessToken, readStudentsByTeam]);
 
     return students;
 }
