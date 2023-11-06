@@ -5,6 +5,8 @@ import {
 	useCreateClassMutation,
 	useDeleteClassMutation,
 	useUpdateClassMutation,
+	useReadClassesBySectionMutation,
+	useReadClassesByCourseMutation,
 } from "../api/Classes";
 
 export function useFetchClass(id) {
