@@ -11,7 +11,7 @@ from amt.permissions.permissions import IsTeacher
 from amt.models import Activity
 from amt.models import Team
 from amt.models import Template
-from amt.models import Class
+from amt.models import Class, Course
 from amt.serializers import ActivitySerializer
 from amt.serializers import TemplateSerializer
 
@@ -283,7 +283,71 @@ class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cre
 
         serializer = ActivitySerializer(activity)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    @action(detail=False, methods=['GET'])
+    def get_activities_by_course(self, request):
+        course_id = request.query_params.get('course_id')
 
+        if course_id is None:
+            return Response(
+                {"error": "The 'course_id' query parameter is required."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            # Fetch the course based on the provided 'course_id'
+            course_instance = Course.objects.get(pk=course_id)
+
+            # Get all classes belonging to the specified course
+            classes_in_course = Class.objects.filter(course=course_instance)
+
+            # Get all teams in those classes
+            teams_in_classes = Team.objects.filter(team_class__in=classes_in_course)
+
+            # Get all activities in teams of those classes
+            activities = Activity.objects.filter(activity_team__in=teams_in_classes)
+
+            serializer = ActivitySerializer(activities, many=True)
+
+            return Response(serializer.data)
+        except Course.DoesNotExist:
+            return Response(
+                {"error": f"Course with ID {course_id} not found."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+    @action(detail=False, methods=['GET'])
+    def get_submitted_activities_by_course(self, request):
+        course_id = request.query_params.get('course_id')
+
+        if course_id is None:
+            return Response(
+                {"error": "The 'course_id' query parameter is required."},
+                status=status.HTTP_BAD_REQUEST
+            )
+
+        try:
+            # Fetch the course based on the provided 'course_id'
+            course_instance = Course.objects.get(pk=course_id)
+
+            # Get all classes belonging to the specified course
+            classes_in_course = Class.objects.filter(course=course_instance)
+
+            # Get all teams in those classes
+            teams_in_classes = Team.objects.filter(team_class__in=classes_in_course)
+
+            # Get all submitted activities in teams of those classes
+            submitted_activities = Activity.objects.filter(
+                activity_team__in=teams_in_classes, submission_status=True
+            )
+
+            serializer = ActivitySerializer(submitted_activities, many=True)
+
+            return Response(serializer.data)
+        except Course.DoesNotExist:
+            return Response(
+                {"error": f"Course with ID {course_id} not found."},
+                status=status.HTTP_NOT_FOUND
+            )
 
 
 
