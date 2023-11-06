@@ -42,18 +42,18 @@ function App() {
 			</Route>
 
 
-      <Route element={<PrivateRoutes />}>
-        <Route path='student' element={<Student />}>
-          <Route index element={<Student_HomeSection />} />
-          <Route path='home' element={<Student_HomeSection />} />
-          <Route path='activities' element={<Student_ActivitySection />} />
-          <Route
-            path='activities/new' 
-            element={<Student_CreateActivity />} 
-          />
-          <Route path='teams' element={<Student_TeamSection />} />
-        </Route>
-      </Route>
+			<Route element={<PrivateRoutes />}>
+				<Route path='student' element={<Student />}>
+					<Route index element={<Student_HomeSection />} />
+					<Route path='home' element={<Student_HomeSection />} />
+					<Route path='activities' element={<Student_ActivitySection />} />
+					<Route
+						path='activities/new'
+						element={<Student_CreateActivity />}
+					/>
+					<Route path='teams' element={<Student_TeamSection />} />
+				</Route>
+			</Route>
 
 			<Route path='*' element={<NotFound />} />
 		</Routes>

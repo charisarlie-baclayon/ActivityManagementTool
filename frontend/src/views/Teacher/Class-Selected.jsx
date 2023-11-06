@@ -8,6 +8,7 @@ import {
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
+import { FiChevronLeft } from "react-icons/fi";
 
 export const Teacher_SelectedClassSection = () => {
 	const [showModal, setShowModal] = useState(false);
@@ -95,13 +96,31 @@ export const Teacher_SelectedClassSection = () => {
 		<div className='container-md'>
 			<div className='container-md d-flex flex-column gap-3 mt-5 pr-3 pl-3'>
 				<div className='d-flex flex-row justify-content-between'>
-					<h4 className='fw-bold'>Classes</h4>
+					<div className="d-flex flex-row align-items-center gap-2">
+						<span className="nav-item nav-link" onClick={() => { history.back() }}>
+							<FiChevronLeft />
+						</span>
+						<h4 className="fw-bold m-0">{classData ? classData.name : "Loading..."}</h4>
+					</div>
+					<div className="d-flex flex-row gap-3 ">
+						<button
+							className='btn btn-outline-secondary btn-block fw-bold bw-3 m-0 '
+							onClick={handleEdit}
+						>
+							Edit Class
+						</button>
+						<button
+							className='btn btn-danger btn-block fw-bold bw-3 m-0 '
+							onClick={handleDelete}
+						>
+							Delete Class
+						</button>
+					</div>
 				</div>
 				<hr className='text-dark' />
 				<div>
 					{classData ? (
 						<div>
-							<p>Name: {classData.name}</p>
 							<p>Course Name: {classData.course_name}</p>
 							<p>Year Level: {classData.year_level}</p>
 							<p>Section: {classData.section}</p>
@@ -111,18 +130,6 @@ export const Teacher_SelectedClassSection = () => {
 						<p>Loading class details...</p>
 					)}
 				</div>
-				<button
-					className='btn btn-secondary btn-block fw-bold bw-3'
-					onClick={handleEdit}
-				>
-					Edit
-				</button>
-				<button
-					className='btn btn-primary btn-block fw-bold bw-3'
-					onClick={handleDelete}
-				>
-					Delete
-				</button>
 			</div>
 			<Modal show={showModal} onHide={handleCloseModal} size='lg' centered>
 				<Modal.Header closeButton>

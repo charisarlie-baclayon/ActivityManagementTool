@@ -6,7 +6,7 @@ import { readTeacher, readTeachers, createTeacher, deleteTeacher, updateTeacher 
 export function useFetchTeacher(id) {
     const [teacherData, setTeacherData] = useState(null);
     const accessToken = useSelector(selectCurrentToken);
-    
+
     useEffect(() => {
         const fetchTeacher = async () => {
             try {
@@ -16,12 +16,12 @@ export function useFetchTeacher(id) {
                 console.error("Error fetching teacher data:", error);
             }
         };
-    
+
         if (id) {
             fetchTeacher();
         }
     }, [id, accessToken]);
-    
+
     return teacherData;
 }
 
@@ -29,7 +29,7 @@ export function useFetchTeachers() {
     const [teachers, setTeachers] = useState([]);
     const accessToken = useSelector(selectCurrentToken);
 
-    useEffect (() => {
+    useEffect(() => {
         const fetchTeachers = async () => {
             try {
                 const response = await readTeachers(accessToken);

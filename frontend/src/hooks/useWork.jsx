@@ -6,7 +6,7 @@ import { readWork, readWorks, createWork, deleteWork, updateWork } from "../api/
 export function useFetchWork(id) {
     const [workData, setWorkData] = useState(null);
     const accessToken = useSelector(selectCurrentToken);
-    
+
     useEffect(() => {
         const fetchWork = async () => {
             try {
@@ -16,12 +16,12 @@ export function useFetchWork(id) {
                 console.error("Error fetching work data:", error);
             }
         };
-    
+
         if (id) {
             fetchWork();
         }
     }, [id, accessToken]);
-    
+
     return workData;
 }
 
@@ -29,7 +29,7 @@ export function useFetchWorks() {
     const [works, setWorks] = useState([]);
     const accessToken = useSelector(selectCurrentToken);
 
-    useEffect (() => {
+    useEffect(() => {
         const fetchWorks = async () => {
             try {
                 const response = await readWorks(accessToken);

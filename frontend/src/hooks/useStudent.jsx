@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentToken } from "../features/auth/authSlice";
-import { 
+import {
     useReadStudentsMutation,
     useReadStudentsByTeamMutation,
     useReadStudentMutation,
@@ -15,7 +15,7 @@ export function useFetchStudent(id) {
     const [readStudent] = useReadStudentMutation();
     const [studentData, setStudentData] = useState(null);
     const accessToken = useSelector(selectCurrentToken);
-    
+
     useEffect(() => {
         const fetchStudent = async () => {
             try {
@@ -25,12 +25,12 @@ export function useFetchStudent(id) {
                 console.error("Error fetching student data:", error);
             }
         };
-    
+
         if (id) {
             fetchStudent();
         }
     }, [id, accessToken]);
-    
+
     return studentData;
 }
 
@@ -39,7 +39,7 @@ export function useFetchStudents() {
     const [students, setStudents] = useState([]);
     const accessToken = useSelector(selectCurrentToken);
 
-    useEffect (() => {
+    useEffect(() => {
         const fetchStudents = async () => {
             try {
                 const response = await readStudents(accessToken);
@@ -60,10 +60,10 @@ export function useFetchStudentsByTeam(id) {
     const [students, setStudents] = useState([]);
     const accessToken = useSelector(selectCurrentToken);
 
-    useEffect (() => {
+    useEffect(() => {
         const fetchStudentsByTeam = async () => {
             try {
-                const response = await readStudentsByTeam(id,accessToken);
+                const response = await readStudentsByTeam(id, accessToken);
                 setStudents(response);
             } catch (error) {
                 console.log(error.response);

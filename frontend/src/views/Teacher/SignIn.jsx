@@ -43,11 +43,11 @@ export const Teacher_SignIn = () => {
 			const loginUser = await login({ email, password }).unwrap();
 
 			if (loginUser) {
-				if(loginUser.role !== "teacher") {
+				if (loginUser.role !== "teacher") {
 					alert("Unauthorized: You are not authorized to access this resource.");
 					return;
 				}
-        
+
 				const response = await acquireToken({
 					email,
 					password,
@@ -61,7 +61,7 @@ export const Teacher_SignIn = () => {
 				);
 				setEmail("");
 				setPassword("");
-				navigate("/student/home");
+				navigate("/teacher/home", { replace: true });
 			}
 		} catch (error) {
 			if (!error?.originalStatus) {
