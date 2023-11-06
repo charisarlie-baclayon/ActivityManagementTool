@@ -1,56 +1,33 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentToken } from "../features/auth/authSlice";
-import { readComment, readComments, createComment, deleteComment, updateComment } from "../api/Comments";
+import {
+    useReadCommentQuery,
+    useReadCommentsQuery,
+    useCreateCommentMutation,
+    useDeleteCommentMutation,
+    useUpdateCommentMutation,
+    useReadCommentsForActivityQuery,
+} from "../api/Comment";
 
 export function useFetchComment(id) {
-    const [commentData, setCommentData] = useState(null);
-    const accessToken = useSelector(selectCurrentToken);
-
-    useEffect(() => {
-        const fetchComment = async () => {
-            try {
-                const response = await readComment(id, accessToken);
-                setCommentData(response);
-            } catch (error) {
-                console.error("Error fetching comment data:", error);
-            }
-        };
-
-        if (id) {
-            fetchComment();
-        }
-    }, [id, accessToken]);
+    const { data: commentData } = useReadCommentQuery(id, { skip: !id });
 
     return commentData;
 }
 
 export function useFetchComments() {
-    const [comments, setComments] = useState([]);
-    const accessToken = useSelector(selectCurrentToken);
+    const { data: comments } = useReadCommentsQuery();
 
-    useEffect(() => {
-        const fetchComments = async () => {
-            try {
-                const response = await readComments(accessToken);
-                setComments(response);
-            } catch (error) {
-                console.log(error.response);
-            }
-        };
-
-        fetchComments();
-    }, [accessToken]);
-
-    return comments;
+    return comments || [];
 }
 
 export function useCreateComment() {
-    const accessToken = useSelector(selectCurrentToken);
+    const [createComment] = useCreateCommentMutation();
 
     const createNewComment = async (data) => {
         try {
-            const response = await createComment(data, accessToken);
+            const response = await createComment(data);
             return response;
         } catch (error) {
             console.error("Error creating comment:", error);
@@ -61,11 +38,11 @@ export function useCreateComment() {
 }
 
 export function useUpdateComment() {
-    const accessToken = useSelector(selectCurrentToken);
+    const [updateComment] = useUpdateCommentMutation();
 
     const updateExistingComment = async (id, data) => {
         try {
-            const response = await updateComment(id, data, accessToken);
+            const response = await updateComment({ id, ...data });
             return response;
         } catch (error) {
             console.error("Error updating comment:", error);
@@ -76,11 +53,11 @@ export function useUpdateComment() {
 }
 
 export function useDeleteComment() {
-    const accessToken = useSelector(selectCurrentToken);
+    const [deleteComment] = useDeleteCommentMutation();
 
     const deleteCommentById = async (id) => {
         try {
-            const response = await deleteComment(id, accessToken);
+            const response = await deleteComment(id);
             return response;
         } catch (error) {
             console.error("Error deleting comment:", error);
@@ -88,4 +65,12 @@ export function useDeleteComment() {
     };
 
     return deleteCommentById;
+}
+
+export function useFetchCommentsForActivity(activity_id) {
+    const { data: commentsForActivity } = useReadCommentsForActivityQuery(
+        { activity_id }
+    );
+
+    return commentsForActivity || [];
 }
