@@ -8,3 +8,4 @@ from .TeamSerializer import *
 from .StudentSerializer import *
 from .UserSerializer import *
 from .AuthTokenSerializer import *
+from .CourseSerializer import *

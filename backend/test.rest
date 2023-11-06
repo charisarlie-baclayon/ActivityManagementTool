@@ -50,7 +50,7 @@ POST http://127.0.0.1:8000/tokens/acquire
 Content-Type:application/json
 
 {
-    "email": "student@email.com",
+    "email": "teacher@email.com",
     "password" : "123"
 }
 
@@ -176,34 +176,34 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 ### CREATE CLASS
 POST http://127.0.0.1:8000/api/classes/
 Content-Type:application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk4OTAxMzMzLCJpYXQiOjE2OTg4OTc3MzMsImp0aSI6ImU0MmU0MGYxNDg1ZjQyY2E5NGExOGUxNTg3NTAxNTU0IiwidXNlcl9pZCI6MSwiZW1haWwiOiJ0ZWFjaGVyQGVtYWlsLmNvbSJ9.UzE0Z1-62Pmy1U8RNOh4JiuvVnuNeSP-7kgR3F99AJo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk5MjU0NjIxLCJpYXQiOjE2OTkyNTEwMjEsImp0aSI6IjNhNmFhODBkY2M2ZDQ4YWZiODdjYTczMmI0Zjg2MzMyIiwidXNlcl9pZCI6MSwiZW1haWwiOiJ0ZWFjaGVyQGVtYWlsLmNvbSJ9.hspTKjOEL6MmemzqENjcmskiusdsdz3hK-VwirosG5Q
 
 {
     "name" : "F1",
-    "course_name" : "BSCS123",
+    "course" : 1,
     "year_level" : "3",
     "section" : "F1"
 }
 
 ### GET CLASS/ES
-GET http://127.0.0.1:8000/api/classes/1/
+GET http://127.0.0.1:8000/api/classes/
 Content-Type:application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk4OTA1ODcwLCJpYXQiOjE2OTg5MDIyNzAsImp0aSI6ImM1OTZmYWM1YmU1ZTQ3NTc5ZDVhMGMwYjc1N2Y1ZjYwIiwidXNlcl9pZCI6MSwiZW1haWwiOiJ0ZWFjaGVyQGVtYWlsLmNvbSJ9.eMgfGO4i7tZFoGPdGZT1heAht3JjYWk-NZcYRhBDy5k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk5MjU0NjIxLCJpYXQiOjE2OTkyNTEwMjEsImp0aSI6IjNhNmFhODBkY2M2ZDQ4YWZiODdjYTczMmI0Zjg2MzMyIiwidXNlcl9pZCI6MSwiZW1haWwiOiJ0ZWFjaGVyQGVtYWlsLmNvbSJ9.hspTKjOEL6MmemzqENjcmskiusdsdz3hK-VwirosG5Q
 
 ### GET ACTIVITY BY CLASS
-GET http://127.0.0.1:8000/api/activities/get_activities_by_class/?class_id=2
+GET http://127.0.0.1:8000/api/activities/get_activities_by_class/?class_id=1
 Content-Type:application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk4OTA1ODcwLCJpYXQiOjE2OTg5MDIyNzAsImp0aSI6ImM1OTZmYWM1YmU1ZTQ3NTc5ZDVhMGMwYjc1N2Y1ZjYwIiwidXNlcl9pZCI6MSwiZW1haWwiOiJ0ZWFjaGVyQGVtYWlsLmNvbSJ9.eMgfGO4i7tZFoGPdGZT1heAht3JjYWk-NZcYRhBDy5k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk5MjU0NjIxLCJpYXQiOjE2OTkyNTEwMjEsImp0aSI6IjNhNmFhODBkY2M2ZDQ4YWZiODdjYTczMmI0Zjg2MzMyIiwidXNlcl9pZCI6MSwiZW1haWwiOiJ0ZWFjaGVyQGVtYWlsLmNvbSJ9.hspTKjOEL6MmemzqENjcmskiusdsdz3hK-VwirosG5Q
 
 ### GET  SUBMITTED ACTIVITY BY CLASS
 GET http://127.0.0.1:8000/api/activities/get_submitted_activities_by_class/?class_id=1
 Content-Type:application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk4OTA1ODcwLCJpYXQiOjE2OTg5MDIyNzAsImp0aSI6ImM1OTZmYWM1YmU1ZTQ3NTc5ZDVhMGMwYjc1N2Y1ZjYwIiwidXNlcl9pZCI6MSwiZW1haWwiOiJ0ZWFjaGVyQGVtYWlsLmNvbSJ9.eMgfGO4i7tZFoGPdGZT1heAht3JjYWk-NZcYRhBDy5k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk5MjU0NjIxLCJpYXQiOjE2OTkyNTEwMjEsImp0aSI6IjNhNmFhODBkY2M2ZDQ4YWZiODdjYTczMmI0Zjg2MzMyIiwidXNlcl9pZCI6MSwiZW1haWwiOiJ0ZWFjaGVyQGVtYWlsLmNvbSJ9.hspTKjOEL6MmemzqENjcmskiusdsdz3hK-VwirosG5Q
 
 ###GET ACTIVITY BY TEAM
 GET http://127.0.0.1:8000/api/activities/get_submitted_activities_by_team/?team_id=1
 Content-Type:application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk4OTA1ODcwLCJpYXQiOjE2OTg5MDIyNzAsImp0aSI6ImM1OTZmYWM1YmU1ZTQ3NTc5ZDVhMGMwYjc1N2Y1ZjYwIiwidXNlcl9pZCI6MSwiZW1haWwiOiJ0ZWFjaGVyQGVtYWlsLmNvbSJ9.eMgfGO4i7tZFoGPdGZT1heAht3JjYWk-NZcYRhBDy5k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk5MjU0NjIxLCJpYXQiOjE2OTkyNTEwMjEsImp0aSI6IjNhNmFhODBkY2M2ZDQ4YWZiODdjYTczMmI0Zjg2MzMyIiwidXNlcl9pZCI6MSwiZW1haWwiOiJ0ZWFjaGVyQGVtYWlsLmNvbSJ9.hspTKjOEL6MmemzqENjcmskiusdsdz3hK-VwirosG5Q
 
 ###GET SUBMITTED ACTIVITY BY TEAM
 GET http://127.0.0.1:8000/api/activities/?team_id=1
@@ -216,8 +216,24 @@ GET http://127.0.0.1:8000/api/classes/get_classes_by_section/?section=F1
 Content-Type:application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk4OTA1ODcwLCJpYXQiOjE2OTg5MDIyNzAsImp0aSI6ImM1OTZmYWM1YmU1ZTQ3NTc5ZDVhMGMwYjc1N2Y1ZjYwIiwidXNlcl9pZCI6MSwiZW1haWwiOiJ0ZWFjaGVyQGVtYWlsLmNvbSJ9.eMgfGO4i7tZFoGPdGZT1heAht3JjYWk-NZcYRhBDy5k
 
+###GET Classes by section
+GET http://127.0.0.1:8000/api/classes/get_classes_by_course/?course_id=1
+Content-Type:application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk5MjU0MzI1LCJpYXQiOjE2OTkyNTA3MjUsImp0aSI6ImZlY2MxZGJkMDRlMjRmYTZhMmQzMmM0MGRiMmVkOTViIiwidXNlcl9pZCI6MiwiZW1haWwiOiJzdHVkZW50QGVtYWlsLmNvbSJ9.x1-2ZZqIjJXBZlOgz0JXhle92e584Ln1i947N9TgwSY
+
 
 ###GET STUDENTS by TEAM
 GET http://127.0.0.1:8000/api/students/?team_id=1
 Content-Type:application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk4OTEwMTYyLCJpYXQiOjE2OTg5MDY1NjIsImp0aSI6IjA2MzkwYTE3M2JjOTRkMmNiOGVjZjQ3NjJmZGRhMTQ4IiwidXNlcl9pZCI6MiwiZW1haWwiOiJzdHVkZW50QGVtYWlsLmNvbSJ9.FuQ_LlwxeyPFhF9sDwf5A4gP1oB46Z89QKnpl25r27M
+
+###
+
+POST http://127.0.0.1:8000/api/courses/
+Content-Type:application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk5MjU0MzI1LCJpYXQiOjE2OTkyNTA3MjUsImp0aSI6ImZlY2MxZGJkMDRlMjRmYTZhMmQzMmM0MGRiMmVkOTViIiwidXNlcl9pZCI6MiwiZW1haWwiOiJzdHVkZW50QGVtYWlsLmNvbSJ9.x1-2ZZqIjJXBZlOgz0JXhle92e584Ln1i947N9TgwSY
+
+{
+    "name" : "TECHNO"
+}
+
