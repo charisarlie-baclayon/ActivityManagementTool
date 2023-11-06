@@ -216,10 +216,10 @@ GET http://127.0.0.1:8000/api/classes/get_classes_by_section/?section=F1
 Content-Type:application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk4OTA1ODcwLCJpYXQiOjE2OTg5MDIyNzAsImp0aSI6ImM1OTZmYWM1YmU1ZTQ3NTc5ZDVhMGMwYjc1N2Y1ZjYwIiwidXNlcl9pZCI6MSwiZW1haWwiOiJ0ZWFjaGVyQGVtYWlsLmNvbSJ9.eMgfGO4i7tZFoGPdGZT1heAht3JjYWk-NZcYRhBDy5k
 
-###GET Classes by section
+###GET Classes by Course
 GET http://127.0.0.1:8000/api/classes/get_classes_by_course/?course_id=1
 Content-Type:application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk5MjU0MzI1LCJpYXQiOjE2OTkyNTA3MjUsImp0aSI6ImZlY2MxZGJkMDRlMjRmYTZhMmQzMmM0MGRiMmVkOTViIiwidXNlcl9pZCI6MiwiZW1haWwiOiJzdHVkZW50QGVtYWlsLmNvbSJ9.x1-2ZZqIjJXBZlOgz0JXhle92e584Ln1i947N9TgwSY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk5MjU0NjIxLCJpYXQiOjE2OTkyNTEwMjEsImp0aSI6IjNhNmFhODBkY2M2ZDQ4YWZiODdjYTczMmI0Zjg2MzMyIiwidXNlcl9pZCI6MSwiZW1haWwiOiJ0ZWFjaGVyQGVtYWlsLmNvbSJ9.hspTKjOEL6MmemzqENjcmskiusdsdz3hK-VwirosG5Q
 
 
 ###GET STUDENTS by TEAM
@@ -227,7 +227,7 @@ GET http://127.0.0.1:8000/api/students/?team_id=1
 Content-Type:application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk4OTEwMTYyLCJpYXQiOjE2OTg5MDY1NjIsImp0aSI6IjA2MzkwYTE3M2JjOTRkMmNiOGVjZjQ3NjJmZGRhMTQ4IiwidXNlcl9pZCI6MiwiZW1haWwiOiJzdHVkZW50QGVtYWlsLmNvbSJ9.FuQ_LlwxeyPFhF9sDwf5A4gP1oB46Z89QKnpl25r27M
 
-###
+###CREATE COURSE
 
 POST http://127.0.0.1:8000/api/courses/
 Content-Type:application/json
