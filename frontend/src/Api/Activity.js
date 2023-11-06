@@ -3,7 +3,6 @@ import { apiSlice } from "./apiSlice";
 export const Activity = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
 		createActivity: builder.mutation({
-			//
 			query: (data) => ({
 				url: "/api/activities/",
 				method: "POST",
@@ -12,7 +11,6 @@ export const Activity = apiSlice.injectEndpoints({
 		}),
 
 		createActivityFromTemplate: builder.mutation({
-			//
 			query: (data) => ({
 				url: "/api/activities/create_from_template/",
 				method: "POST",
@@ -20,7 +18,6 @@ export const Activity = apiSlice.injectEndpoints({
 			}),
 		}),
 		addEvaluationToActivity: builder.mutation({
-			//
 			query: (data) => ({
 				url: `/api/activities/${data.id}/add_evaluation/`,
 				method: "POST",
@@ -28,44 +25,38 @@ export const Activity = apiSlice.injectEndpoints({
 			}),
 		}),
 		deleteEvaluationFromActivity: builder.mutation({
-			//
 			query: (id) => ({
 				url: `/api/activities/${id}/delete_evaluation/`,
 				method: "DELETE",
 			}),
 		}),
 		submitActivity: builder.mutation({
-			//
 			query: (id) => ({
 				url: `/api/activities/${id}/submit/`,
 				method: "POST",
 			}),
 		}),
 		getActivitiesByClass: builder.mutation({
-			//
 			query: (id) => ({
-				url: `/api/activities/get_activities_by_class/?class_id=${id}/`,
+				url: `/api/activities/get_activities_by_class/?class_id=${id}`,
 				method: "GET",
 			}),
 		}),
 		getSubmittedActivitiesByClass: builder.mutation({
-			//
 			query: (id) => ({
 				url: `/api/activities/get_submitted_activities_by_class/?class_id=${id}/`,
 				method: "GET",
 			}),
 		}),
 		getSubmittedActivitiesByTeam: builder.mutation({
-			//
 			query: (id) => ({
 				url: `/api/activities/get_submitted_activities_by_team/?team_id=${id}/`,
 				method: "GET",
 			}),
 		}),
 		getActivitiesByTeam: builder.mutation({
-			///
 			query: (id) => ({
-				url: `/api/activities/?team_id=${id}/`,
+				url: `/api/activities/?team_id=${id}`,
 				method: "GET",
 			}),
 		}),
