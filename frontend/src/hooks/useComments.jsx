@@ -29,12 +29,12 @@ export function useFetchComments() {
     const [comments, setComments] = useState([]);
     const accessToken = useSelector(selectCurrentToken);
 
-    useEffect (() => {
+    useEffect(() => {
         const fetchComments = async () => {
             try {
                 const response = await readComments(accessToken);
                 setComments(response);
-        } catch (error) {
+            } catch (error) {
                 console.log(error.response);
             }
         };

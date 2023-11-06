@@ -49,7 +49,7 @@ export const Home_ContactSection = () => {
                                     <p>Cebu City, Cebu</p>
                                 </div>
                             </div>
-                            <br/>
+                            <br />
                             <div className=' card-body bg-body p-3 rounded-3'>
                                 <div className=' d-flex  flex-row gap-3'>
                                     <FiPhone />

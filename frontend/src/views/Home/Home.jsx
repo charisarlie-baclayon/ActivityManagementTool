@@ -9,14 +9,13 @@ import { Home_TeamSection } from '@views/Home/Team';
 export const Home = () => {
     return (
         <>
-            <NavBar/>
-            <Home_HeroSection/>
-            <Home_AboutSection/>
-            <Home_TeamSection/>
-            <Home_ContactSection/>
-            <Home_CTASection/>
-            <Footer/>
+            <NavBar />
+            <Home_HeroSection />
+            <Home_AboutSection />
+            <Home_TeamSection />
+            <Home_ContactSection />
+            <Home_CTASection />
+            <Footer />
         </>
     )
 }
-  

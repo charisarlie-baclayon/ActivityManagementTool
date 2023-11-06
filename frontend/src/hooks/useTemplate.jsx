@@ -6,7 +6,7 @@ import { readTemplate, readTemplates, createTemplate, deleteTemplate, updateTemp
 export function useFetchTemplate(id) {
     const [templateData, setTemplateData] = useState(null);
     const accessToken = useSelector(selectCurrentToken);
-    
+
     useEffect(() => {
         const fetchTemplate = async () => {
             try {
@@ -16,12 +16,12 @@ export function useFetchTemplate(id) {
                 console.error("Error fetching template data:", error);
             }
         };
-    
+
         if (id) {
             fetchTemplate();
         }
     }, [id, accessToken]);
-    
+
     return templateData;
 }
 
@@ -29,7 +29,7 @@ export function useFetchTemplates() {
     const [templates, setTemplates] = useState([]);
     const accessToken = useSelector(selectCurrentToken);
 
-    useEffect (() => {
+    useEffect(() => {
         const fetchTemplates = async () => {
             try {
                 const response = await readTemplates(accessToken);
