@@ -5,6 +5,7 @@ import {
 	useCreateClassMutation,
 	useDeleteClassMutation,
 	useUpdateClassMutation,
+	useReadClassesBySectionMutation,
 } from "../api/Classes";
 
 export function useFetchClass(id) {
@@ -89,4 +90,23 @@ export function useDeleteClass() {
 	};
 
 	return deleteClassById;
+}
+
+export function useFetchClassesBySection(id) {
+	const [readClass] = useReadClassesBySectionMutation();
+	const [classData, setClassData] = useState(null);
+
+	useEffect(() => {
+		const fetchClass = async () => {
+			try {
+				const response = await readClass(id);
+				setClassData(response.data);
+			} catch (error) {
+				console.error("Error fetching class data:", error);
+			}
+		};
+		fetchClass();
+	}, [id, readClass]);
+
+	return classData;
 }

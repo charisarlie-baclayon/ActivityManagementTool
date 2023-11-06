@@ -9,7 +9,7 @@ import {
 	useGetSubmittedActivitiesByClassMutation,
 	useGetSubmittedActivitiesByTeamMutation,
 	useGetActivitiesByTeamMutation,
-} from "../api/Activity";
+} from "../Api/Activity";
 
 //#region CREATE ACTIVITY
 
@@ -94,52 +94,42 @@ export function useSubmitActivity() {
 
 /**
  * @description Hook to get all activities from a team.
- * @param {} id  - ID of the team.
  * @returns {object} activity - Object containing all activities from a team.
  */
-export function useGetActivityByTeam(id) {
+export function useGetActivitiesByTeam() {
 	const [getActivitiesByTeam] = useGetActivitiesByTeamMutation();
-	const [activity, setActivity] = useState(null);
+	const [activities, setActivities] = useState(null);
 
-	useEffect(() => {
-		const fetchActivity = async () => {
-			try {
-				const response = await getActivitiesByTeam(id);
-				setActivity(response.data);
-			} catch (error) {
-				console.error("Error fetching activity data:", error);
-			}
-		};
+	const fetchActivities = async (id) => {
+		try {
+			const response = await getActivitiesByTeam(id);
+			setActivities(response.data);
+		} catch (error) {
+			console.error("Error fetching activity data:", error);
+		}
+	};
 
-		fetchActivity();
-	}, [id, getActivitiesByTeam]);
-
-	return activity;
+	return { activities, fetchActivities };
 }
 
 /**
  * @description Hook to get all activities from a class.
- * @param {*} id
  * @returns {object} activity - Object containing all activities from a class.
  */
-export function useGetActivitiesByClass(id) {
+export function useGetActivitiesByClass() {
 	const [getActivitiesByClass] = useGetActivitiesByClassMutation();
 	const [activities, setActivities] = useState(null);
 
-	useEffect(() => {
-		const fetchActivities = async () => {
-			try {
-				const response = await getActivitiesByClass(id);
-				setActivities(response.data);
-			} catch (error) {
-				console.error("Error fetching activities data:", error);
-			}
-		};
+	const fetchActivities = async (id) => {
+		try {
+			const response = await getActivitiesByClass(id);
+			setActivities(response.data);
+		} catch (error) {
+			console.error("Error fetching activity data:", error);
+		}
+	};
 
-		fetchActivities();
-	}, [id, getActivitiesByClass]);
-
-	return activities;
+	return { activities, fetchActivities };
 }
 
 /**
