@@ -1,71 +1,44 @@
-import axios from "axios";
+import { apiSlice } from "./apiSlice";
 
-export const readWorks = async (accessToken) => {
-	try {
-		const response = await axios.get("http://127.0.0.1:8000/api/works/", {
-			headers: {
-				//Authorization: `Bearer ${accessToken}`,
-			},
-		});
-		return response.data;
-	} catch (error) {
-		console.log(error.response.data);
-		throw error;
-	}
-};
+export const Work = apiSlice.injectEndpoints({
+	endpoints: (builder) => ({
+		readWorks: builder.query({
+			query: () => "/api/works/",
+		}),
 
-export const readWork = async (id, accessToken) => {
-	try {
-		const response = await axios.get(`http://127.0.0.1:8000/api/works/${id}/`, {
-			headers: {
-				//Authorization: `Bearer ${accessToken}`,
-			},
-		});
-		return response.data;
-	} catch (error) {
-		console.log(error.response.data);
-		throw error;
-	}
-};
+		readWork: builder.query({
+			query: (id) => `/api/works/${id}/`,
+		}),
 
-export const createWork = async (data, accessToken) => {
-	try {
-		const response = await axios.post("http://127.0.0.1:8000/api/works/", data, {
-			headers: {
-				//Authorization: `Bearer ${accessToken}`,
-			},
-		});
-		return response.data;
-	} catch (error) {
-		console.log(error.response.data);
-		throw error;
-	}
-};
+		createWork: builder.mutation({
+			query: (data) => ({
+				url: "/api/works/",
+				method: "POST",
+				body: { ...data },
+			}),
+		}),
 
-export const deleteWork = async (id, accessToken) => {
-	try {
-		const response = await axios.delete(`http://127.0.0.1:8000/api/works/${id}/`, {
-			headers: {
-				//Authorization: `Bearer ${accessToken}`,
-			},
-		});
-		return response.data;
-	} catch (error) {
-		console.log(error.response.data);
-		throw error;
-	}
-};
+		deleteWork: builder.mutation({
+			query: (id) => ({
+				url: `/api/works/${id}/`,
+				method: "DELETE",
+			}),
+		}),
 
-export const updateWork = async (id, data, accessToken) => {
-	try {
-		const response = await axios.put(`http://127.0.0.1:8000/api/works/${id}/`, data, {
-			headers: {
-				//Authorization: `Bearer ${accessToken}`,
-			},
-		});
-		return response.data;
-	} catch (error) {
-		console.log(error.response.data);
-		throw error;
-	}
-};
+		updateWork: builder.mutation({
+			query: (data) => ({
+				url: `/api/works/${data.id}/`,
+				method: "PUT",
+				body: { ...data },
+			}),
+		}),
+	}),
+});
+
+export const {
+	useReadWorksQuery,
+	useReadWorkQuery,
+	useCreateWorkMutation,
+	useDeleteWorkMutation,
+	useUpdateWorkMutation,
+} = Work;
