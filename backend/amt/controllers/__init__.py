@@ -8,3 +8,4 @@ from .TeacherController import *
 from .TeamController import *
 from .StudentController import *
 from .TokensController import *
+from .CourseController import *

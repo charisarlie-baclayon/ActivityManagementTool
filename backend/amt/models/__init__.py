@@ -7,6 +7,7 @@ from .Class import *
 from .Team import *
 from .Student import *
 from .User import *
+from .Course import *
 
 __all__ = [
     'Activity',
@@ -18,4 +19,5 @@ __all__ = [
     'Team',
     'Student',
     "User",
+    "Course"
 ]
