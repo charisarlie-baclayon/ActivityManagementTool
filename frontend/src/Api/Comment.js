@@ -32,6 +32,12 @@ export const Comment = apiSlice.injectEndpoints({
 				body: { ...data },
 			}),
 		}),
+		readCommentsForActivity: builder.query({
+			query: (activity_id) => ({
+				url: `/api/comments/comments_for_activity/?activity_id=${activity_id}`,
+				method: "GET",
+			}),
+		}),
 	}),
 });
 
@@ -41,4 +47,5 @@ export const {
 	useCreateCommentMutation,
 	useDeleteCommentMutation,
 	useUpdateCommentMutation,
+	useReadCommentsForActivityQuery,
 } = Comment;
