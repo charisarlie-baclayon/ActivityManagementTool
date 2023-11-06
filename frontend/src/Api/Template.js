@@ -1,71 +1,52 @@
-import axios from "axios";
+import { apiSlice } from "./apiSlice";
 
-export const readTemplates = async (accessToken) => {
-	try {
-		const response = await axios.get("http://127.0.0.1:8000/api/templates/", {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		});
-		return response.data;
-	} catch (error) {
-		console.log(error.response.data);
-		throw error;
-	}
-};
+export const Template = apiSlice.injectEndpoints({
+	endpoints: (builder) => ({
+		readTemplates: builder.query({
+			query: () => "/api/templates/",
+		}),
 
-export const readTemplate = async (id, accessToken) => {
-	try {
-		const response = await axios.get(`http://127.0.0.1:8000/api/templates/${id}/`, {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		});
-		return response.data;
-	} catch (error) {
-		console.log(error.response.data);
-		throw error;
-	}
-};
+		readTemplate: builder.query({
+			query: (id) => `/api/templates/${id}/`,
+		}),
 
-export const createTemplate = async (data, accessToken) => {
-	try {
-		const response = await axios.post("http://127.0.0.1:8000/api/templates/", data, {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		});
-		return response.data;
-	} catch (error) {
-		console.log(error.response.data);
-		throw error;
-	}
-};
+		createTemplate: builder.mutation({
+			query: (data) => ({
+				url: "/api/templates/",
+				method: "POST",
+				body: { ...data },
+			}),
+		}),
 
-export const deleteTemplate = async (id, accessToken) => {
-	try {
-		const response = await axios.delete(`http://127.0.0.1:8000/api/templates/${id}/`, {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		});
-		return response.data;
-	} catch (error) {
-		console.log(error.response.data);
-		throw error;
-	}
-};
+		deleteTemplate: builder.mutation({
+			query: (id) => ({
+				url: `/api/templates/${id}/`,
+				method: "DELETE",
+			}),
+		}),
 
-export const updateTemplate = async (id, data, accessToken) => {
-	try {
-		const response = await axios.put(`http://127.0.0.1:8000/api/templates/${id}/`, data, {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		});
-		return response.data;
-	} catch (error) {
-		console.log(error.response.data);
-		throw error;
-	}
-};
+		updateTemplate: builder.mutation({
+			query: (data) => ({
+				url: `/api/templates/${data.id}/`,
+				method: "PUT",
+				body: { ...data },
+			}),
+		}),
+
+		readTemplatesByCourse: builder.query({
+			query: (course_id) => ({
+				url: `/api/templates/get_templates_by_course/?course_id=${course_id}`,
+				method: "GET",
+			}),
+		}),
+	}),
+});
+
+export const {
+	useReadTemplatesQuery,
+	useReadTemplateQuery,
+	useCreateTemplateMutation,
+	useDeleteTemplateMutation,
+	useUpdateTemplateMutation,
+	useReadTemplatesByCourseQuery,
+} = Template;

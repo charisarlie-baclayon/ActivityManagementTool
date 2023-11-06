@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {
-	useReadTeamsMutation,
 	useReadTeamMutation,
+	useReadTeamsMutation,
 	useCreateTeamMutation,
 	useDeleteTeamMutation,
 	useUpdateTeamMutation,
@@ -29,7 +29,7 @@ export function useFetchTeam(id) {
 
 export function useFetchTeams() {
 	const [readTeams] = useReadTeamsMutation();
-	const [teams, setTeams] = useState(null);
+	const [teams, setTeams] = useState([]);
 
 	useEffect(() => {
 		const fetchTeams = async () => {
@@ -67,11 +67,10 @@ export function useUpdateTeam() {
 
 	const updateExistingTeam = async (id, data) => {
 		try {
-			console.log("useEffect", id);
 			const response = await updateTeam({ id, ...data });
 			return response;
 		} catch (error) {
-			console.error("Error fetching team data:", error);
+			console.error("Error updating team:", error);
 		}
 	};
 

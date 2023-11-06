@@ -2,16 +2,21 @@ import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useCreateClass } from "../../../hooks/useClass";
+import { useFetchCourses, useCreateCourse } from "../../../hooks/useCourse";
 
 export const CreateClassPopup = ({ show, handleClose }) => {
 	const createNewClass = useCreateClass();
+	const createNewCourse = useCreateCourse();
+	const courses = useFetchCourses();
 
 	const [classData, setClassData] = useState({
 		name: "",
-		course_name: "",
+		course: "", // Rename course_id to course
 		year_level: "",
 		section: "",
 	});
+
+	const [newCourseName, setNewCourseName] = useState("");
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -21,9 +26,32 @@ export const CreateClassPopup = ({ show, handleClose }) => {
 		});
 	};
 
+	const handleCourseChange = (e) => {
+		const { value } = e.target;
+		setClassData({
+			...classData,
+			course: value, // Rename course_id to course
+		});
+	};
+
+	const handleNewCourseChange = (e) => {
+		setNewCourseName(e.target.value);
+	};
+
+	const handleCreateNewCourse = async () => {
+		if (newCourseName.trim() !== "") {
+			const newCourseData = await createNewCourse({ name: newCourseName });
+			setClassData({
+				...classData,
+				course: newCourseData.id, // Rename course_id to course
+			});
+		}
+	};
+
 	const handleSubmit = async () => {
 		try {
 			await createNewClass(classData);
+			console.log(classData);
 			handleClose();
 
 			if (
@@ -55,14 +83,30 @@ export const CreateClassPopup = ({ show, handleClose }) => {
 							onChange={handleChange}
 						/>
 					</Form.Group>
-					<Form.Group controlId='course-name-input'>
-						<Form.Label>Course Name</Form.Label>
+					<Form.Group controlId='course-id-input'>
+						<Form.Label>Course</Form.Label>
+						<select
+							className='form-select'
+							name="course"
+							value={classData.course}
+							onChange={handleCourseChange}
+						>
+							<option value="">Select a course</option>
+							{courses.map((course) => (
+								<option key={course.id} value={course.id}>
+									{course.name}
+								</option>
+							))}
+						</select>
+					</Form.Group>
+					<Form.Group controlId='new-course-input'>
+						<Form.Label>Create New Course</Form.Label>
 						<Form.Control
 							type='text'
-							name='course_name'
-							value={classData.course_name}
-							onChange={handleChange}
+							value={newCourseName}
+							onChange={handleNewCourseChange}
 						/>
+						<button onClick={handleCreateNewCourse}>Add Course</button>
 					</Form.Group>
 					<Form.Group controlId='year-level-input'>
 						<Form.Label>Year Level</Form.Label>
