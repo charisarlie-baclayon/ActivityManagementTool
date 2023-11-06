@@ -34,6 +34,12 @@ export const Classes = apiSlice.injectEndpoints({
 				body: { ...data },
 			}),
 		}),
+		readClassesBySection: builder.mutation({
+			query: (id) => ({
+				url: `/api/classes/get_classes_by_section/?section=${id}/`,
+				method: "GET",
+			}),
+		}),
 	}),
 });
 
@@ -43,4 +49,5 @@ export const {
 	useCreateClassMutation,
 	useDeleteClassMutation,
 	useUpdateClassMutation,
+	useReadClassesBySectionMutation,
 } = Classes;
