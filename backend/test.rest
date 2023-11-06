@@ -127,23 +127,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 ####
 POST http://127.0.0.1:8000/api/comments/
 Content-Type:application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk3NzUyNzQ1LCJpYXQiOjE2OTc3NDkxNDUsImp0aSI6Ijg4ZDM2MWE0ZDIwMTQxNTFhMGJmNzhkOTIwZmYzOGViIiwidXNlcl9pZCI6MTEsImVtYWlsIjoidGVhY2hlckBlbWFpbC5jb20ifQ.QZl2k5Dob4dyVU1p5aVRzlQReBxNT-aSRxn2jlgua_4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk5MjY2NDM2LCJpYXQiOjE2OTkyNjI4MzYsImp0aSI6ImRiNTZjN2E0NTVhZDQzYTE5NGVmNTVmZDU5NjYyMTViIiwidXNlcl9pZCI6MSwiZW1haWwiOiJ0ZWFjaGVyQGVtYWlsLmNvbSJ9.UzEZjkEuqsktnQMswQ9-UMPgsfBXQvl8157wyuMnGG8
 
 {
-    "comment": "Good",
-    
-    "user_id": 11
+    "comment": "Gasdood",
+    "activity_id" : 3,
+    "user_id": 1
 }
 
 
 ####GET COMMENTS FOR ACTIVITY
-GET http://127.0.0.1:8000/api/comments/comments_for_activity/?activity_id=1
+GET http://127.0.0.1:8000/api/comments/comments_for_activity/?activity_id=3
 Content-Type:application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk3NzUyNzQ1LCJpYXQiOjE2OTc3NDkxNDUsImp0aSI6Ijg4ZDM2MWE0ZDIwMTQxNTFhMGJmNzhkOTIwZmYzOGViIiwidXNlcl9pZCI6MTEsImVtYWlsIjoidGVhY2hlckBlbWFpbC5jb20ifQ.QZl2k5Dob4dyVU1p5aVRzlQReBxNT-aSRxn2jlgua_4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk5MjY2NDM2LCJpYXQiOjE2OTkyNjI4MzYsImp0aSI6ImRiNTZjN2E0NTVhZDQzYTE5NGVmNTVmZDU5NjYyMTViIiwidXNlcl9pZCI6MSwiZW1haWwiOiJ0ZWFjaGVyQGVtYWlsLmNvbSJ9.UzEZjkEuqsktnQMswQ9-UMPgsfBXQvl8157wyuMnGG8
 
-{
-    "activity_id" : 1
-}
 
 ### ADD EVALUATION TO ACTIVITY (can also be used for updateing same endpoint)
 POST http://127.0.0.1:8000/api/activities/1/add_evaluation/
