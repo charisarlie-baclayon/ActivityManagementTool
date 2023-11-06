@@ -28,10 +28,12 @@ export const Teacher_ClassSection = () => {
 		<div className='container-md'>
 			<div className='container-md d-flex flex-column gap-3 mt-5 pr-3 pl-3'>
 				<div className='d-flex flex-row justify-content-between'>
-					<h4 className='fw-bold'>Classes</h4>
+					<div className="d-flex flex-row">
+						<h4 className='fw-bold m-0'>Classes</h4>
+					</div>
 					<div>
 						<button
-							className='btn btn-secondary btn-block fw-bold bw-3'
+							className='btn btn-primary btn-block fw-bold bw-3 m-0'
 							onClick={handleShowModal}
 						>
 							Add Class

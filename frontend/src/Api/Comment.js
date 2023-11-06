@@ -1,71 +1,51 @@
-import axios from "axios";
+import { apiSlice } from "./apiSlice";
 
-export const readComments = async (accessToken) => {
-  try {
-    const response = await axios.get("http://127.0.0.1:8000/api/comments/", {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
+export const Comment = apiSlice.injectEndpoints({
+	endpoints: (builder) => ({
+		readComments: builder.query({
+			query: () => "/api/comments/",
+		}),
 
-export const readComment = async (id, accessToken) => {
-  try {
-    const response = await axios.get(`http://127.0.0.1:8000/api/comments/${id}/`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
+		readComment: builder.query({
+			query: (id) => `/api/comments/${id}/`,
+		}),
 
-export const createComment = async (data, accessToken) => {
-  try {
-    const response = await axios.post("http://127.0.0.1:8000/api/comments/", data, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
+		createComment: builder.mutation({
+			query: (data) => ({
+				url: "/api/comments/",
+				method: "POST",
+				body: { ...data },
+			}),
+		}),
 
-export const deleteComment = async (id, accessToken) => {
-  try {
-    const response = await axios.delete(`http://127.0.0.1:8000/api/comments/${id}/`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
+		deleteComment: builder.mutation({
+			query: (id) => ({
+				url: `/api/comments/${id}/`,
+				method: "DELETE",
+			}),
+		}),
 
-export const updateComment = async (id, data, accessToken) => {
-  try {
-    const response = await axios.put(`http://127.0.0.1:8000/api/comments/${id}/`, data, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error;
-  }
-};
+		updateComment: builder.mutation({
+			query: (data) => ({
+				url: `/api/comments/${data.id}/`,
+				method: "PUT",
+				body: { ...data },
+			}),
+		}),
+		readCommentsForActivity: builder.query({
+			query: (activity_id) => ({
+				url: `/api/comments/comments_for_activity/?activity_id=${activity_id}`,
+				method: "GET",
+			}),
+		}),
+	}),
+});
+
+export const {
+	useReadCommentsQuery,
+	useReadCommentQuery,
+	useCreateCommentMutation,
+	useDeleteCommentMutation,
+	useUpdateCommentMutation,
+	useReadCommentsForActivityQuery,
+} = Comment;

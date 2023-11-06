@@ -1,56 +1,50 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentToken } from "../features/auth/authSlice";
-import { readTemplate, readTemplates, createTemplate, deleteTemplate, updateTemplate } from "../api/Templates";
+import {
+    useReadTemplateQuery,
+    useReadTemplatesQuery,
+    useCreateTemplateMutation,
+    useDeleteTemplateMutation,
+    useUpdateTemplateMutation,
+} from "../api/Template";
 
 export function useFetchTemplate(id) {
     const [templateData, setTemplateData] = useState(null);
-    const accessToken = useSelector(selectCurrentToken);
-    
+
+    const { data: template, error, isLoading } = useReadTemplateQuery(id);
+
     useEffect(() => {
-        const fetchTemplate = async () => {
-            try {
-                const response = await readTemplate(id, accessToken);
-                setTemplateData(response);
-            } catch (error) {
-                console.error("Error fetching template data:", error);
-            }
-        };
-    
-        if (id) {
-            fetchTemplate();
+        if (template) {
+            setTemplateData(template);
+        } else if (error) {
+            console.error("Error fetching template data:", error);
         }
-    }, [id, accessToken]);
-    
+    }, [template, error]);
+
     return templateData;
 }
 
 export function useFetchTemplates() {
-    const [templates, setTemplates] = useState([]);
-    const accessToken = useSelector(selectCurrentToken);
+    const { data: templates, error, isLoading } = useReadTemplatesQuery();
 
-    useEffect (() => {
-        const fetchTemplates = async () => {
-            try {
-                const response = await readTemplates(accessToken);
-                setTemplates(response);
-            } catch (error) {
-                console.log(error.response);
-            }
-        };
-
-        fetchTemplates();
-    }, [accessToken]);
+    useEffect(() => {
+        if (templates) {
+            setTemplates(templates);
+        } else if (error) {
+            console.error("Error fetching templates data:", error);
+        }
+    }, [templates, error]);
 
     return templates;
 }
 
 export function useCreateTemplate() {
-    const accessToken = useSelector(selectCurrentToken);
+    const [createTemplate] = useCreateTemplateMutation();
 
     const createNewTemplate = async (data) => {
         try {
-            const response = await createTemplate(data, accessToken);
+            const response = await createTemplate(data);
             return response;
         } catch (error) {
             console.error("Error creating template:", error);
@@ -61,11 +55,11 @@ export function useCreateTemplate() {
 }
 
 export function useUpdateTemplate() {
-    const accessToken = useSelector(selectCurrentToken);
+    const [updateTemplate] = useUpdateTemplateMutation();
 
     const updateExistingTemplate = async (id, data) => {
         try {
-            const response = await updateTemplate(id, data, accessToken);
+            const response = await updateTemplate({ id, ...data });
             return response;
         } catch (error) {
             console.error("Error updating template:", error);
@@ -76,11 +70,11 @@ export function useUpdateTemplate() {
 }
 
 export function useDeleteTemplate() {
-    const accessToken = useSelector(selectCurrentToken);
+    const [deleteTemplate] = useDeleteTemplateMutation();
 
     const deleteTemplateById = async (id) => {
         try {
-            const response = await deleteTemplate(id, accessToken);
+            const response = await deleteTemplate(id);
             return response;
         } catch (error) {
             console.error("Error deleting template:", error);

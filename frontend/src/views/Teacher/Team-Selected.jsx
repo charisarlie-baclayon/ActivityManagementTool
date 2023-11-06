@@ -8,6 +8,7 @@ import {
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
+import { FiChevronLeft } from "react-icons/fi";
 
 export const Teacher_SelectedTeamSection = () => {
 	const [showModal, setShowModal] = useState(false);
@@ -56,7 +57,6 @@ export const Teacher_SelectedTeamSection = () => {
 			// must add a conditional statement to check if response is successful
 			// like if status 200 then goods
 
-			// if response is successfully updated, then:
 			if (response) {
 				setTeamData(updateTeamData);
 				handleCloseModal();
@@ -77,8 +77,6 @@ export const Teacher_SelectedTeamSection = () => {
 		e.preventDefault();
 		console.log("Delete");
 
-		// todo: add a modal to confirm deletion
-
 		try {
 			const response = await deleteTeam(id);
 
@@ -95,7 +93,26 @@ export const Teacher_SelectedTeamSection = () => {
 		<div className='container-md'>
 			<div className='container-md d-flex flex-column gap-3 mt-5 pr-3 pl-3'>
 				<div className='d-flex flex-row justify-content-between'>
-					<h4 className='fw-bold'>Teams</h4>
+					<div className="d-flex flex-row align-items-center gap-2">
+						<span className="nav-item nav-link" onClick={() => { history.back() }}>
+							<FiChevronLeft />
+						</span>
+						<h4 className="fw-bold m-0">{teamData ? teamData.name : "Loading..."}</h4>
+					</div>
+					<div className="d-flex flex-row gap-3 ">
+						<button
+							className='btn btn-outline-secondary btn-block fw-bold bw-3 m-0 '
+							onClick={handleEdit}
+						>
+							Edit Team
+						</button>
+						<button
+							className='btn btn-danger btn-block fw-bold bw-3 m-0 '
+							onClick={handleDelete}
+						>
+							Delete Team
+						</button>
+					</div>
 				</div>
 				<hr className='text-dark' />
 				<div>
@@ -109,18 +126,6 @@ export const Teacher_SelectedTeamSection = () => {
 						<p>Loading team details...</p>
 					)}
 				</div>
-				<button
-					className='btn btn-secondary btn-block fw-bold bw-3'
-					onClick={handleEdit}
-				>
-					Edit
-				</button>
-				<button
-					className='btn btn-primary btn-block fw-bold bw-3'
-					onClick={handleDelete}
-				>
-					Delete
-				</button>
 			</div>
 
 			<Modal size='lg' centered show={showModal} onHide={handleCloseModal}>

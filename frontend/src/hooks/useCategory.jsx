@@ -6,7 +6,7 @@ import { readCategory, readCategories, createCategory, deleteCategory, updateCat
 export function useFetchCategory(id) {
     const [categoryData, setCategoryData] = useState(null);
     const accessToken = useSelector(selectCurrentToken);
-    
+
     useEffect(() => {
         const fetchCategory = async () => {
             try {
@@ -16,12 +16,12 @@ export function useFetchCategory(id) {
                 console.error("Error fetching category data:", error);
             }
         };
-    
+
         if (id) {
             fetchCategory();
         }
     }, [id, accessToken]);
-    
+
     return categoryData;
 }
 
@@ -29,12 +29,12 @@ export function useFetchCategories() {
     const [categories, setCategories] = useState([]);
     const accessToken = useSelector(selectCurrentToken);
 
-    useEffect (() => {
+    useEffect(() => {
         const fetchCategories = async () => {
-        try {
+            try {
                 const response = await readCategories(accessToken);
                 setCategories(response);
-        } catch (error) {
+            } catch (error) {
                 console.log(error.response);
             }
         };

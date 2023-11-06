@@ -2,33 +2,16 @@ import { useEffect, useState } from "react";
 import { ActivityPopup } from "../../components/popups/activity/teacher-view-activity";
 import { CreateActivityPopup } from "../../components/popups/activity/teacher-create-activity";
 import { ActivityCard } from "../../components/Cards/Card.Activity";
-import { useFetchClasses } from "../../hooks/useClass";
 import { useFetchTeams } from "../../hooks/useTeam";
 import {
-	useGetActivitiesByClass,
-	useGetActivitiesByTeam,
+	useGetActivityByTeam,
+	useGetSubmittedActivitiesByTeam,
 } from "../../hooks/useActivity";
-import { useNavigate } from "react-router-dom";
-import { ClassCard } from "../../components/Cards/Card.Class";
-import { TeamCard } from "../../components/Cards/Card.Team";
-
-import {
-	useGetActivitiesByClassMutation,
-	useGetActivitiesByTeamMutation,
-} from "../../Api/Activity";
 
 export const Teacher_ActivitySection = () => {
-	// const { getActivitiesByClass } = useGetActivitiesByClass();
-	// const { getActivitiesByTeam } = useGetActivitiesByTeam();
-
-	const classes = useFetchClasses();
-	const teams = useFetchTeams();
-	const [byClass, setByClass] = useState(false);
-	const [byTeam, setByTeam] = useState(false);
-
-	const [activities, setActivities] = useState(null);
-
-	const navigate = useNavigate();
+	const teams = useFetchTeams(); // Use the useFetchTeams hook
+	const [selectedTeam, setSelectedTeam] = useState(null);
+	const activities = useGetSubmittedActivitiesByTeam(selectedTeam); // Assuming there's a useGetActivitiesByTeam hook
 
 	const [searchInput, setSearchInput] = useState("");
 
@@ -42,10 +25,10 @@ export const Teacher_ActivitySection = () => {
 	// selected class, view ang activities
 	const [selectedActivity, setSelectedActivity] = useState(null);
 
-	// const handleToSelectedActivity = (activity) => {
-	// 	setSelectedActivity(activity);
-	// 	setShowActivity(true);
-	// };
+	const handleToSelectedActivity = (activity) => {
+		setSelectedActivity(activity);
+		setShowActivity(true);
+	};
 
 	// i do not know how to get away with this eslint error
 
@@ -78,14 +61,20 @@ export const Teacher_ActivitySection = () => {
 		setByClass(false);
 	};
 
+	const handleTeamChange = (teamId) => {
+		setSelectedTeam(teamId);
+	};
+
 	return (
 		<div className='container-md'>
 			<div className='container-md d-flex flex-column gap-3 mt-5 pr-3 pl-3'>
 				<div className='d-flex flex-row justify-content-between'>
-					<h4 className='fw-bold'>Activities</h4>
+					<div className='d-flex flex-row'>
+						<h4 className='fw-bold m-0'>Activities</h4>
+					</div>
 					<div>
 						<button
-							className='btn btn-secondary btn-block fw-bold bw-3'
+							className='btn btn-primary btn-block fw-bold bw-3 m-0'
 							onClick={handleShowModal}
 						>
 							Add Activity
@@ -105,58 +94,33 @@ export const Teacher_ActivitySection = () => {
 						/>
 					</div>
 					<div className='d-flex flex-row gap-3 align-items-center w-25'>
-						<label htmlFor='statusFilter' className='m-0'>
-							Status:
+						<label htmlFor='teamFilter' className='m-0'>
+							Team:
 						</label>
-						<select id='statusFilter' className='form-select border-dark '>
+						<select
+							id='teamFilter'
+							className='form-select border-dark'
+							onChange={(e) => handleTeamChange(e.target.value)}
+						>
 							<option value='All'>All</option>
+							{teams &&
+								teams.map((teamItem) => (
+									<option key={teamItem.id} value={teamItem.id}>
+										{teamItem.name}
+									</option>
+								))}
 						</select>
 					</div>
 				</div>
 				<div className='d-flex flex-column gap-3'>
-					<div className='row'>
-						<div className='col-md-3 mb-3'>
-							<button
-								className='btn btn-white btn-block  bw-3'
-								onClick={handleActivitiesByTeam}
-							>
-								Team
-							</button>
-						</div>
-						<div className='col-md-3 mb-3'>
-							<button
-								className='btn btn-white btn-block  bw-3'
-								onClick={handleActivitiesByClass}
-							>
-								Class
-							</button>
-						</div>
-					</div>
-				</div>
-				<div className='d-flex flex-column gap-3'>
-					<div className='row'>
-						{byTeam &&
-							Array.isArray(teams) &&
-							teams.map((teamItem) => (
-								<div key={teamItem.id} className='col-md-3 mb-3'>
-									<TeamCard
-										teamData={teamItem}
-										onClick={() => navigateToTeam(teamItem.id)}
-									/>
-								</div>
-							))}
-
-						{byClass &&
-							Array.isArray(classes) &&
-							classes.map((classItem) => (
-								<div key={classItem.id} className='col-md-3 mb-3'>
-									<ClassCard
-										classData={classItem}
-										onClick={() => navigateToClass(classItem.id)}
-									/>
-								</div>
-							))}
-					</div>
+					{activities &&
+						activities.map((act, index) => (
+							<ActivityCard
+								key={index}
+								{...act}
+								onClick={() => handleToSelectedActivity(act)}
+							/>
+						))}
 				</div>
 
 				<CreateActivityPopup show={showModal} handleClose={handleCloseModal} />

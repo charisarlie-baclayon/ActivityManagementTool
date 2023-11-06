@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentToken } from "../features/auth/authSlice";
-import { 
+import {
     useReadStudentsMutation,
     useReadStudentsByTeamMutation,
     useReadStudentMutation,
@@ -15,7 +15,7 @@ export function useFetchStudent(id) {
     const [readStudent] = useReadStudentMutation();
     const [studentData, setStudentData] = useState(null);
     const accessToken = useSelector(selectCurrentToken);
-    
+
     useEffect(() => {
         const fetchStudent = async () => {
             try {
@@ -25,12 +25,12 @@ export function useFetchStudent(id) {
                 console.error("Error fetching student data:", error);
             }
         };
-    
+
         if (id) {
             fetchStudent();
         }
-    }, [id, accessToken]);
-    
+    }, [id, accessToken, readStudent]);
+
     return studentData;
 }
 
@@ -39,18 +39,18 @@ export function useFetchStudents() {
     const [students, setStudents] = useState([]);
     const accessToken = useSelector(selectCurrentToken);
 
-    useEffect (() => {
+    useEffect(() => {
         const fetchStudents = async () => {
             try {
                 const response = await readStudents(accessToken);
-                setStudents(response);
+                setStudents(response.data);
             } catch (error) {
                 console.log(error.response);
             }
         };
 
         fetchStudents();
-    }, [accessToken]);
+    }, [accessToken, readStudents]);
 
     return students;
 }
@@ -60,18 +60,18 @@ export function useFetchStudentsByTeam(id) {
     const [students, setStudents] = useState([]);
     const accessToken = useSelector(selectCurrentToken);
 
-    useEffect (() => {
+    useEffect(() => {
         const fetchStudentsByTeam = async () => {
             try {
-                const response = await readStudentsByTeam(id,accessToken);
-                setStudents(response);
+                const response = await readStudentsByTeam(id, accessToken);
+                setStudents(response.data);
             } catch (error) {
                 console.log(error.response);
             }
         };
 
         fetchStudentsByTeam();
-    }, [accessToken]);
+    }, [accessToken, readStudentsByTeam]);
 
     return students;
 }
