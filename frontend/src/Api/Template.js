@@ -32,6 +32,13 @@ export const Template = apiSlice.injectEndpoints({
 				body: { ...data },
 			}),
 		}),
+
+		readTemplatesByCourse: builder.query({
+			query: (course_id) => ({
+				url: `/api/templates/get_templates_by_course/?course_id=${course_id}`,
+				method: "GET",
+			}),
+		}),
 	}),
 });
 
@@ -41,4 +48,5 @@ export const {
 	useCreateTemplateMutation,
 	useDeleteTemplateMutation,
 	useUpdateTemplateMutation,
+	useReadTemplatesByCourseQuery,
 } = Template;
