@@ -7,6 +7,7 @@ import { ActivityCard } from "../../components/Cards/Card.Activity";
 
 export const Student_ActivitySection = () => {
 	const navigate = useNavigate();
+	const activity = [];
 	//const activity = useFetchActivities();
 	const [searchInput, setSearchInput] = useState("");
 
