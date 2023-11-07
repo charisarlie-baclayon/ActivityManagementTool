@@ -93,11 +93,11 @@ export const Teacher_SelectedTeamSection = () => {
 		<div className='container-md'>
 			<div className='container-md d-flex flex-column gap-3 mt-5 pr-3 pl-3'>
 				<div className='d-flex flex-row justify-content-between'>
-					<div className="d-flex flex-row align-items-center gap-2">
+					<div className="d-flex flex-row align-items-center gap-3">
 						<span className="nav-item nav-link" onClick={() => { history.back() }}>
 							<FiChevronLeft />
 						</span>
-						<h4 className="fw-bold m-0">{teamData ? teamData.name : "Loading..."}</h4>
+						<h4 className="fw-bold m-0">{teamData ? `Team - ${teamData.name}` : "Loading..."}</h4>
 					</div>
 					<div className="d-flex flex-row gap-3 ">
 						<button

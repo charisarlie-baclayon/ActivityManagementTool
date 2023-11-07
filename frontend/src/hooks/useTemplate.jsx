@@ -1,40 +1,47 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { selectCurrentToken } from "../features/auth/authSlice";
 import {
-    useReadTemplateQuery,
-    useReadTemplatesQuery,
+    useReadTemplatesMutation,
+    useReadTemplateMutation,
     useCreateTemplateMutation,
     useDeleteTemplateMutation,
     useUpdateTemplateMutation,
 } from "../api/Template";
 
 export function useFetchTemplate(id) {
+    const [readTemplate] = useReadTemplateMutation();
     const [templateData, setTemplateData] = useState(null);
 
-    const { data: template, error, isLoading } = useReadTemplateQuery(id);
-
     useEffect(() => {
-        if (template) {
-            setTemplateData(template);
-        } else if (error) {
-            console.error("Error fetching template data:", error);
-        }
-    }, [template, error]);
+        const fetchTemplate = async () => {
+            try {
+                const response = await readTemplate(id);
+                setTemplateData(response.data);
+            } catch (error) {
+                console.error("Error fetching template data:", error);
+            }
+        };
+        fetchTemplate();
+    }, [id, readTemplate]);
 
     return templateData;
 }
 
 export function useFetchTemplates() {
-    const { data: templates, error, isLoading } = useReadTemplatesQuery();
+    const [readTemplates] = useReadTemplatesMutation();
+    const [templates, setTemplates] = useState([]);
 
     useEffect(() => {
-        if (templates) {
-            setTemplates(templates);
-        } else if (error) {
-            console.error("Error fetching templates data:", error);
-        }
-    }, [templates, error]);
+        const fetchTemplates = async () => {
+            try {
+                const response = await readTemplates();
+                setTemplates(response.data);
+            } catch (error) {
+                console.error("Error fetching templates data:", error);
+            }
+        };
+
+        fetchTemplates();
+    }, [readTemplates]);
 
     return templates;
 }
@@ -45,6 +52,7 @@ export function useCreateTemplate() {
     const createNewTemplate = async (data) => {
         try {
             const response = await createTemplate(data);
+            console.log(response);
             return response;
         } catch (error) {
             console.error("Error creating template:", error);

@@ -17,6 +17,9 @@ import { Student_TeamSection } from "./views/Student/Team";
 import { Student_SignIn } from "./views/Student/SignIn";
 import { Teacher_SignIn } from "./views/Teacher/SignIn";
 import { Student_CreateActivity } from './components/popups/activity/student-create-activity';
+import { Teacher_TemplateSection } from "./views/Teacher/Template";
+import { Teacher_SelectedTemplateSection } from "./views/Teacher/Template-Selected";
+import { Teacher_CreateActivitySection } from "./views/Teacher/Activity-Create";
 
 function App() {
 	return (
@@ -38,6 +41,9 @@ function App() {
 					/>
 					<Route path='teams' element={<Teacher_TeamSection />} />
 					<Route path='teams/:id' element={<Teacher_SelectedTeamSection />} />
+					<Route path='activities/new' element={<Teacher_CreateActivitySection />} />
+					<Route path='activities/templates/' element={<Teacher_TemplateSection />} />
+					<Route path='activities/templates/:id' element={<Teacher_SelectedTemplateSection />} />
 				</Route>
 			</Route>
 

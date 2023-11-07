@@ -105,6 +105,7 @@ export function useGetActivityByTeam(id) {
 		const fetchActivity = async () => {
 			try {
 				const response = await getActivitiesByTeam(id);
+				console.log(response);
 				setActivity(response.data);
 			} catch (error) {
 				console.error("Error fetching activity data:", error);

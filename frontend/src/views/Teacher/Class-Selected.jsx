@@ -100,7 +100,7 @@ export const Teacher_SelectedClassSection = () => {
 						<span className="nav-item nav-link" onClick={() => { history.back() }}>
 							<FiChevronLeft />
 						</span>
-						<h4 className="fw-bold m-0">{classData ? classData.name : "Loading..."}</h4>
+						<h4 className="fw-bold m-0">{classData ? `Class - ${classData.name}` : "Loading..."}</h4>
 					</div>
 					<div className="d-flex flex-row gap-3 ">
 						<button
@@ -121,7 +121,7 @@ export const Teacher_SelectedClassSection = () => {
 				<div>
 					{classData ? (
 						<div>
-							<p>Course Name: {classData.course_name}</p>
+							<p>Course Name: {classData.course.name}</p>
 							<p>Year Level: {classData.year_level}</p>
 							<p>Section: {classData.section}</p>
 							<p>Date Created: {classData.date_created}</p>
