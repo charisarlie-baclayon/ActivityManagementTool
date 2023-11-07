@@ -3,23 +3,21 @@ import { ActivityPopup } from "../../components/popups/activity/teacher-view-act
 import { CreateActivityPopup } from "../../components/popups/activity/teacher-create-activity";
 import { ActivityCard } from "../../components/Cards/Card.Activity";
 import { useFetchTeams } from "../../hooks/useTeam";
-import { useGetActivityByTeam, useGetSubmittedActivitiesByTeam } from "../../hooks/useActivity";
+import { useNavigate } from "react-router-dom";
+import { useFetchCourses } from "../../hooks/useCourse";
+import { useGetActivityByTeam } from "../../hooks/useActivity"; // Import the new hook
 
 export const Teacher_ActivitySection = () => {
-	const teams = useFetchTeams(); // Use the useFetchTeams hook
+	const teams = useFetchTeams();
+	const courses = useFetchCourses();
 	const [selectedTeam, setSelectedTeam] = useState(null);
-	const activities = useGetSubmittedActivitiesByTeam(selectedTeam); // Assuming there's a useGetActivitiesByTeam hook
-
+	const [selectedCourse, setSelectedCourse] = useState(null);
 	const [searchInput, setSearchInput] = useState("");
-
-	const [showModal, setShowModal] = useState(false);
-	const handleCloseModal = () => setShowModal(false);
-	const handleShowModal = () => setShowModal(true);
-
 	const [showActivity, setShowActivity] = useState(false);
-	const handleCloseActivity = () => setShowActivity(false);
-
 	const [selectedActivity, setSelectedActivity] = useState(null);
+	const navigate = useNavigate();
+	const teamActivities = useGetActivityByTeam(1);
+	// Fetch activities for the selected team using the useGetActivityByTeam hook
 
 	const handleToSelectedActivity = (activity) => {
 		setSelectedActivity(activity);
@@ -30,6 +28,10 @@ export const Teacher_ActivitySection = () => {
 		setSelectedTeam(teamId);
 	};
 
+	const handleCourseChange = (courseId) => {
+		setSelectedCourse(courseId);
+	};
+
 	return (
 		<div className='container-md'>
 			<div className='container-md d-flex flex-column gap-3 mt-5 pr-3 pl-3'>
@@ -37,12 +39,18 @@ export const Teacher_ActivitySection = () => {
 					<div className="d-flex flex-row">
 						<h4 className='fw-bold m-0'>Activities</h4>
 					</div>
-					<div>
+					<div className="d-flex flex-row gap-3 ">
 						<button
 							className='btn btn-primary btn-block fw-bold bw-3 m-0'
-							onClick={handleShowModal}
+							onClick={() => navigate('new')}
 						>
 							Add Activity
+						</button>
+						<button
+							className='btn btn-outline-secondary btn-block fw-bold bw-3 m-0'
+							onClick={() => { navigate('templates') }}
+						>
+							Use Templates
 						</button>
 					</div>
 				</div>
@@ -59,6 +67,17 @@ export const Teacher_ActivitySection = () => {
 						/>
 					</div>
 					<div className='d-flex flex-row gap-3 align-items-center w-25'>
+						<label htmlFor='courseFilter' className='m-0'>
+							Course:
+						</label>
+						<select id='courseFilter' className='form-select border-dark' onChange={(e) => handleCourseChange(e.target.value)}>
+							<option value='All'>All</option>
+							{courses && courses.map((courseItem) => (
+								<option key={courseItem.id} value={courseItem.id}>{courseItem.name}</option>
+							))}
+						</select>
+					</div>
+					<div className='d-flex flex-row gap-3 align-items-center w-25'>
 						<label htmlFor='teamFilter' className='m-0'>
 							Team:
 						</label>
@@ -72,7 +91,7 @@ export const Teacher_ActivitySection = () => {
 				</div>
 
 				<div className='d-flex flex-column gap-3'>
-					{activities && activities.map((act, index) => (
+					{teamActivities && teamActivities.map((act, index) => (
 						<ActivityCard
 							key={index}
 							{...act}
@@ -81,12 +100,10 @@ export const Teacher_ActivitySection = () => {
 					))}
 				</div>
 
-				<CreateActivityPopup show={showModal} handleClose={handleCloseModal} />
-
 				{selectedActivity && (
 					<ActivityPopup
 						show={showActivity}
-						handleClose={handleCloseActivity}
+						handleClose={() => setShowActivity(false)}
 						activity={selectedActivity}
 					/>
 				)}

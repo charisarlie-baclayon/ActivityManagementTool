@@ -99,15 +99,6 @@ export const CreateClassPopup = ({ show, handleClose }) => {
 							))}
 						</select>
 					</Form.Group>
-					<Form.Group controlId='new-course-input'>
-						<Form.Label>Create New Course</Form.Label>
-						<Form.Control
-							type='text'
-							value={newCourseName}
-							onChange={handleNewCourseChange}
-						/>
-						<button onClick={handleCreateNewCourse}>Add Course</button>
-					</Form.Group>
 					<Form.Group controlId='year-level-input'>
 						<Form.Label>Year Level</Form.Label>
 						<Form.Control

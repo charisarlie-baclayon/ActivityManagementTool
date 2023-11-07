@@ -4,9 +4,9 @@ import { Teacher_SideBar } from "../../components/SideBar/Teacher";
 
 export const Teacher = () => {
 	return (
-		<div className="d-flex flex-row view-sidebar">
+		<div className="d-flex flex-row view-sidebar bg-light">
 			<Teacher_SideBar />
-			<div className="w-100 bg-light vh-100">
+			<div className="w-100 min-vh-100 pb-5">
 				<Teacher_NavBar />
 				<Outlet />
 			</div>

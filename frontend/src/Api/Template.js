@@ -2,11 +2,11 @@ import { apiSlice } from "./apiSlice";
 
 export const Template = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
-		readTemplates: builder.query({
+		readTemplates: builder.mutation({
 			query: () => "/api/templates/",
 		}),
 
-		readTemplate: builder.query({
+		readTemplate: builder.mutation({
 			query: (id) => `/api/templates/${id}/`,
 		}),
 
@@ -33,7 +33,7 @@ export const Template = apiSlice.injectEndpoints({
 			}),
 		}),
 
-		readTemplatesByCourse: builder.query({
+		readTemplatesByCourse: builder.mutation({
 			query: (course_id) => ({
 				url: `/api/templates/get_templates_by_course/?course_id=${course_id}`,
 				method: "GET",
@@ -43,10 +43,10 @@ export const Template = apiSlice.injectEndpoints({
 });
 
 export const {
-	useReadTemplatesQuery,
-	useReadTemplateQuery,
+	useReadTemplatesMutation,
+	useReadTemplateMutation,
 	useCreateTemplateMutation,
 	useDeleteTemplateMutation,
 	useUpdateTemplateMutation,
-	useReadTemplatesByCourseQuery,
+	useReadTemplatesByCourseMutation,
 } = Template;
