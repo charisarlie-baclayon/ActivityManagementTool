@@ -96,24 +96,44 @@ class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cre
             return Response({"error": "Template ID not provided"}, status=status.HTTP_400_BAD_REQUEST)
         
     #GET ACTIVITY FROM TEAM ID
+    # def list(self, request, *args, **kwargs):
+    #     team_id = request.query_params.get('team_id')
+
+    #     if team_id is None:
+    #         return Response(
+    #             {"error": "The 'team_id' query parameter is required."},
+    #             status=status.HTTP_BAD_REQUEST
+    #         )
+
+    #     try:
+    #         activities = Activity.objects.filter(activity_team=team_id)
+    #         serializer = ActivitySerializer(activities, many=True)
+    #         return Response(serializer.data)
+    #     except Team.DoesNotExist:
+    #         return Response(
+    #             {"error": f"Team with ID {team_id} not found."},
+    #             status=status.HTTP_NOT_FOUND
+    #         )
+
     def list(self, request, *args, **kwargs):
         team_id = request.query_params.get('team_id')
 
-        if team_id is None:
-            return Response(
-                {"error": "The 'team_id' query parameter is required."},
-                status=status.HTTP_BAD_REQUEST
-            )
-
-        try:
-            activities = Activity.objects.filter(activity_team=team_id)
+        if team_id:
+            # Team ID is provided, filter activities by team_id
+            try:
+                activities = Activity.objects.filter(activity_team=team_id)
+                serializer = ActivitySerializer(activities, many=True)
+                return Response(serializer.data)
+            except Team.DoesNotExist:
+                return Response(
+                    {"error": f"Team with ID {team_id} not found."},
+                    status=status.HTTP_NOT_FOUND
+                )
+        else:
+            # Team ID is not provided, return all activities
+            activities = Activity.objects.all()
             serializer = ActivitySerializer(activities, many=True)
             return Response(serializer.data)
-        except Team.DoesNotExist:
-            return Response(
-                {"error": f"Team with ID {team_id} not found."},
-                status=status.HTTP_NOT_FOUND
-            )
         
     # @action(detail=False, methods=['GET'])
     # def get_all_activities_by_team(self, request):
@@ -348,6 +368,16 @@ class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cre
                 {"error": f"Course with ID {course_id} not found."},
                 status=status.HTTP_NOT_FOUND
             )
+        
+    @action(detail=False, methods=['GET'])
+    def get_all_activities(self, request):
+        try:
+            activities = Activity.objects.all()
+            serializer = ActivitySerializer(activities, many=True)
+            return Response(serializer.data)
+        except Activity.DoesNotExist:
+            return Response({"error": "No activities found"}, status=status.HTTP_404_NOT_FOUND)
+
 
 
 
