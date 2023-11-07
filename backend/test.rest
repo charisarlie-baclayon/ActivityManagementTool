@@ -218,6 +218,11 @@ GET http://127.0.0.1:8000/api/activities/?team_id=1
 Content-Type:application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk4OTA1ODcwLCJpYXQiOjE2OTg5MDIyNzAsImp0aSI6ImM1OTZmYWM1YmU1ZTQ3NTc5ZDVhMGMwYjc1N2Y1ZjYwIiwidXNlcl9pZCI6MSwiZW1haWwiOiJ0ZWFjaGVyQGVtYWlsLmNvbSJ9.eMgfGO4i7tZFoGPdGZT1heAht3JjYWk-NZcYRhBDy5k
 
+###GET ALL ACTIVITIES
+GET http://127.0.0.1:8000/api/activities/
+Content-Type:application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk4OTA1ODcwLCJpYXQiOjE2OTg5MDIyNzAsImp0aSI6ImM1OTZmYWM1YmU1ZTQ3NTc5ZDVhMGMwYjc1N2Y1ZjYwIiwidXNlcl9pZCI6MSwiZW1haWwiOiJ0ZWFjaGVyQGVtYWlsLmNvbSJ9.eMgfGO4i7tZFoGPdGZT1heAht3JjYWk-NZcYRhBDy5k
+
 
 ###GET Classes by section
 GET http://127.0.0.1:8000/api/classes/get_classes_by_section/?section=F1
