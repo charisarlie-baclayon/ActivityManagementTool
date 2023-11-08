@@ -97,7 +97,7 @@ export const Teacher_SelectedClassSection = () => {
 			<div className='container-md d-flex flex-column gap-3 mt-5 pr-3 pl-3'>
 				<div className='d-flex flex-row justify-content-between'>
 					<div className="d-flex flex-row align-items-center gap-2">
-						<span className="nav-item nav-link" onClick={() => { history.back() }}>
+						<span className="nav-item nav-link" onClick={() => { navigate(-1) }}>
 							<FiChevronLeft />
 						</span>
 						<h4 className="fw-bold m-0">{classData ? `Class - ${classData.name}` : "Loading..."}</h4>

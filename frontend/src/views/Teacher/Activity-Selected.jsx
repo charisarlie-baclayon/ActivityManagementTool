@@ -1,9 +1,10 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useFetchClass } from '../../hooks/useClass';
 import { FiChevronLeft } from 'react-icons/fi';
 
 export const Teacher_SelectedActivitySection = () => {
 	const { id } = useParams();
+	const navigate = useNavigate();
 	const classData = useFetchClass(id);
 
 	return (
@@ -11,7 +12,7 @@ export const Teacher_SelectedActivitySection = () => {
 			<div className="container-md d-flex flex-column gap-3 mt-5 pr-3 pl-3">
 				<div className="d-flex flex-row justify-content-between">
 					<div className="d-flex flex-row align-items-center gap-3">
-						<span className="nav-item nav-link" onClick={() => { history.back() }}>
+						<span className="nav-item nav-link" onClick={() => { navigate(-1) }}>
 							<FiChevronLeft />
 						</span>
 						<h4 className='fw-bold m-0'>Activities</h4>
