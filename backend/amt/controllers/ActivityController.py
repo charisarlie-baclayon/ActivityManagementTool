@@ -55,10 +55,53 @@ class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cre
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     #CREATE ACTIVITY FROM TEMPLATE
+    # @action(detail=False, methods=['POST'])
+    # def create_from_template(self, request):
+    #     template_id = request.data.get('template_id', None)
+    #     team_id = request.data.get('team_id', None)
+
+    #     if template_id is not None:
+    #         try:
+    #             template = Template.objects.get(pk=template_id)
+
+    #             # Create a new activity based on the template
+    #             new_activity = Activity.create_activity_from_template(template)
+
+    #             # Update additional fields, such as the team and any other desired fields
+    #             if team_id:
+    #                 try:
+    #                     team = Team.objects.get(pk=team_id)
+    #                     new_activity.activity_team = team
+    #                 except Team.DoesNotExist:
+    #                     return Response({"error": "Team not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    #             # Save the updated activity
+    #             new_activity.save()
+
+    #             # Serialize the template and activity
+    #             template_serializer = TemplateSerializer(template)
+    #             activity_serializer = ActivitySerializer(new_activity)
+
+    #             return Response(
+    #                 {
+    #                     "success": "Activity created from template",
+    #                     "activity": activity_serializer.data,
+    #                     "template": template_serializer.data
+    #                 },
+    #                 status=status.HTTP_201_CREATED
+    #             )
+    #         except Template.DoesNotExist:
+    #             return Response({"error": "Template not found"}, status=status.HTTP_404_NOT_FOUND)
+    #     else:
+    #         return Response({"error": "Template ID not provided"}, status=status.HTTP_400_BAD_REQUEST)
+
     @action(detail=False, methods=['POST'])
     def create_from_template(self, request):
         template_id = request.data.get('template_id', None)
         team_id = request.data.get('team_id', None)
+        due_date = request.data.get('due_date', None)  # Add due_date to request data
+        evaluation = request.data.get('evaluation', None)  # Add evaluation to request data
+        total_score = request.data.get('total_score', None)  # Add total_score to request data
 
         if template_id is not None:
             try:
@@ -67,13 +110,21 @@ class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cre
                 # Create a new activity based on the template
                 new_activity = Activity.create_activity_from_template(template)
 
-                # Update additional fields, such as the team and any other desired fields
+                # Update additional fields, such as the team and other desired fields
                 if team_id:
                     try:
                         team = Team.objects.get(pk=team_id)
                         new_activity.activity_team = team
                     except Team.DoesNotExist:
                         return Response({"error": "Team not found"}, status=status.HTTP_404_NOT_FOUND)
+
+                # Update due_date, evaluation, and total_score
+                if due_date:
+                    new_activity.due_date = due_date
+                if evaluation:
+                    new_activity.evaluation = evaluation
+                if total_score:
+                    new_activity.total_score = total_score
 
                 # Save the updated activity
                 new_activity.save()
@@ -94,6 +145,7 @@ class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cre
                 return Response({"error": "Template not found"}, status=status.HTTP_404_NOT_FOUND)
         else:
             return Response({"error": "Template ID not provided"}, status=status.HTTP_400_BAD_REQUEST)
+
         
     #GET ACTIVITY FROM TEAM ID
     # def list(self, request, *args, **kwargs):
