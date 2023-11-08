@@ -95,6 +95,12 @@ class StudentController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Crea
 
         return Response({'message': 'Student assigned to the team successfully'}, status=status.HTTP_200_OK)
     
+    @action(detail=True, methods=['GET'])  # Use GET method to retrieve student details
+    def get_student_details(self, request, pk=None):
+        student = self.get_object()
+        serializer = StudentSerializer(student)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
     
 
 # from rest_framework.response import Response
