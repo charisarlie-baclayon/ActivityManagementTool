@@ -8,6 +8,8 @@ import {
 	useLoginStudentMutation,
 	useAcquireTokenMutation,
 } from "../../api/Authentication";
+import { setStudentModel } from "../../features/slice/studentModelSlice";
+import { saveToLocalStorage } from "../../components/utils/utils";
 
 export const Student_SignIn = () => {
 	const userRef = useRef();
@@ -41,6 +43,7 @@ export const Student_SignIn = () => {
 
 		try {
 			const loginUser = await login({ email, password }).unwrap();
+			console.log(loginUser);
 
 			if (loginUser) {
 				if (loginUser.role !== "student") {
@@ -58,8 +61,30 @@ export const Student_SignIn = () => {
 						user: `${loginUser.first_name} ${loginUser.last_name}`,
 						accessToken: response.access,
 						role: "student",
-					})
-				);
+					  }),
+				  );
+				  dispatch(
+					  setStudentModel({
+						id: loginUser.id,
+						first_name: loginUser.first_name,
+						last_name: loginUser.last_name,
+						email: loginUser.email,
+						role: loginUser.role,
+						user: `${loginUser.first_name} ${loginUser.last_name}`,
+						student_team: loginUser.student_team,
+					  }),
+				  );
+
+				  saveToLocalStorage('studentModel', {
+					id: loginUser.id,
+					first_name: loginUser.first_name,
+					last_name: loginUser.last_name,
+					email: loginUser.email,
+					role: loginUser.role,
+					user: `${loginUser.first_name} ${loginUser.last_name}`,
+					student_team: loginUser.student_team,
+				  });
+
 				setEmail("");
 				setPassword("");
 				navigate("/student/home", { replace: true });
