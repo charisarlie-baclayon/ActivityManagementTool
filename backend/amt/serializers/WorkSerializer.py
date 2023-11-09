@@ -3,11 +3,12 @@ from amt.models import Work
 from amt.models import Activity
 
 class WorkSerializer(serializers.ModelSerializer):
-    activity_id = serializers.IntegerField()
+    activity_id = serializers.IntegerField(write_only=True)
 
     class Meta:
         model = Work
-        fields = ['id', 'work', 'activity_id']
+        fields = ['id', 'work', 'activity_id', 'file_attachment', 'date_added']
+        read_only_fields = ['date_added']  # Set date_added as read-only
 
     def create(self, validated_data):
         activity_id = validated_data.pop('activity_id')
@@ -22,6 +23,27 @@ class WorkSerializer(serializers.ModelSerializer):
         work.activity = activity
         work.save()
         return work
+
+# class WorkSerializer(serializers.ModelSerializer):
+#     activity_id = serializers.IntegerField()
+
+#     class Meta:
+#         model = Work
+#         fields = ['id', 'work', 'activity_id']
+
+#     def create(self, validated_data):
+#         activity_id = validated_data.pop('activity_id')
+
+#         try:
+#             activity = Activity.objects.get(pk=activity_id)
+#         except Activity.DoesNotExist:
+#             raise serializers.ValidationError("Activity not found")
+
+#         # Create the Work instance with the associated Activity
+#         work = Work(**validated_data)
+#         work.activity = activity
+#         work.save()
+#         return work
     # def to_representation(self, instance):
     #     data = super().to_representation(instance)
     #     # Include the activity_id in the response
