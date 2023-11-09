@@ -18,6 +18,12 @@ export const ActivityPopup = ({ show, handleClose, activity }) => {
 		handleClose();
 	};
 
+	const handleViewWork = () => {
+		setDisable(true);
+		setEditable(true);
+		handleClose();
+	};
+
 
 	const handleDelete = async () => {
 		try {
@@ -121,6 +127,12 @@ export const ActivityPopup = ({ show, handleClose, activity }) => {
 						Submit
 					</button>
 				)}
+				<button
+					className='btn btn-secondary bw-3 btn-block fw-bold'
+					onClick={handleViewWork}
+					>
+					View Work
+				</button>
 			</Modal.Footer>
 		</Modal>
 	);
