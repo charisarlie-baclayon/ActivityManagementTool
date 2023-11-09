@@ -3,7 +3,6 @@ import {
 	useCreateActivityMutation,
 	useCreateActivityFromTemplateMutation,
 	useAddEvaluationToActivityMutation,
-	useDeleteEvaluationFromActivityMutation,
 	useSubmitActivityMutation,
 	useGetActivitiesByClassMutation,
 	useGetSubmittedActivitiesByClassMutation,
@@ -12,6 +11,9 @@ import {
 	useGetAllActivitiesMutation,
 	useGetActivitiesByCourseMutation,
 	useGetActivityMutation,
+	useDeleteActivityMutation,
+	useUpdateActivityMutation,
+	useDeleteEvaluationFromActivityMutation,
 } from "../Api/Activity";
 
 //#region CREATE ACTIVITY
@@ -72,6 +74,31 @@ export function useAddEvaluationToActivity() {
 
 	return addEvaluation;
 }
+
+//#region DELETE EVALUATION
+
+/**
+ * @description Hook to delete an evaluation from an activity.
+ * @returns {function} deleteEvaluationFromActivity - Function to delete an evaluation from an activity.
+ */
+export function useDeleteEvaluationFromActivity() {
+	const [deleteEvaluationFromActivity] = useDeleteEvaluationFromActivityMutation();
+
+	const deleteEvaluation = async (id) => {
+		try {
+			const response = await deleteEvaluationFromActivity(id);
+			console.log(response);
+			return response;
+		} catch (error) {
+			console.error("Error deleting evaluation from activity:", error);
+		}
+	};
+
+	return deleteEvaluation;
+}
+
+//#endregion DELETE EVALUATION
+
 
 /**
  * @description Hook to submit an activity.
@@ -253,11 +280,12 @@ export function useFetchActivity(id) {
 }
 
 export function useUpdateActivity() {
-	const [updateClass] = useUpdateClassMutation();
+	const [updateClass] = useUpdateActivityMutation();
 
 	const updateExistingClass = async (id, data) => {
 		try {
 			const response = await updateClass({ id, ...data });
+			console.log(response);
 			return response;
 		} catch (error) {
 			console.error("Error updating class:", error);
@@ -275,12 +303,12 @@ export function useUpdateActivity() {
  * @returns {function} deleteActivityById - Function to delete an activity.
  */
 export function useDeleteActivity() {
-	const [deleteEvaluationFromActivity] =
-		useDeleteEvaluationFromActivityMutation();
+	const [deleteActivity] = useDeleteActivityMutation();
 
 	const deleteActivityById = async (id) => {
 		try {
-			const response = await deleteEvaluationFromActivity(id);
+			const response = await deleteActivity(id);
+			console.log(response);
 			return response;
 		} catch (error) {
 			console.error("Error deleting activity:", error);
