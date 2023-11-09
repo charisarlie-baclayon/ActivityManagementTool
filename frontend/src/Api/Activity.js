@@ -67,7 +67,7 @@ export const Activity = apiSlice.injectEndpoints({
 			}),
 		}),
 		getActivity: builder.mutation({
-			query: (id) => `/api/activities/?id=${id}/`,
+			query: (id) => `/api/activities/${id}/`,
 		}),
 		updateActivity: builder.mutation({
 			query: (data) => ({

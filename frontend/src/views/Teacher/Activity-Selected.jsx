@@ -7,7 +7,6 @@ import Button from "react-bootstrap/Button";
 import { useEffect, useState } from 'react';
 import { useFetchCourses } from '../../hooks/useCourse';
 import { useFetchTeams } from '../../hooks/useTeam';
-import { useDeleteEvaluationFromActivityMutation } from '../../Api/Activity';
 
 export const Teacher_SelectedActivitySection = () => {
 	const { id } = useParams();
@@ -29,7 +28,8 @@ export const Teacher_SelectedActivitySection = () => {
 	useEffect(() => {
 		if (fetchActivityData) {
 			const temp = fetchActivityData;
-			setActivityData(temp[id]);
+			console.log(temp);
+			setActivityData(temp);
 		}
 	}, [fetchActivityData]);
 
