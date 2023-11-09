@@ -1,9 +1,5 @@
-import React, { useState } from 'react';
-import {
-	FiBell,
-	FiUser,
-	FiLogOut,
-} from 'react-icons/fi';
+import React, { useState } from "react";
+import { FiBell, FiUser, FiLogOut } from "react-icons/fi";
 import {
 	selectCurrentUser,
 	selectCurrentToken,
@@ -26,7 +22,7 @@ export const Student_NavBar = () => {
 		e.preventDefault();
 
 		try {
-			dispatch(logOut);
+			dispatch(logOut());
 			persistor.purge();
 			navigate("/");
 		} catch (error) {
@@ -35,29 +31,34 @@ export const Student_NavBar = () => {
 	};
 
 	return (
-		<nav className="navbar navbar-expand-md bg-light shadow pl-3 pr-3">
-			<div className="container-md">
+		<nav className='navbar navbar-expand-md bg-light shadow pl-3 pr-3'>
+			<div className='container-md'>
 				<button
-					className="navbar-toggler"
-					type="button"
-					data-toggle="collapse"
-					data-target="#navbarContent"
-					aria-controls="navbarContent"
+					className='navbar-toggler'
+					type='button'
+					data-toggle='collapse'
+					data-target='#navbarContent'
+					aria-controls='navbarContent'
 					aria-expanded={!isNavbarCollapsed}
 					onClick={handleNavbarToggle}
 				>
-					<span className="navbar-toggler-icon"></span>
+					<span className='navbar-toggler-icon'></span>
 				</button>
-				<div className={`collapse gap-5 navbar-collapse ${isNavbarCollapsed ? '' : 'show'}`} id="navbarContent">
-					<div className="navbar-nav ml-auto gap-3">
-						<span className="nav-item nav-link">
-							{isNavbarCollapsed ? <FiBell /> : 'Notification'}
+				<div
+					className={`collapse gap-5 navbar-collapse ${
+						isNavbarCollapsed ? "" : "show"
+					}`}
+					id='navbarContent'
+				>
+					<div className='navbar-nav ml-auto gap-3'>
+						<span className='nav-item nav-link'>
+							{isNavbarCollapsed ? <FiBell /> : "Notification"}
 						</span>
-						<span className="nav-item nav-link">
-							{isNavbarCollapsed ? <FiUser /> : 'User'}
+						<span className='nav-item nav-link'>
+							{isNavbarCollapsed ? <FiUser /> : "User"}
 						</span>
-						<span className="nav-item nav-link" onClick={handleLogout}>
-							{isNavbarCollapsed ? <FiLogOut /> : 'Logout'}
+						<span className='nav-item nav-link' onClick={handleLogout}>
+							{isNavbarCollapsed ? <FiLogOut /> : "Logout"}
 						</span>
 					</div>
 				</div>
