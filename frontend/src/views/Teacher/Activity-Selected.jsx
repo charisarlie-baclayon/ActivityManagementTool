@@ -71,8 +71,11 @@ export const Teacher_SelectedActivitySection = () => {
 		// todo: add a modal to confirm deletion
 
 		try {
-			const response = deleteEvaluation(id);
-			console.log(response);
+			updateActivityData.evaluation = 0;
+			//const response = deleteEvaluation(id);
+
+			const response = addEvaluation(updateActivityData);
+			navigate(0);
 			console.log("Evaluation deleted successfully!");
 		} catch (error) {
 			console.error(error);
