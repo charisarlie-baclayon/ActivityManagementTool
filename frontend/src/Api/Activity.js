@@ -56,7 +56,7 @@ export const Activity = apiSlice.injectEndpoints({
 		}),
 		getActivitiesByTeam: builder.mutation({
 			query: (id) => ({
-				url: `/api/activities/?team_id=${id}/`,
+				url: `/api/activities/?team_id=${id}`,
 				method: "GET",
 			}),
 		}),
