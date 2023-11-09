@@ -458,3 +458,17 @@ class ActivityController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Cre
     #         return Response({"success": "Activity deleted"})
     #     except Exception as e:
     #         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+     # DESTROY ACTIVITY
+    def destroy(self, request, *args, **kwargs):
+        try:
+            instance = self.get_object()
+        except Activity.DoesNotExist:
+            return Response({'error': 'Activity not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        try:
+            self.perform_destroy(instance)
+        except Exception as e:
+            return Response({'error': f'Failed to delete activity. {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
