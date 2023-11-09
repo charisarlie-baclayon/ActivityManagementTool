@@ -23,6 +23,7 @@ import { Student_SelectedTeamSection } from "./views/Student/Team-Selected";
 import { Student_CreateActivitySection } from "./views/Student/Activity-Create";
 import { Student_TemplateSection } from "./views/Student/Template";
 import { Student_SelectedTemplateSection } from "./views/Student/Template-Selected";
+import { Teacher_SelectedActivitySection } from "./views/Teacher/Activity-Selected";
 
 function App() {
 	return (
@@ -37,11 +38,9 @@ function App() {
 					<Route index element={<Teacher_HomeSection />} />
 					<Route path='home' element={<Teacher_HomeSection />} />
 					<Route path='activities' element={<Teacher_ActivitySection />} />
+					<Route path='activities/:id' element={<Teacher_SelectedActivitySection />} />
 					<Route path='classes' element={<Teacher_ClassSection />} />
-					<Route
-						path='classes/:id'
-						element={<Teacher_SelectedClassSection />}
-					/>
+					<Route path='classes/:id' element={<Teacher_SelectedClassSection />} />
 					<Route path='teams' element={<Teacher_TeamSection />} />
 					<Route path='teams/:id' element={<Teacher_SelectedTeamSection />} />
 					<Route path='activities/new' element={<Teacher_CreateActivitySection />} />
@@ -56,10 +55,7 @@ function App() {
 					<Route index element={<Student_HomeSection />} />
 					<Route path='home' element={<Student_HomeSection />} />
 					<Route path='activities' element={<Student_ActivitySection />} />
-					<Route
-						path='activities/new'
-						element={<Student_CreateActivitySection />}
-					/>
+					<Route path='activities/new' element={<Student_CreateActivity />} />
 					<Route path='teams' element={<Student_TeamSection />} />
 					<Route path='teams/:id' element={<Student_SelectedTeamSection />} />
 					<Route path='activities/templates/' element={<Student_TemplateSection />} />

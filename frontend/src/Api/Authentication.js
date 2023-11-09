@@ -44,11 +44,10 @@ export const Authentication = apiSlice.injectEndpoints({
 	}),
 });
 
-
 export const {
 	useLoginTeacherMutation,
 	useLoginStudentMutation,
 	useAcquireTokenMutation,
-	useRefreshToken,
+	useRefreshTokenMutation,
 	useVerifyTokenMutation,
 } = Authentication;

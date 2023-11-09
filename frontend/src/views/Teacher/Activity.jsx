@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { ActivityPopup } from "../../components/popups/activity/teacher-view-activity";
-import { CreateActivityPopup } from "../../components/popups/activity/teacher-create-activity";
 import { ActivityCard } from "../../components/Cards/Card.Activity";
 import { useFetchTeams } from "../../hooks/useTeam";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +14,6 @@ import { FiChevronLeft } from "react-icons/fi";
 export const Teacher_ActivitySection = () => {
 	const [teams, setTeams] = useState([]);
 	const [unfilteredActivities, setUnfilteredActivities] = useState([]);
-	const [selectedActivity, setSelectedActivity] = useState(null);
 
 	const fetchedTeams = useFetchTeams();
 	const fetchedClasses = useFetchClasses();
@@ -26,7 +23,6 @@ export const Teacher_ActivitySection = () => {
 	const [selectedTeam, setSelectedTeam] = useState(null);
 	const [selectedCourse, setSelectedCourse] = useState("All");
 	const [searchInput, setSearchInput] = useState("");
-	const [showActivity, setShowActivity] = useState(false);
 	const navigate = useNavigate();
 
 	// this gets all the activities unfiltered
@@ -69,8 +65,8 @@ export const Teacher_ActivitySection = () => {
 	};
 
 	const handleToSelectedActivity = (activity) => {
-		setSelectedActivity(activity);
-		setShowActivity(true);
+		navigate(`${activity.id}`);
+		console.log(activity);
 	};
 
 	const handleFilterActivities = (filter) => {
@@ -360,14 +356,6 @@ export const Teacher_ActivitySection = () => {
 						</div>
 					)}
 				</div>
-
-				{selectedActivity && (
-					<ActivityPopup
-						show={showActivity}
-						handleClose={() => setShowActivity(false)}
-						activity={selectedActivity}
-					/>
-				)}
 			</div>
 		</div>
 	);

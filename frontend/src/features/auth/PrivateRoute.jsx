@@ -10,30 +10,58 @@ import {
 import { useSelector } from "react-redux";
 import {
 	selectCurrentToken,
-	selecCurrentRole,
+	selectCurrentRole,
+	logOut,
+	selectCurrentRefresh,
+	selectCurrentUser,
 } from "../../features/auth/authSlice";
-import { useVerifyTokenMutation } from "../../api/Authentication";
+import { persistor } from "../../store";
+import { useDispatch } from "react-redux";
+import {
+	useRefreshTokenMutation,
+	useVerifyTokenMutation,
+} from "../../api/Authentication";
+import { setCredentials } from "../../features/auth/authSlice";
 
 export const PrivateRoutes = () => {
-	const role = useSelector(selecCurrentRole);
+	const currentRole = useSelector(selectCurrentRole);
 	const location = useLocation();
 	const token = useSelector(selectCurrentToken);
-	// const token =
-	//     "1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwNTU2MTA5MywiaWF0IjoxNjk3Nzg1MDkzLCJqdGkiOiIyNjIzMzhiZjE1MzM0ZjhiOTQzZWEzYzFmZTdiZmY3MCIsInVzZXJfaWQiOjMsImVtYWlsIjoic3R1ZGVudEBlbWFpbC5jb20ifQ.c8JnHvNUdOC8bBn8fwjq6mQhWRoUH0fxYhBCCJ7kwY8";
+	const dispatch = useDispatch();
+	const currentUser = useSelector(selectCurrentUser);
+
 	const navigate = useNavigate();
 	const [verifyToken] = useVerifyTokenMutation();
+	const [refreshToken] = useRefreshTokenMutation();
+	const refresh = useSelector(selectCurrentRefresh);
+
 	useEffect(() => {
 		const verifyAccessToken = async () => {
 			if (token) {
 				try {
 					const verificationResponse = await verifyToken(token);
-					if (!verificationResponse) {
-						console.log("di ka authorized");
-						navigate("/");
+
+					if (verificationResponse?.error?.status === 401) {
+						// refresh token
+
+						const refreshResponse = await refreshToken(refresh).unwrap();
+
+						dispatch(
+							setCredentials({
+								accessToken: refreshResponse.access,
+								refreshToken: refreshResponse.refresh,
+								role: currentRole,
+								user: currentUser,
+							})
+						);
+
+						window.location.reload();
 					}
 				} catch (error) {
 					console.log("di ka authorized");
 					console.error(error);
+					dispatch(logOut());
+					persistor.purge();
 					navigate("/");
 				}
 			}
@@ -47,13 +75,13 @@ export const PrivateRoutes = () => {
 		return <Navigate to='/' />;
 	}
 
-	if (role === "teacher" && location.pathname.startsWith("/teacher")) {
+	if (currentRole === "teacher" && location.pathname.startsWith("/teacher")) {
 		return <Outlet />;
 	}
 
-	if (role === "student" && location.pathname.startsWith("/student")) {
+	if (currentRole === "student" && location.pathname.startsWith("/student")) {
 		return <Outlet />;
 	}
 
-	return <Navigate to={`/${role}`} />;
+	return <Navigate to={`/${currentRole}`} />;
 };

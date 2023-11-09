@@ -11,6 +11,7 @@ import {
 	useGetActivitiesByTeamMutation,
 	useGetAllActivitiesMutation,
 	useGetActivitiesByCourseMutation,
+	useGetActivityMutation,
 } from "../Api/Activity";
 
 //#region CREATE ACTIVITY
@@ -214,13 +215,13 @@ export function useGetSubmittedActivitiesByClass(id) {
 
 export function useFetchActivities() {
 	const [getAllActivities] = useGetAllActivitiesMutation();
-	const [activities, setActivties] = useState([]);
+	const [activities, setActivities] = useState([]);
 
 	useEffect(() => {
 		const fetchActivities = async () => {
 			try {
 				const response = await getAllActivities();
-				setActivties(response.data);
+				setActivities(response.data);
 			} catch (error) {
 				console.error("Error fetching teams data:", error);
 			}
@@ -230,6 +231,40 @@ export function useFetchActivities() {
 	}, [getAllActivities]);
 
 	return activities;
+}
+
+export function useFetchActivity(id) {
+	const [readActivity] = useGetActivityMutation();
+	const [activityData, setActivityData] = useState(null);
+
+	useEffect(() => {
+		const fetchActivity = async () => {
+			try {
+				const response = await readActivity(id);
+				setActivityData(response.data);
+			} catch (error) {
+				console.error("Error fetching activity data:", error);
+			}
+		};
+		fetchActivity();
+	}, [id, readActivity]);
+
+	return activityData;
+}
+
+export function useUpdateActivity() {
+	const [updateClass] = useUpdateClassMutation();
+
+	const updateExistingClass = async (id, data) => {
+		try {
+			const response = await updateClass({ id, ...data });
+			return response;
+		} catch (error) {
+			console.error("Error updating class:", error);
+		}
+	};
+
+	return updateExistingClass;
 }
 //#endregion GET ACTIVITY
 

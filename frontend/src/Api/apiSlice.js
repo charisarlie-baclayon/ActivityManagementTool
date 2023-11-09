@@ -13,37 +13,7 @@ const baseQuery = fetchBaseQuery({
 	},
 });
 
-// logic not tested
-const baseQueryWithReauth = async (args, api, extraOptions) => {
-	let result = await baseQuery(args, api, extraOptions);
-
-	if (result?.error?.originalStatus === 403) {
-		console.log("sending refresh token");
-		// send refresh token to get new access token
-		const refreshResult = await baseQuery("/tokens/acquire", api);
-		console.log(refreshResult);
-		if (refreshResult?.data) {
-			const user = api.getState().auth.user;
-			const role = api.getState().auth.role;
-			// store the new token
-			api.dispatch(
-				setCredentials({
-					user,
-					role,
-					accessToken: refreshResult.data.access,
-				})
-			);
-			// retry the original query with new access token
-			result = await baseQuery(args, api, extraOptions);
-		} else {
-			api.dispatch(logOut());
-		}
-	}
-
-	return result;
-};
-
 export const apiSlice = createApi({
-	baseQuery: baseQueryWithReauth,
+	baseQuery,
 	endpoints: (builder) => ({}),
 });
