@@ -32,9 +32,9 @@ export const Student_SideBar = () => {
 				<hr className="separator text-light w-75 " />
 
 				{routes.map((route, index) => (
-					<div
+					<button
 						key={index}
-						className={`sidebar-link  d-flex gap-3 p-3 shadow align-items-center border border-primary ${isRouteActive(route) ? 'bg-primary text-dark' : 'bg-secondary text-primary'
+						className={`btn sidebar-link  d-flex gap-3 p-3 shadow align-items-center rounded-0 border border-primary ${isRouteActive(route) ? 'btn-primary text-dark' : 'btn-secondary text-primary'
 							} w-100 `}
 						onClick={() => {
 							navigate(route.path);
@@ -42,7 +42,7 @@ export const Student_SideBar = () => {
 					>
 						{route.icon && <div className='ml-3'>{route.icon}</div>}
 						<span className='mr-3'>{route.name}</span>
-					</div>
+					</button>
 				))}
 			</div>
 		</aside>

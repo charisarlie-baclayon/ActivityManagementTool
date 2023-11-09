@@ -56,8 +56,18 @@ export const Activity = apiSlice.injectEndpoints({
 		}),
 		getActivitiesByTeam: builder.mutation({
 			query: (id) => ({
-				url: `/api/activities/?team_id=${id}`,
+				url: `/api/activities/?team_id=${id}/`,
 				method: "GET",
+			}),
+		}),
+		getActivity: builder.mutation({
+			query: (id) => `/api/activities/?id=${id}/`,
+		}),
+		updateActivity: builder.mutation({
+			query: (data) => ({
+				url: `/api/activities/${data.id}/`,
+				method: "PUT",
+				body: { ...data },
 			}),
 		}),
 		getAllActivities: builder.mutation({
@@ -84,6 +94,8 @@ export const {
 	useGetSubmittedActivitiesByClassMutation,
 	useGetSubmittedActivitiesByTeamMutation,
 	useGetActivitiesByTeamMutation,
+	useGetActivityMutation,
 	useGetAllActivitiesMutation,
 	useGetActivitiesByCourseMutation,
+	useUpdateActivityMutation,
 } = Activity;
