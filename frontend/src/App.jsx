@@ -55,7 +55,7 @@ function App() {
 					<Route index element={<Student_HomeSection />} />
 					<Route path='home' element={<Student_HomeSection />} />
 					<Route path='activities' element={<Student_ActivitySection />} />
-					<Route path='activities/new' element={<Student_CreateActivity />} />
+					<Route path='activities/new' element={<Student_CreateActivitySection />} />
 					<Route path='teams' element={<Student_TeamSection />} />
 					<Route path='teams/:id' element={<Student_SelectedTeamSection />} />
 					<Route path='activities/templates/' element={<Student_TemplateSection />} />
