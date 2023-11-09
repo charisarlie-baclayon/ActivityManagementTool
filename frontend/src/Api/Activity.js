@@ -24,6 +24,12 @@ export const Activity = apiSlice.injectEndpoints({
 				body: { ...data },
 			}),
 		}),
+		deleteActivity: builder.mutation({
+			query: (id) => ({
+				url: `/api/activities/${id}/`,
+				method: "DELETE",
+			}),
+		}),
 		deleteEvaluationFromActivity: builder.mutation({
 			query: (id) => ({
 				url: `/api/activities/${id}/delete_evaluation/`,
@@ -98,4 +104,5 @@ export const {
 	useGetAllActivitiesMutation,
 	useGetActivitiesByCourseMutation,
 	useUpdateActivityMutation,
+	useDeleteActivityMutation,
 } = Activity;
