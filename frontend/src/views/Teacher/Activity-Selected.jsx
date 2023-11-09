@@ -265,7 +265,14 @@ export const Teacher_SelectedActivitySection = () => {
 				</div>
 				<div className='d-flex flex-row gap-3'>
 					<button className='btn btn-success bw-3' onClick={() => setShowAddEvaluationModal(true)}>Add Evaluation</button>
-					<button className='btn btn-outline-secondary bw-3' onClick={handleDeleteEvaluation}>Delete Evaluation</button>
+					{updateActivityData.submission_status && (
+						<button
+							className="btn btn-outline-secondary bw-3"
+							onClick={handleDeleteEvaluation}
+						>
+							Delete Evaluation
+						</button>
+					)}
 				</div>
 				<hr className='text-dark' />
 				<div className='d-flex flex-column gap-3'>
