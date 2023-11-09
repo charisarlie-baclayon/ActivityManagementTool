@@ -18,6 +18,25 @@ class WorkController(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateM
     serializer_class = WorkSerializer
 
 
+    # def create(self, request, *args, **kwargs):
+    #     serializer = self.get_serializer(data=request.data)
+
+    #     if serializer.is_valid():
+    #         # Get the activity_id from the request data (you may want to validate this)
+    #         activity_id = request.data.get('activity_id', None)
+
+    #         if activity_id:
+    #             try:
+    #                 activity = Activity.objects.get(pk=activity_id)
+    #                 work = serializer.save(activity=activity)
+    #                 return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #             except Activity.DoesNotExist:
+    #                 return Response({'error': 'Activity not found'}, status=status.HTTP_404_NOT_FOUND)
+    #         else:
+    #             return Response({'error': 'Activity ID not provided'}, status=status.HTTP_400_BAD_REQUEST)
+    #     else:
+    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
 
@@ -36,7 +55,23 @@ class WorkController(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateM
                 return Response({'error': 'Activity ID not provided'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
     @action(detail=False, methods=['GET'])
     def get_work_by_activity(self, request):
         activity_id = request.query_params.get('activity_id')
@@ -51,3 +86,18 @@ class WorkController(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateM
             return Response(serializer.data)
         except Activity.DoesNotExist:
             return Response({"error": f"Activity with ID {activity_id} not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+    # @action(detail=False, methods=['GET'])
+    # def get_work_by_activity(self, request):
+    #     activity_id = request.query_params.get('activity_id')
+
+    #     if not activity_id:
+    #         return Response({"error": "Activity ID not provided"}, status=status.HTTP_400_BAD_REQUEST)
+
+    #     try:
+    #         # Retrieve all Work instances associated with the specified Activity
+    #         work_instances = Work.objects.filter(activity=activity_id)
+    #         serializer = WorkSerializer(work_instances, many=True)
+    #         return Response(serializer.data)
+    #     except Activity.DoesNotExist:
+    #         return Response({"error": f"Activity with ID {activity_id} not found"}, status=status.HTTP_404_NOT_FOUND)
