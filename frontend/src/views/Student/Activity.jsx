@@ -58,8 +58,8 @@ export const Student_ActivitySection = () => {
 	const [selectedClass, setSelectedClass] = useState(null);
 
 	const handleToSelectedActivity = (activity) => {
-		setSelectedActivity(activity);
-		setShowActivity(true);
+		navigate(`${activity.id}`);
+		console.log(activity);
 	};
 
 	const handleToBack = () => {

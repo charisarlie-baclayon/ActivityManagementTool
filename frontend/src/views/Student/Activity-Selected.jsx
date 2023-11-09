@@ -1,14 +1,13 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFetchClass } from '../../hooks/useClass';
 import { FiChevronLeft } from 'react-icons/fi';
-import { useDeleteActivity, useFetchActivity } from '../../hooks/useActivity';
+import { useSubmitActivity, useDeleteActivity, useFetchActivity } from '../../hooks/useActivity';
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useEffect, useState } from 'react';
 import { useFetchCourses } from '../../hooks/useCourse';
 import { useFetchTeams } from '../../hooks/useTeam';
-import { FiChevronLeft } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { setStudentModel,selectCurrentTeam, selectStudentModel } from "../../features/slice/studentModelSlice"; // Import the student model slice
@@ -58,19 +57,19 @@ export const Student_SelectedActivitySection = () => {
 		total_score: 100,
 	});
 
+	
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const response = await updateActivityData(id, updateActivityData);
+
+			const submitActivity = useSubmitActivity(id);
 
 			// must add a conditional statement to check if response is successful
 			// like if status 200 then goods
 
 			// if response is successfully updated, then:
-			if (response) {
-				setUpdateActivityData(updateActivityData);
-				handleCloseModal();
-
+			if (submitActivity.submission_status) {
 				console.log("Successfully updated class!");
 			}
 		} catch (error) {
@@ -132,6 +131,12 @@ export const Student_SelectedActivitySection = () => {
 						>
 							Delete Activity
 						</button>
+						<button
+							className='btn btn-outline-secondary btn-block fw-bold bw-3 m-0 '
+							onClick={handleSubmit}
+						>
+							Submit Activity
+						</button>
 					</div>
 				</div>
 				<hr className="text-dark" />
@@ -148,8 +153,8 @@ export const Student_SelectedActivitySection = () => {
 					)}
 				</div>
 				<div className='d-flex flex-row gap-3'>
-					<button className='btn btn-success bw-3'>Add Evaluation</button>
-					<button className='btn btn-outline-secondary bw-3'>Edit Evaluation</button>
+					<button className='btn btn-success bw-3'>Add Work</button>
+					<button className='btn btn-outline-secondary bw-3'>Edit Work</button>
 				</div>
 				<hr className='text-dark' />
 				<div className='d-flex flex-column gap-3'>
