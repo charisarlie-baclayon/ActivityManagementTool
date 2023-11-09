@@ -44,7 +44,9 @@ export const Teacher_SignIn = () => {
 
 			if (loginUser) {
 				if (loginUser.role !== "teacher") {
-					alert("Unauthorized: You are not authorized to access this resource.");
+					alert(
+						"Unauthorized: You are not authorized to access this resource."
+					);
 					return;
 				}
 
@@ -52,11 +54,13 @@ export const Teacher_SignIn = () => {
 					email,
 					password,
 				}).unwrap();
+
 				dispatch(
 					setCredentials({
 						user: `${loginUser.first_name} ${loginUser.last_name}`,
 						accessToken: response.access,
 						role: "teacher",
+						refreshToken: response.refresh,
 					})
 				);
 				setEmail("");
