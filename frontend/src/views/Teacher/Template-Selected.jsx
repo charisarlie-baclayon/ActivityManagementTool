@@ -32,6 +32,7 @@ export const Teacher_SelectedTemplateSection = () => {
 
             if (response) {
                 console.log("Successfully deleted template!");
+                navigate(0);
             }
         } catch (error) {
             console.error(error);

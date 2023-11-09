@@ -1,20 +1,20 @@
 import {
-    useReadCommentQuery,
-    useReadCommentsQuery,
     useCreateCommentMutation,
     useDeleteCommentMutation,
     useUpdateCommentMutation,
-    useReadCommentsForActivityQuery,
+    useReadCommentMutation,
+    useReadCommentsMutation,
+    useReadCommentsForActivityMutation,
 } from "../api/Comment";
 
 export function useFetchComment(id) {
-    const { data: commentData } = useReadCommentQuery(id, { skip: !id });
+    const { data: commentData } = useReadCommentMutation(id, { skip: !id });
 
     return commentData;
 }
 
 export function useFetchComments() {
-    const { data: comments } = useReadCommentsQuery();
+    const { data: comments } = useReadCommentsMutation();
 
     return comments || [];
 }
@@ -65,9 +65,16 @@ export function useDeleteComment() {
 }
 
 export function useFetchCommentsForActivity(activity_id) {
-    const { data: commentsForActivity } = useReadCommentsForActivityQuery(
-        { activity_id }
-    );
+    const [readComments] = useReadCommentsForActivityMutation(activity_id);
 
-    return commentsForActivity || [];
+    const submitTheActivity = async (id) => {
+        try {
+            const response = await readComments(id);
+            return response.data;
+        } catch (error) {
+            console.error("Error updating activity:", error);
+        }
+    };
+
+    return submitTheActivity;
 }

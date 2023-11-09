@@ -57,6 +57,7 @@ export const Teacher_SignIn = () => {
 
 				dispatch(
 					setCredentials({
+						id: loginUser.id,
 						user: `${loginUser.first_name} ${loginUser.last_name}`,
 						accessToken: response.access,
 						role: "teacher",
