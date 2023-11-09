@@ -5,6 +5,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import { CookieStorage } from "redux-persist-cookie-storage";
 import Cookies from "cookies-js";
 import thunk from "redux-thunk";
+import studentModelReducer from "./features/slice/studentModelSlice"; // Import the studentModelSlice reducer
 
 const persistConfig = {
 	key: "root",
@@ -17,6 +18,7 @@ export const store = configureStore({
 	reducer: {
 		[apiSlice.reducerPath]: apiSlice.reducer,
 		auth: persistedReducer,
+		studentModel: studentModelReducer,
 	},
 	middleware: [thunk].concat(apiSlice.middleware),
 	devTools: true, // if in production false
