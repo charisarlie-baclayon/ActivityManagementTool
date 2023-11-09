@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from ..models import User
+from ..models import User, Student
+from ..serializers import StudentSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -50,8 +51,12 @@ class LoginSerializer(serializers.Serializer):
 
         if not user.check_password(password):
             raise serializers.ValidationError('Invalid Credentials')
-
+        
         serializer_data = UserSerializer(user).data
+        if user.role == 'student':
+            student = Student.objects.get(user=user)
+            serializer_data.update(StudentSerializer(student).data)
+
         return serializer_data
     
 class SuperUserSerializer(serializers.ModelSerializer):

@@ -27,7 +27,21 @@
    ```
    python manage.py runserver
    ```
+   
+## Setting Up Frontend
 
+### **Install dependencies**
+
+1. Change directory to frontend
+   ```
+   npm i
+   ```
+
+2. Run dev:
+   ```
+   npm run dev
+   ```
+   
 ### Admin Credentials
 
 - **Username:** admin
