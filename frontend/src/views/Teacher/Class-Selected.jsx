@@ -63,6 +63,7 @@ export const Teacher_SelectedClassSection = () => {
 			if (response) {
 				setClassData(updateClassData);
 				handleCloseModal();
+				navigate(0);
 
 				console.log("Successfully updated class!");
 			}

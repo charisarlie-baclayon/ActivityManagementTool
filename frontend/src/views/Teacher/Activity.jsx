@@ -18,6 +18,7 @@ export const Teacher_ActivitySection = () => {
 	const fetchedTeams = useFetchTeams();
 	const fetchedClasses = useFetchClasses();
 	const { fetchActivitiesByClass } = useGetActivitiesByClass();
+	const [selectedFilter, setSelectedFilter] = useState(0);
 
 	const courses = useFetchCourses();
 	const [selectedTeam, setSelectedTeam] = useState(null);
@@ -62,6 +63,8 @@ export const Teacher_ActivitySection = () => {
 	const setActivitiesAndUnfiltered = (activities) => {
 		setActivities(activities);
 		setUnfilteredActivities(activities);
+		console.log(activities);
+
 	};
 
 	const handleToSelectedActivity = (activity) => {
@@ -75,20 +78,24 @@ export const Teacher_ActivitySection = () => {
 		switch (filter) {
 			case 0:
 				setActivities(unfilteredActivities);
+				setSelectedFilter(0)
 				break;
 			case 1:
 				filteredActivities = unfilteredActivities.filter(
 					(activity) => activity.submission_status === true
 				);
 				setActivities(filteredActivities);
+				setSelectedFilter(1)
 				break;
 			case 2:
 				filteredActivities = unfilteredActivities.filter(
 					(activity) => activity.submission_status === false
 				);
 				setActivities(filteredActivities);
+				setSelectedFilter(2)
 				break;
 		}
+
 	};
 
 	const handleTeamChange = (teamId) => {
@@ -307,19 +314,19 @@ export const Teacher_ActivitySection = () => {
 									<FiChevronLeft />
 								</span>
 								<button
-									className='btn btn-white bw-3 m-0 col-md-3'
+									className={`btn ${selectedFilter === 0 ? 'btn-secondary' : 'btn-white'} bw-3 m-0 col-md-3`}
 									onClick={() => handleFilterActivities(0)}
 								>
 									All
 								</button>
 								<button
-									className='btn btn-white bw-3 m-0 col-md-3'
+									className={`btn ${selectedFilter === 1 ? 'btn-secondary' : 'btn-white'} bw-3 m-0 col-md-3`}
 									onClick={() => handleFilterActivities(1)}
 								>
 									Submitted
 								</button>
 								<button
-									className='btn btn-white bw-3 m-0 col-md-3'
+									className={`btn ${selectedFilter === 2 ? 'btn-secondary' : 'btn-white'} bw-3 m-0 col-md-3`}
 									onClick={() => handleFilterActivities(2)}
 								>
 									Unsubmitted

@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useFetchClass } from '../../hooks/useClass';
 import { FiChevronLeft } from 'react-icons/fi';
-import { useDeleteActivity, useFetchActivity } from '../../hooks/useActivity';
+import { useAddEvaluationToActivity, useDeleteActivity, useDeleteEvaluationFromActivity, useFetchActivity, useUpdateActivity } from '../../hooks/useActivity';
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -14,17 +13,23 @@ export const Teacher_SelectedActivitySection = () => {
 	const navigate = useNavigate();
 	const [showModal, setShowModal] = useState(false);
 	const handleCloseModal = () => setShowModal(false);
+	const [showAddEvaluationModal, setShowAddEvaluationModal] = useState(false);
+	const handleCloseAddEvaluationModal = () => setShowAddEvaluationModal(false);
 
 	const [activityData, setActivityData] = useState(null);
 	const teams = useFetchTeams();
 	const courses = useFetchCourses();
 	const fetchActivityData = useFetchActivity(id);
 	const deleteActivity = useDeleteActivity();
+	const updateActivity = useUpdateActivity();
+	const addEvaluation = useAddEvaluationToActivity();
+	const deleteEvaluation = useDeleteEvaluationFromActivity();
 
 	useEffect(() => {
 		if (fetchActivityData) {
 			const temp = fetchActivityData;
-			setActivityData(temp[id]);
+			console.log(temp);
+			setActivityData(temp);
 		}
 	}, [fetchActivityData]);
 
@@ -42,10 +47,53 @@ export const Teacher_SelectedActivitySection = () => {
 		total_score: 100,
 	});
 
+
+
+	const handleAddEvaluation = async (e) => {
+		e.preventDefault();
+
+		// todo: add logic to handle adding evaluation
+
+		try {
+			const response = addEvaluation(updateActivityData);
+			console.log("Evaluation added successfully!");
+			handleCloseAddEvaluationModal();
+			navigate(0);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+
+	const handleDeleteEvaluation = async (e) => {
+		e.preventDefault();
+
+		// todo: add a modal to confirm deletion
+
+		try {
+			updateActivityData.evaluation = 0;
+			//const response = deleteEvaluation(id);
+
+			const response = addEvaluation(updateActivityData);
+			navigate(0);
+			console.log("Evaluation deleted successfully!");
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	useEffect(() => {
+		if (activityData) {
+			setUpdateActivityData({
+				...activityData,
+			});
+		}
+	}, [activityData, showModal]);
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const response = await updateActivityData(id, updateActivityData);
+			const response = await updateActivity(id, updateActivityData);
 
 			// must add a conditional statement to check if response is successful
 			// like if status 200 then goods
@@ -54,6 +102,7 @@ export const Teacher_SelectedActivitySection = () => {
 			if (response) {
 				setUpdateActivityData(updateActivityData);
 				handleCloseModal();
+				navigate(0);
 
 				console.log("Successfully updated class!");
 			}
@@ -72,7 +121,7 @@ export const Teacher_SelectedActivitySection = () => {
 
 			if (response) {
 				console.log("Successfully deleted team!");
-				navigate("/teacher/classes");
+				navigate("/teacher/activities");
 			}
 		} catch (error) {
 			console.error(error);
@@ -91,6 +140,7 @@ export const Teacher_SelectedActivitySection = () => {
 			...updateActivityData,
 			[name]: value,
 		});
+		console.log(updateActivityData)
 	};
 
 	return (
@@ -132,8 +182,8 @@ export const Teacher_SelectedActivitySection = () => {
 					)}
 				</div>
 				<div className='d-flex flex-row gap-3'>
-					<button className='btn btn-success bw-3'>Add Evaluation</button>
-					<button className='btn btn-outline-secondary bw-3'>Edit Evaluation</button>
+					<button className='btn btn-success bw-3' onClick={() => setShowAddEvaluationModal(true)}>Add Evaluation</button>
+					<button className='btn btn-outline-secondary bw-3' onClick={handleDeleteEvaluation}>Delete Evaluation</button>
 				</div>
 				<hr className='text-dark' />
 				<div className='d-flex flex-column gap-3'>
@@ -143,7 +193,7 @@ export const Teacher_SelectedActivitySection = () => {
 			</div>
 			<Modal show={showModal} onHide={handleCloseModal} size='lg' centered>
 				<Modal.Header closeButton>
-					<Modal.Title className='fs-6 fw-bold'>Create Activity</Modal.Title>
+					<Modal.Title className='fs-6 fw-bold'>Update Activity</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<Form className='d-flex flex-column gap-3'>
@@ -152,7 +202,7 @@ export const Teacher_SelectedActivitySection = () => {
 							<Form.Control
 								type='text'
 								name='title'
-								value={activityData?.title}
+								value={updateActivityData?.title}
 								onChange={handleChange}
 							/>
 						</Form.Group>
@@ -162,7 +212,7 @@ export const Teacher_SelectedActivitySection = () => {
 								as='textarea'
 								rows={3}
 								name='description'
-								value={activityData?.description}
+								value={updateActivityData?.description}
 								onChange={handleChange}
 							/>
 						</Form.Group>
@@ -170,7 +220,7 @@ export const Teacher_SelectedActivitySection = () => {
 							<Form.Label>Course</Form.Label>
 							<Form.Select
 								name='course_id'
-								value={activityData?.course_id}
+								value={updateActivityData?.course_id}
 								onChange={handleChange}
 							>
 								<option value="">Select a course</option>
@@ -185,7 +235,7 @@ export const Teacher_SelectedActivitySection = () => {
 							<Form.Label>Team</Form.Label>
 							<Form.Select
 								name='team_id'
-								value={activityData?.team_id}
+								value={updateActivityData?.team_id}
 								onChange={handleChange}
 							>
 								<option value="">Select a team</option>
@@ -201,7 +251,7 @@ export const Teacher_SelectedActivitySection = () => {
 							<Form.Control
 								type='number'
 								name='year_level'
-								value={activityData?.year_level}
+								value={updateActivityData?.year_level}
 								onChange={handleChange}
 							/>
 						</Form.Group>
@@ -210,7 +260,7 @@ export const Teacher_SelectedActivitySection = () => {
 							<Form.Control
 								type='text'
 								name='section'
-								value={activityData?.section}
+								value={updateActivityData?.section}
 								onChange={handleChange}
 							/>
 						</Form.Group>
@@ -218,7 +268,7 @@ export const Teacher_SelectedActivitySection = () => {
 							<Form.Label>Submission Status</Form.Label>
 							<Form.Select
 								name='submission_status'
-								value={activityData?.submission_status}
+								value={updateActivityData?.submission_status}
 								onChange={handleChange}
 							>
 								<option value="false">Not Submitted</option>
@@ -230,7 +280,7 @@ export const Teacher_SelectedActivitySection = () => {
 							<Form.Control
 								type='date'
 								name='due_date'
-								value={activityData?.due_date}
+								value={updateActivityData?.due_date}
 								onChange={handleChange}
 							/>
 						</Form.Group>
@@ -239,7 +289,7 @@ export const Teacher_SelectedActivitySection = () => {
 							<Form.Control
 								type='number'
 								name='evaluation'
-								value={activityData?.evaluation}
+								value={updateActivityData?.evaluation}
 								onChange={handleChange}
 							/>
 						</Form.Group>
@@ -248,7 +298,7 @@ export const Teacher_SelectedActivitySection = () => {
 							<Form.Control
 								type='number'
 								name='total_score'
-								value={activityData?.total_score}
+								value={updateActivityData?.total_score}
 								onChange={handleChange}
 							/>
 						</Form.Group>
@@ -260,6 +310,33 @@ export const Teacher_SelectedActivitySection = () => {
 					</Button>
 					<Button variant='secondary' onClick={handleSubmit}>
 						Update Activity
+					</Button>
+				</Modal.Footer>
+			</Modal>
+
+			<Modal show={showAddEvaluationModal} onHide={handleCloseAddEvaluationModal} size="lg" centered>
+				<Modal.Header closeButton>
+					<Modal.Title className="fs-6 fw-bold">Add Evaluation</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<Form className="d-flex flex-column gap-3">
+						<Form.Group controlId="evaluation-input">
+							<Form.Label>Evaluation</Form.Label>
+							<Form.Control
+								type="number"
+								name="evaluation"
+								value={updateActivityData?.evaluation}
+								onChange={handleChange}
+							/>
+						</Form.Group>
+					</Form>
+				</Modal.Body>
+				<Modal.Footer>
+					<Button variant="outline-secondary" onClick={handleCloseAddEvaluationModal}>
+						Close
+					</Button>
+					<Button variant="success" onClick={handleAddEvaluation}>
+						Add Evaluation
 					</Button>
 				</Modal.Footer>
 			</Modal>
