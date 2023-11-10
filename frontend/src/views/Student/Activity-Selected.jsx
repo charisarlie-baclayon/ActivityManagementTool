@@ -12,6 +12,9 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { setStudentModel,selectCurrentTeam, selectStudentModel } from "../../features/slice/studentModelSlice"; // Import the student model slice
 import { loadFromLocalStorage } from "../../components/utils/utils";
+import { WorkPopup } from "../../components/popups/activity/student-view-work";
+import { useCreateWork, useFetchWorksByActivity } from '../../hooks/useWork';
+import { WorkCard } from '../../components/Cards/Card.Work';
 
 export const Student_SelectedActivitySection = () => {
 
@@ -31,17 +34,27 @@ export const Student_SelectedActivitySection = () => {
 	const handleCloseModal = () => setShowModal(false);
 
 	const [activityData, setActivityData] = useState(null);
+	const [workData, setWorkData] = useState(null);
 	const teams = useFetchTeams();
 	const courses = useFetchCourses();
 	const fetchActivityData = useFetchActivity(id);
 	const deleteActivity = useDeleteActivity();
 	const submitActivity = useSubmitActivity();
+	const fetchWorkData = useFetchWorksByActivity(id);
+	const createWork = useCreateWork();
 
 	useEffect(() => {
 		if (fetchActivityData) {
 			setActivityData(fetchActivityData);
 		}
 	}, [fetchActivityData]);
+
+	useEffect(() => {
+		if (fetchWorkData) {
+			setWorkData(fetchWorkData);
+		}
+	}, [fetchWorkData]);
+	console.log(workData);
 
 	const [updateActivityData, setUpdateActivityData] = useState({
 		title: "",
@@ -56,7 +69,11 @@ export const Student_SelectedActivitySection = () => {
 		total_score: 100,
 	});
 
-	
+	const [showAddWorkModal, setShowAddWorkModal] = useState(false);
+
+	const handleAddWork = async (e) => {
+		setShowAddWorkModal(true);
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -103,6 +120,8 @@ export const Student_SelectedActivitySection = () => {
 		});
 	};
 
+	console.log(activityData);
+
 	return (
 		<div className="container-md">
 			<div className="container-md d-flex flex-column gap-3 mt-5 pr-3 pl-3">
@@ -146,139 +165,41 @@ export const Student_SelectedActivitySection = () => {
 					) : (
 						<p>Loading class details...</p>
 					)}
+
+					<div className="d-flex flex-column gap-3">
+						<h5 className="fw-bold">Works</h5>
+						{workData ? (
+						workData.map((work) => (
+							<WorkCard key={work.id} workData={work} />
+						))
+						) : (
+						<p>No work data available.</p>
+						)}
+					</div>
+
 				</div>
 				<div className='d-flex flex-row gap-3'>
-					<button className='btn btn-success bw-3'>Add Work</button>
-					<button className='btn btn-outline-secondary bw-3'>Edit Work</button>
+					<button className='btn btn-success bw-3' onClick={handleAddWork}>
+						Add Work
+					</button>
 				</div>
 				<hr className='text-dark' />
+
+				{activityData && (
+					<WorkPopup
+					show={showAddWorkModal}
+					handleClose={() => setShowAddWorkModal(false)}
+					workData={workData} // Pass any necessary data
+					id={id}
+					//onSubmit={handleSubmitWork} // Define a function to handle work submission
+					/>
+				)}
+
 				<div className='d-flex flex-column gap-3'>
 					<p>Comment</p>
 					<button className='btn btn-outline-secondary bw-3'>Add Comment</button>
 				</div>
 			</div>
-			<Modal show={showModal} onHide={handleCloseModal} size='lg' centered>
-				<Modal.Header closeButton>
-					<Modal.Title className='fs-6 fw-bold'>Create Activity</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					<Form className='d-flex flex-column gap-3'>
-						<Form.Group controlId='title-input'>
-							<Form.Label>Title</Form.Label>
-							<Form.Control
-								type='text'
-								name='title'
-								value={activityData?.title}
-								onChange={handleChange}
-							/>
-						</Form.Group>
-						<Form.Group controlId='description-input'>
-							<Form.Label>Description</Form.Label>
-							<Form.Control
-								as='textarea'
-								rows={3}
-								name='description'
-								value={activityData?.description}
-								onChange={handleChange}
-							/>
-						</Form.Group>
-						<Form.Group controlId='course-input'>
-							<Form.Label>Course</Form.Label>
-							<Form.Select
-								name='course_id'
-								value={activityData?.course_id}
-								onChange={handleChange}
-							>
-								<option value="">Select a course</option>
-								{courses.map((course) => (
-									<option key={course.id} value={course.id}>
-										{course.name}
-									</option>
-								))}
-							</Form.Select>
-						</Form.Group>
-						<Form.Group controlId='team-input'>
-							<Form.Label>Team</Form.Label>
-							<Form.Select
-								name='team_id'
-								value={activityData?.team_id}
-								onChange={handleChange}
-							>
-								<option value="">Select a team</option>
-								{teams.map((team) => (
-									<option key={team.id} value={team.id}>
-										{team.name}
-									</option>
-								))}
-							</Form.Select>
-						</Form.Group>
-						<Form.Group controlId='year-level-input'>
-							<Form.Label>Year Level</Form.Label>
-							<Form.Control
-								type='number'
-								name='year_level'
-								value={activityData?.year_level}
-								onChange={handleChange}
-							/>
-						</Form.Group>
-						<Form.Group controlId='section-input'>
-							<Form.Label>Section</Form.Label>
-							<Form.Control
-								type='text'
-								name='section'
-								value={activityData?.section}
-								onChange={handleChange}
-							/>
-						</Form.Group>
-						<Form.Group controlId='submission-status-input'>
-							<Form.Label>Submission Status</Form.Label>
-							<Form.Select
-								name='submission_status'
-								value={activityData?.submission_status}
-								onChange={handleChange}
-							>
-								<option value="false">Not Submitted</option>
-								<option value="true">Submitted</option>
-							</Form.Select>
-						</Form.Group>
-						<Form.Group controlId='due-date-input'>
-							<Form.Label>Due Date</Form.Label>
-							<Form.Control
-								type='date'
-								name='due_date'
-								value={activityData?.due_date}
-								onChange={handleChange}
-							/>
-						</Form.Group>
-						<Form.Group controlId='evaluation-input'>
-							<Form.Label>Evaluation</Form.Label>
-							<Form.Control
-								type='number'
-								name='evaluation'
-								value={activityData?.evaluation}
-								onChange={handleChange}
-							/>
-						</Form.Group>
-						<Form.Group controlId='total-score-input'>
-							<Form.Label>Total Score</Form.Label>
-							<Form.Control
-								type='number'
-								name='total_score'
-								value={activityData?.total_score}
-								onChange={handleChange}
-							/>
-						</Form.Group>
-					</Form>
-				</Modal.Body>
-				<Modal.Footer>
-					<Button variant='outline-secondary' onClick={handleCloseModal}>
-						Close
-					</Button>
-					<Button variant='secondary' onClick={handleSubmit}>
-						Update Activity
-					</Button>
-				</Modal.Footer>
-			</Modal>
 		</div>
 	);
 };

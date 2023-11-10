@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { selectCurrentToken } from "../features/auth/authSlice";
-import { readWork, readWorks, createWork, deleteWork, updateWork } from "../api/Works";
+import {
+    useReadWorksMutation,
+	useReadWorkMutation,
+	useGetWorkByActivityMutation,
+	useCreateWorkMutation,
+	useDeleteWorkMutation,
+	useUpdateWorkMutation,
+} from "../Api/Work";
 
 export function useFetchWork(id) {
+    const [readWork] = useReadWorkMutation();
     const [workData, setWorkData] = useState(null);
-    const accessToken = useSelector(selectCurrentToken);
 
     useEffect(() => {
         const fetchWork = async () => {
             try {
-                const response = await readWork(id, accessToken);
-                setWorkData(response);
+                const response = await readWork(id);
+                setWorkData(response.data);
             } catch (error) {
                 console.error("Error fetching work data:", error);
             }
@@ -20,37 +25,59 @@ export function useFetchWork(id) {
         if (id) {
             fetchWork();
         }
-    }, [id, accessToken]);
+    }, [id, readWork]);
+
+    return workData;
+}
+
+export function useFetchWorksByActivity(activityId) {
+    const [getWorkByActivity] = useGetWorkByActivityMutation();
+    const [workData, setWorkData] = useState(null);
+
+    useEffect(() => {
+        const fetchWorksByActivity = async () => {
+            try {
+                const response = await getWorkByActivity(activityId);
+                setWorkData(response.data);
+            } catch (error) {
+                console.error("Error fetching works by activity:", error);
+            }
+        };
+
+        if (activityId) {
+            fetchWorksByActivity();
+        }
+    }, [activityId, getWorkByActivity]);
 
     return workData;
 }
 
 export function useFetchWorks() {
+    const [readWorks] = useReadWorksMutation();
     const [works, setWorks] = useState([]);
-    const accessToken = useSelector(selectCurrentToken);
 
     useEffect(() => {
         const fetchWorks = async () => {
             try {
-                const response = await readWorks(accessToken);
-                setWorks(response);
+                const response = await readWorks();
+                setWorks(response.data);
             } catch (error) {
                 console.log(error.response);
             }
         };
 
         fetchWorks();
-    }, [accessToken]);
+    }, [readWorks]);
 
     return works;
 }
 
 export function useCreateWork() {
-    const accessToken = useSelector(selectCurrentToken);
+    const [createWork] = useCreateWorkMutation();
 
     const createNewWork = async (data) => {
         try {
-            const response = await createWork(data, accessToken);
+            const response = await createWork({ ...data });
             return response;
         } catch (error) {
             console.error("Error creating work:", error);
@@ -61,11 +88,11 @@ export function useCreateWork() {
 }
 
 export function useUpdateWork() {
-    const accessToken = useSelector(selectCurrentToken);
+    const [updateWork] = useUpdateWorkMutation();
 
     const updateExistingWork = async (id, data) => {
         try {
-            const response = await updateWork(id, data, accessToken);
+            const response = await updateWork({ id, ...data });
             return response;
         } catch (error) {
             console.error("Error updating work:", error);
@@ -76,11 +103,11 @@ export function useUpdateWork() {
 }
 
 export function useDeleteWork() {
-    const accessToken = useSelector(selectCurrentToken);
+    const [deleteWork] = useDeleteWorkMutation();
 
     const deleteWorkById = async (id) => {
         try {
-            const response = await deleteWork(id, accessToken);
+            const response = await deleteWork(id);
             return response;
         } catch (error) {
             console.error("Error deleting work:", error);

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ActivityPopup } from "../../components/popups/activity/student-view-activity";
+import { WorkPopup } from "../../components/popups/activity/student-view-work";
 import { CreateActivityPopup } from "../../components/popups/activity/teacher-create-activity";
 import { ActivityCard } from "../../components/Cards/Card.Activity";
 import { useFetchTeams } from "../../hooks/useTeam";
@@ -192,7 +192,7 @@ export const Student_ActivitySection = () => {
 				</div>
 
 				{selectedActivity && (
-					<ActivityPopup
+					<WorkPopup
 						show={showActivity}
 						handleClose={() => setShowActivity(false)}
 						activity={selectedActivity}
