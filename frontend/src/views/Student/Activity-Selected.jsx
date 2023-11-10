@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFetchClass } from '../../hooks/useClass';
-import { FiChevronLeft } from 'react-icons/fi';
+import { FiChevronLeft, FiTrash } from 'react-icons/fi';
 import { useSubmitActivity, useDeleteActivity, useFetchActivity } from '../../hooks/useActivity';
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
@@ -10,11 +10,13 @@ import { useFetchCourses } from '../../hooks/useCourse';
 import { useFetchTeams } from '../../hooks/useTeam';
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { setStudentModel,selectCurrentTeam, selectStudentModel } from "../../features/slice/studentModelSlice"; // Import the student model slice
+import { setStudentModel, selectCurrentTeam, selectStudentModel } from "../../features/slice/studentModelSlice"; // Import the student model slice
 import { loadFromLocalStorage } from "../../components/utils/utils";
 import { WorkPopup } from "../../components/popups/activity/student-view-work";
 import { useCreateWork, useFetchWorksByActivity } from '../../hooks/useWork';
 import { WorkCard } from '../../components/Cards/Card.Work';
+import { selectCurrentId } from '../../features/auth/authSlice';
+import { useCreateComment, useDeleteComment, useFetchComments, useFetchCommentsForActivity } from '../../hooks/useComments';
 
 export const Student_SelectedActivitySection = () => {
 
@@ -23,10 +25,10 @@ export const Student_SelectedActivitySection = () => {
 	useEffect(() => {
 		const savedStudentModel = loadFromLocalStorage('studentModel');
 		if (savedStudentModel) {
-		  // Dispatch an action to set the loaded data into Redux state
-		  dispatch(setStudentModel(savedStudentModel));
+			// Dispatch an action to set the loaded data into Redux state
+			dispatch(setStudentModel(savedStudentModel));
 		}
-	  }, []);
+	}, []);
 
 	const { id } = useParams();
 	const navigate = useNavigate();
@@ -68,12 +70,6 @@ export const Student_SelectedActivitySection = () => {
 		evaluation: null,
 		total_score: 100,
 	});
-
-	const [showAddWorkModal, setShowAddWorkModal] = useState(false);
-
-	const handleAddWork = async (e) => {
-		setShowAddWorkModal(true);
-	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -120,7 +116,24 @@ export const Student_SelectedActivitySection = () => {
 		});
 	};
 
-	console.log(activityData);
+	const fetchCommentsForActivity = useFetchCommentsForActivity();
+	const [activityComments, setActivityComments] = useState([]);
+	useEffect(() => {
+		if (activityData) {
+			setUpdateActivityData({
+				...activityData,
+			});
+
+			const commentsForActivity = fetchCommentsForActivity(activityData.id);
+			commentsForActivity
+				.then((comments) => {
+					setActivityComments(comments);
+				})
+				.catch((error) => {
+					console.error(error);
+				});
+		}
+	}, [activityData, showModal]);
 
 	return (
 		<div className="container-md">
@@ -197,7 +210,17 @@ export const Student_SelectedActivitySection = () => {
 
 				<div className='d-flex flex-column gap-3'>
 					<p>Comment</p>
-					<button className='btn btn-outline-secondary bw-3'>Add Comment</button>
+					{activityComments && activityComments.length > 0 ? (
+						activityComments.map((comment) => (
+							<div className='d-flex flex-row justify-content-between p-3 border border-dark rounded-3 '>
+								<p key={comment.id}>
+									{comment.user} - {comment.comment}
+								</p>
+							</div>
+						))
+					) : (
+						<p>No comments available</p>
+					)}
 				</div>
 			</div>
 		</div>
