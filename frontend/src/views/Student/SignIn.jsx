@@ -58,13 +58,14 @@ export const Student_SignIn = () => {
 
 				dispatch(
 					setCredentials({
+						id: loginUser.id,
 						user: `${loginUser.first_name} ${loginUser.last_name}`,
 						accessToken: response.access,
 						role: "student",
-					  }),
-				  );
-				  dispatch(
-					  setStudentModel({
+					}),
+				);
+				dispatch(
+					setStudentModel({
 						id: loginUser.id,
 						first_name: loginUser.first_name,
 						last_name: loginUser.last_name,
@@ -72,10 +73,10 @@ export const Student_SignIn = () => {
 						role: loginUser.role,
 						user: `${loginUser.first_name} ${loginUser.last_name}`,
 						student_team: loginUser.student_team,
-					  }),
-				  );
+					}),
+				);
 
-				  saveToLocalStorage('studentModel', {
+				saveToLocalStorage('studentModel', {
 					id: loginUser.id,
 					first_name: loginUser.first_name,
 					last_name: loginUser.last_name,
@@ -83,7 +84,7 @@ export const Student_SignIn = () => {
 					role: loginUser.role,
 					user: `${loginUser.first_name} ${loginUser.last_name}`,
 					student_team: loginUser.student_team,
-				  });
+				});
 
 				setEmail("");
 				setPassword("");
