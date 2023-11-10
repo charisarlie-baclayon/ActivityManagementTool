@@ -1,15 +1,26 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { FiChevronLeft, FiTrash } from 'react-icons/fi';
-import { useAddEvaluationToActivity, useDeleteActivity, useDeleteEvaluationFromActivity, useFetchActivity, useUpdateActivity } from '../../hooks/useActivity';
+import { useNavigate, useParams } from "react-router-dom";
+import { FiChevronLeft, FiTrash } from "react-icons/fi";
+import {
+	useAddEvaluationToActivity,
+	useDeleteActivity,
+	useDeleteEvaluationFromActivity,
+	useFetchActivity,
+	useUpdateActivity,
+} from "../../hooks/useActivity";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useEffect, useState } from 'react';
-import { useFetchCourses } from '../../hooks/useCourse';
-import { useFetchTeams } from '../../hooks/useTeam';
-import { useCreateComment, useDeleteComment, useFetchComments, useFetchCommentsForActivity } from '../../hooks/useComments';
-import { useSelector } from 'react-redux';
-import { selectCurrentId } from '../../features/auth/authSlice';
+import { useEffect, useState } from "react";
+import { useFetchCourses } from "../../hooks/useCourse";
+import { useFetchTeams } from "../../hooks/useTeam";
+import {
+	useCreateComment,
+	useDeleteComment,
+	useFetchComments,
+	useFetchCommentsForActivity,
+} from "../../hooks/useComments";
+import { useSelector } from "react-redux";
+import { selectCurrentId } from "../../features/auth/authSlice";
 
 export const Teacher_SelectedActivitySection = () => {
 	const { id } = useParams();
@@ -40,7 +51,6 @@ export const Teacher_SelectedActivitySection = () => {
 		}
 	}, [fetchActivityData]);
 
-
 	const [updateActivityData, setUpdateActivityData] = useState({
 		title: "",
 		description: "",
@@ -53,8 +63,6 @@ export const Teacher_SelectedActivitySection = () => {
 		evaluation: null,
 		total_score: 100,
 	});
-
-
 
 	const handleAddEvaluation = async (e) => {
 		e.preventDefault();
@@ -70,7 +78,6 @@ export const Teacher_SelectedActivitySection = () => {
 			console.error(error);
 		}
 	};
-
 
 	const handleDeleteEvaluation = async (e) => {
 		e.preventDefault();
@@ -96,7 +103,6 @@ export const Teacher_SelectedActivitySection = () => {
 			});
 		}
 	}, [activityData, showModal]);
-
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -148,7 +154,7 @@ export const Teacher_SelectedActivitySection = () => {
 			...updateActivityData,
 			[name]: value,
 		});
-		console.log(updateActivityData)
+		console.log(updateActivityData);
 	};
 
 	// State variable and handler for updating comments
@@ -168,7 +174,7 @@ export const Teacher_SelectedActivitySection = () => {
 			...updateComment,
 			[name]: value,
 		});
-		console.log(updateComment)
+		console.log(updateComment);
 	};
 
 	const handleCommentDelete = async (e, commentId) => {
@@ -192,7 +198,6 @@ export const Teacher_SelectedActivitySection = () => {
 		e.preventDefault();
 		try {
 			const response = await addComment(updateComment);
-
 			// must add a conditional statement to check if response is successful
 			// like if status 200 then goods
 
@@ -200,7 +205,6 @@ export const Teacher_SelectedActivitySection = () => {
 			if (response) {
 				console.log(response);
 				handleCloseCommentModal();
-				navigate(0);
 
 				console.log("Successfully added comment!");
 			}
@@ -217,25 +221,34 @@ export const Teacher_SelectedActivitySection = () => {
 			});
 
 			const commentsForActivity = fetchCommentsForActivity(activityData.id);
-			commentsForActivity.then((comments) => {
-				setActivityComments(comments);
-			}).catch((error) => {
-				console.error(error);
-			});
+			commentsForActivity
+				.then((comments) => {
+					setActivityComments(comments);
+				})
+				.catch((error) => {
+					console.error(error);
+				});
 		}
-	}, [activityData, showModal]);
+	}, [activityData, showModal, showCommentModal]);
 
 	return (
-		<div className="container-md">
-			<div className="container-md d-flex flex-column gap-3 mt-5 pr-3 pl-3">
-				<div className="d-flex flex-row justify-content-between">
-					<div className="d-flex flex-row align-items-center gap-3">
-						<span className="nav-item nav-link" onClick={() => { navigate(-1) }}>
+		<div className='container-md'>
+			<div className='container-md d-flex flex-column gap-3 mt-5 pr-3 pl-3'>
+				<div className='d-flex flex-row justify-content-between'>
+					<div className='d-flex flex-row align-items-center gap-3'>
+						<span
+							className='nav-item nav-link'
+							onClick={() => {
+								navigate(-1);
+							}}
+						>
 							<FiChevronLeft />
 						</span>
-						<h4 className='fw-bold m-0'>{activityData ? `Activity - ${activityData.title}` : "Loading..."}</h4>
+						<h4 className='fw-bold m-0'>
+							{activityData ? `Activity - ${activityData.title}` : "Loading..."}
+						</h4>
 					</div>
-					<div className="d-flex flex-row gap-3 ">
+					<div className='d-flex flex-row gap-3 '>
 						<button
 							className='btn btn-outline-secondary btn-block fw-bold bw-3 m-0 '
 							onClick={handleEdit}
@@ -250,24 +263,32 @@ export const Teacher_SelectedActivitySection = () => {
 						</button>
 					</div>
 				</div>
-				<hr className="text-dark" />
+				<hr className='text-dark' />
 				<div>
 					{activityData ? (
 						<div>
 							<p>Name: {activityData.title}</p>
 							<p>Description: {activityData.description}</p>
 							<p>Due Date: {activityData.due_date}</p>
-							<p>Evaluation: {activityData.evaluation} / {activityData.total_score}</p>
+							<p>
+								Evaluation: {activityData.evaluation} /{" "}
+								{activityData.total_score}
+							</p>
 						</div>
 					) : (
 						<p>Loading class details...</p>
 					)}
 				</div>
 				<div className='d-flex flex-row gap-3'>
-					<button className='btn btn-success bw-3' onClick={() => setShowAddEvaluationModal(true)}>Add Evaluation</button>
+					<button
+						className='btn btn-success bw-3'
+						onClick={() => setShowAddEvaluationModal(true)}
+					>
+						Add Evaluation
+					</button>
 					{updateActivityData.submission_status && (
 						<button
-							className="btn btn-outline-secondary bw-3"
+							className='btn btn-outline-secondary bw-3'
 							onClick={handleDeleteEvaluation}
 						>
 							Delete Evaluation
@@ -277,18 +298,29 @@ export const Teacher_SelectedActivitySection = () => {
 				<hr className='text-dark' />
 				<div className='d-flex flex-column gap-3'>
 					<p>Comment</p>
-					{(activityComments && activityComments.length > 0) ? (
-						activityComments.map(comment => (
+					{activityComments && activityComments.length > 0 ? (
+						activityComments.map((comment) => (
 							<div className='d-flex flex-row justify-content-between p-3 border border-dark rounded-3 '>
-								<p key={comment.id}>{comment.user} - {comment.comment}</p>
-								<span className="nav-item nav-link text-danger " onClick={(e) => handleCommentDelete(e, comment.id)}>
+								<p key={comment.id}>
+									{comment.user} - {comment.comment}
+								</p>
+								<span
+									className='nav-item nav-link text-danger '
+									onClick={(e) => handleCommentDelete(e, comment.id)}
+								>
 									<FiTrash />
-								</span></div>
+								</span>
+							</div>
 						))
 					) : (
 						<p>No comments available</p>
 					)}
-					<button className='btn btn-outline-secondary bw-3' onClick={() => setShowCommentModal(true)}>Add Comment</button>
+					<button
+						className='btn btn-outline-secondary bw-3'
+						onClick={() => setShowCommentModal(true)}
+					>
+						Add Comment
+					</button>
 				</div>
 			</div>
 			<Modal show={showModal} onHide={handleCloseModal} size='lg' centered>
@@ -323,7 +355,7 @@ export const Teacher_SelectedActivitySection = () => {
 								value={updateActivityData?.course_id}
 								onChange={handleChange}
 							>
-								<option value="">Select a course</option>
+								<option value=''>Select a course</option>
 								{courses.map((course) => (
 									<option key={course.id} value={course.id}>
 										{course.name}
@@ -338,7 +370,7 @@ export const Teacher_SelectedActivitySection = () => {
 								value={updateActivityData?.team_id}
 								onChange={handleChange}
 							>
-								<option value="">Select a team</option>
+								<option value=''>Select a team</option>
 								{teams.map((team) => (
 									<option key={team.id} value={team.id}>
 										{team.name}
@@ -371,8 +403,8 @@ export const Teacher_SelectedActivitySection = () => {
 								value={updateActivityData?.submission_status}
 								onChange={handleChange}
 							>
-								<option value="false">Not Submitted</option>
-								<option value="true">Submitted</option>
+								<option value='false'>Not Submitted</option>
+								<option value='true'>Submitted</option>
 							</Form.Select>
 						</Form.Group>
 						<Form.Group controlId='due-date-input'>
@@ -414,17 +446,22 @@ export const Teacher_SelectedActivitySection = () => {
 				</Modal.Footer>
 			</Modal>
 
-			<Modal show={showAddEvaluationModal} onHide={handleCloseAddEvaluationModal} size="lg" centered>
+			<Modal
+				show={showAddEvaluationModal}
+				onHide={handleCloseAddEvaluationModal}
+				size='lg'
+				centered
+			>
 				<Modal.Header closeButton>
-					<Modal.Title className="fs-6 fw-bold">Add Evaluation</Modal.Title>
+					<Modal.Title className='fs-6 fw-bold'>Add Evaluation</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form className="d-flex flex-column gap-3">
-						<Form.Group controlId="evaluation-input">
+					<Form className='d-flex flex-column gap-3'>
+						<Form.Group controlId='evaluation-input'>
 							<Form.Label>Evaluation</Form.Label>
 							<Form.Control
-								type="number"
-								name="evaluation"
+								type='number'
+								name='evaluation'
 								value={updateActivityData?.evaluation}
 								onChange={handleChange}
 							/>
@@ -432,10 +469,13 @@ export const Teacher_SelectedActivitySection = () => {
 					</Form>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button variant="outline-secondary" onClick={handleCloseAddEvaluationModal}>
+					<Button
+						variant='outline-secondary'
+						onClick={handleCloseAddEvaluationModal}
+					>
 						Close
 					</Button>
-					<Button variant="success" onClick={handleAddEvaluation}>
+					<Button variant='success' onClick={handleAddEvaluation}>
 						Add Evaluation
 					</Button>
 				</Modal.Footer>
@@ -443,15 +483,15 @@ export const Teacher_SelectedActivitySection = () => {
 
 			<Modal show={showCommentModal} onHide={handleCloseCommentModal} centered>
 				<Modal.Header closeButton>
-					<Modal.Title className="fs-6 fw-bold">Add Comment</Modal.Title>
+					<Modal.Title className='fs-6 fw-bold'>Add Comment</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form className="d-flex flex-column gap-3">
-						<Form.Group controlId="comment-input">
+					<Form className='d-flex flex-column gap-3'>
+						<Form.Group controlId='comment-input'>
 							<Form.Label>Comment</Form.Label>
 							<Form.Control
 								name='comment'
-								as="textarea"
+								as='textarea'
 								rows={3}
 								onChange={handleCommentChange}
 							/>
@@ -459,10 +499,10 @@ export const Teacher_SelectedActivitySection = () => {
 					</Form>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button variant="outline-secondary" onClick={handleCloseCommentModal}>
+					<Button variant='outline-secondary' onClick={handleCloseCommentModal}>
 						Close
 					</Button>
-					<Button variant="success" onClick={handleCommentSubmit}>
+					<Button variant='success' onClick={handleCommentSubmit}>
 						Add Comment
 					</Button>
 				</Modal.Footer>
