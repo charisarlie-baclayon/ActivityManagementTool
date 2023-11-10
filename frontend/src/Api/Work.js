@@ -15,14 +15,14 @@ export const Work = apiSlice.injectEndpoints({
 				url: `/api/works/get_work_by_activity/?activity_id=${id}`,
 				method: "GET",
 			}),
-		  }),
+		}),
 
 		createWork: builder.mutation({
 			query: (formData) => ({
 				url: "/api/works/",
 				method: "POST",
 				body: formData,
-			  }),
+			}),
 		}),
 
 		deleteWork: builder.mutation({
