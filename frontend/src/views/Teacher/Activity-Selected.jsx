@@ -267,11 +267,11 @@ export const Teacher_SelectedActivitySection = () => {
 				<div>
 					{activityData ? (
 						<div>
-							<p>Name: {activityData.title}</p>
-							<p>Description: {activityData.description}</p>
-							<p>Due Date: {activityData.due_date}</p>
+							<p>Name: {activityData?.title}</p>
+							<p>Description: {activityData?.description}</p>
+							<p>Due Date: {activityData?.due_date}</p>
 							<p>
-								Evaluation: {activityData.evaluation} /{" "}
+								Evaluation: {activityData?.evaluation} /{" "}
 								{activityData.total_score}
 							</p>
 						</div>
