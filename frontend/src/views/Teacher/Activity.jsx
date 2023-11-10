@@ -10,11 +10,13 @@ import {
 import { useFetchClasses } from "../../hooks/useClass";
 import { ClassCard } from "../../components/Cards/Card.Class";
 import { FiChevronLeft } from "react-icons/fi";
+import { selectCurrentId, selectCurrentUser } from "../../features/auth/authSlice";
+import { useSelector } from "react-redux";
 
 export const Teacher_ActivitySection = () => {
 	const [teams, setTeams] = useState([]);
 	const [unfilteredActivities, setUnfilteredActivities] = useState([]);
-
+	console.log(useSelector(selectCurrentId));
 	const fetchedTeams = useFetchTeams();
 	const fetchedClasses = useFetchClasses();
 	const { fetchActivitiesByClass } = useGetActivitiesByClass();
@@ -306,7 +308,7 @@ export const Teacher_ActivitySection = () => {
 				<div className='d-flex flex-column gap-3'>
 					{selectedClass && activities && (
 						<>
-							<div className='row'>
+							<div className='d-flex flex-row gap-3'>
 								<span
 									className='nav-item nav-link col-md-1 m-0'
 									onClick={() => handleToBack()}
@@ -314,19 +316,19 @@ export const Teacher_ActivitySection = () => {
 									<FiChevronLeft />
 								</span>
 								<button
-									className={`btn ${selectedFilter === 0 ? 'btn-secondary' : 'btn-white'} bw-3 m-0 col-md-3`}
+									className={`btn ${selectedFilter === 0 ? 'btn-secondary' : 'btn-outline-dark'} bw-3 m-0 col-md-2`}
 									onClick={() => handleFilterActivities(0)}
 								>
 									All
 								</button>
 								<button
-									className={`btn ${selectedFilter === 1 ? 'btn-secondary' : 'btn-white'} bw-3 m-0 col-md-3`}
+									className={`btn ${selectedFilter === 1 ? 'btn-secondary' : 'btn-outline-dark'} bw-3 m-0 col-md-2`}
 									onClick={() => handleFilterActivities(1)}
 								>
 									Submitted
 								</button>
 								<button
-									className={`btn ${selectedFilter === 2 ? 'btn-secondary' : 'btn-white'} bw-3 m-0 col-md-3`}
+									className={`btn ${selectedFilter === 2 ? 'btn-secondary' : 'btn-outline-dark'} bw-3 m-0 col-md-2`}
 									onClick={() => handleFilterActivities(2)}
 								>
 									Unsubmitted

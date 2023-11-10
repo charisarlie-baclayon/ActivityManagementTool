@@ -264,3 +264,33 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 #### GET STUDENT DETAILS by STUDENT_ID
 GET http://127.0.0.1:8000/api/students/1/get_student_details/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk5MjY2NDM2LCJpYXQiOjE2OTkyNjI4MzYsImp0aSI6ImRiNTZjN2E0NTVhZDQzYTE5NGVmNTVmZDU5NjYyMTViIiwidXNlcl9pZCI6MSwiZW1haWwiOiJ0ZWFjaGVyQGVtYWlsLmNvbSJ9.UzEZjkEuqsktnQMswQ9-UMPgsfBXQvl8157wyuMnGG8
+
+#### WORK RELATED 
+# Create Work
+POST http://localhost:8000/works/
+Content-Type: application/json
+
+{
+  "work": "This is the work content",
+  "file_attachment": null,
+  "activity_id": 1
+}
+
+# Update Work (Replace :work_id with the actual ID)
+PUT http://localhost:8000/works/:work_id/
+Content-Type: application/json
+
+{
+  "work": "Updated work content",
+  "file_attachment": null,
+  "activity_id": 1
+}
+
+# Get Work by ID (Replace :work_id with the actual ID)
+GET http://localhost:8000/works/:work_id/
+
+# Delete Work by ID (Replace :work_id with the actual ID)
+DELETE http://localhost:8000/works/:work_id/
+
+# Get Work by Activity
+GET http://localhost:8000/works/get_work_by_activity/?activity_id=1

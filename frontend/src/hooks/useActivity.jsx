@@ -66,6 +66,7 @@ export function useAddEvaluationToActivity() {
 	const addEvaluation = async (id, data) => {
 		try {
 			const response = await addEvaluationToActivity(id, { ...data });
+			console.log(response);
 			return response;
 		} catch (error) {
 			console.error("Error adding evaluation to activity:", error);

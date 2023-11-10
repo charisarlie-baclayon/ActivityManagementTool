@@ -3,6 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useCreateTemplate } from "../../../hooks/useTemplate";
 import { useFetchCourses } from "../../../hooks/useCourse";
+import { useNavigate } from "react-router-dom";
 
 export const CreateTemplatePopup = ({ show, handleClose }) => {
     const createNewTemplate = useCreateTemplate();
@@ -12,6 +13,7 @@ export const CreateTemplatePopup = ({ show, handleClose }) => {
         description: "",
         course: "",
     });
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -27,6 +29,7 @@ export const CreateTemplatePopup = ({ show, handleClose }) => {
         try {
             await createNewTemplate(templateData);
             await handleClose();
+            navigate(0);
             //window.location.reload(); // You might want to replace this with a better way to update the templates list
         } catch (error) {
             console.error("Error creating template:", error);
