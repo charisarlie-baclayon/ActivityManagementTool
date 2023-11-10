@@ -1,32 +1,39 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { useFetchClass } from '../../hooks/useClass';
-import { FiChevronLeft } from 'react-icons/fi';
-import { useSubmitActivity, useDeleteActivity, useFetchActivity } from '../../hooks/useActivity';
+import { useNavigate, useParams } from "react-router-dom";
+import { useFetchClass } from "../../hooks/useClass";
+import { FiChevronLeft } from "react-icons/fi";
+import {
+	useSubmitActivity,
+	useDeleteActivity,
+	useFetchActivity,
+} from "../../hooks/useActivity";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useEffect, useState } from 'react';
-import { useFetchCourses } from '../../hooks/useCourse';
-import { useFetchTeams } from '../../hooks/useTeam';
+import { useEffect, useState } from "react";
+import { useFetchCourses } from "../../hooks/useCourse";
+import { useFetchTeams } from "../../hooks/useTeam";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { setStudentModel,selectCurrentTeam, selectStudentModel } from "../../features/slice/studentModelSlice"; // Import the student model slice
+import {
+	setStudentModel,
+	selectCurrentTeam,
+	selectStudentModel,
+} from "../../features/slice/studentModelSlice"; // Import the student model slice
 import { loadFromLocalStorage } from "../../components/utils/utils";
 import { WorkPopup } from "../../components/popups/activity/student-view-work";
-import { useCreateWork, useFetchWorksByActivity } from '../../hooks/useWork';
-import { WorkCard } from '../../components/Cards/Card.Work';
+import { useCreateWork, useFetchWorksByActivity } from "../../hooks/useWork";
+import { WorkCard } from "../../components/Cards/Card.Work";
 
 export const Student_SelectedActivitySection = () => {
-
 	const dispatch = useDispatch();
 	// Load the student model data when the component mounts
 	useEffect(() => {
-		const savedStudentModel = loadFromLocalStorage('studentModel');
+		const savedStudentModel = loadFromLocalStorage("studentModel");
 		if (savedStudentModel) {
-		  // Dispatch an action to set the loaded data into Redux state
-		  dispatch(setStudentModel(savedStudentModel));
+			// Dispatch an action to set the loaded data into Redux state
+			dispatch(setStudentModel(savedStudentModel));
 		}
-	  }, []);
+	}, []);
 
 	const { id } = useParams();
 	const navigate = useNavigate();
@@ -40,7 +47,6 @@ export const Student_SelectedActivitySection = () => {
 	const fetchActivityData = useFetchActivity(id);
 	const deleteActivity = useDeleteActivity();
 	const submitActivity = useSubmitActivity();
-	const fetchWorkData = useFetchWorksByActivity(id);
 	const createWork = useCreateWork();
 
 	useEffect(() => {
@@ -49,12 +55,12 @@ export const Student_SelectedActivitySection = () => {
 		}
 	}, [fetchActivityData]);
 
+	const fetchWorkData = useFetchWorksByActivity(id);
 	useEffect(() => {
 		if (fetchWorkData) {
 			setWorkData(fetchWorkData);
 		}
 	}, [fetchWorkData]);
-	console.log(workData);
 
 	const [updateActivityData, setUpdateActivityData] = useState({
 		title: "",
@@ -123,16 +129,23 @@ export const Student_SelectedActivitySection = () => {
 	console.log(activityData);
 
 	return (
-		<div className="container-md">
-			<div className="container-md d-flex flex-column gap-3 mt-5 pr-3 pl-3">
-				<div className="d-flex flex-row justify-content-between">
-					<div className="d-flex flex-row align-items-center gap-3">
-						<span className="nav-item nav-link" onClick={() => { navigate(-1) }}>
+		<div className='container-md'>
+			<div className='container-md d-flex flex-column gap-3 mt-5 pr-3 pl-3'>
+				<div className='d-flex flex-row justify-content-between'>
+					<div className='d-flex flex-row align-items-center gap-3'>
+						<span
+							className='nav-item nav-link'
+							onClick={() => {
+								navigate(-1);
+							}}
+						>
 							<FiChevronLeft />
 						</span>
-						<h4 className='fw-bold m-0'>{activityData ? `Activity - ${activityData.title}` : "Loading..."}</h4>
+						<h4 className='fw-bold m-0'>
+							{activityData ? `Activity - ${activityData.title}` : "Loading..."}
+						</h4>
 					</div>
-					<div className="d-flex flex-row gap-3 ">
+					<div className='d-flex flex-row gap-3 '>
 						<button
 							className='btn btn-outline-secondary btn-block fw-bold bw-3 m-0 '
 							onClick={handleEdit}
@@ -153,30 +166,30 @@ export const Student_SelectedActivitySection = () => {
 						</button>
 					</div>
 				</div>
-				<hr className="text-dark" />
+				<hr className='text-dark' />
 				<div>
 					{activityData ? (
 						<div>
 							<p>Name: {activityData.title}</p>
 							<p>Description: {activityData.description}</p>
 							<p>Due Date: {activityData.due_date}</p>
-							<p>Evaluation: {activityData.evaluation} / {activityData.total_score}</p>
+							<p>
+								Evaluation: {activityData.evaluation} /{" "}
+								{activityData.total_score}
+							</p>
 						</div>
 					) : (
 						<p>Loading class details...</p>
 					)}
 
-					<div className="d-flex flex-column gap-3">
-						<h5 className="fw-bold">Works</h5>
+					<div className='d-flex flex-column gap-3'>
+						<h5 className='fw-bold'>Works</h5>
 						{workData ? (
-						workData.map((work) => (
-							<WorkCard key={work.id} workData={work} />
-						))
+							workData.map((work) => <WorkCard key={work.id} workData={work} />)
 						) : (
-						<p>No work data available.</p>
+							<p>No work data available.</p>
 						)}
 					</div>
-
 				</div>
 				<div className='d-flex flex-row gap-3'>
 					<button className='btn btn-success bw-3' onClick={handleAddWork}>
@@ -187,17 +200,19 @@ export const Student_SelectedActivitySection = () => {
 
 				{activityData && (
 					<WorkPopup
-					show={showAddWorkModal}
-					handleClose={() => setShowAddWorkModal(false)}
-					workData={workData} // Pass any necessary data
-					id={id}
-					//onSubmit={handleSubmitWork} // Define a function to handle work submission
+						show={showAddWorkModal}
+						handleClose={() => setShowAddWorkModal(false)}
+						workData={workData} // Pass any necessary data
+						id={id}
+						//onSubmit={handleSubmitWork} // Define a function to handle work submission
 					/>
 				)}
 
 				<div className='d-flex flex-column gap-3'>
 					<p>Comment</p>
-					<button className='btn btn-outline-secondary bw-3'>Add Comment</button>
+					<button className='btn btn-outline-secondary bw-3'>
+						Add Comment
+					</button>
 				</div>
 			</div>
 		</div>
