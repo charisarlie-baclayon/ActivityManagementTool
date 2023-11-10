@@ -35,14 +35,13 @@ export const Student_SelectedActivitySection = () => {
 	const courses = useFetchCourses();
 	const fetchActivityData = useFetchActivity(id);
 	const deleteActivity = useDeleteActivity();
+	const submitActivity = useSubmitActivity();
 
 	useEffect(() => {
 		if (fetchActivityData) {
-			const temp = fetchActivityData;
-			setActivityData(temp[id]);
+			setActivityData(fetchActivityData);
 		}
 	}, [fetchActivityData]);
-
 
 	const [updateActivityData, setUpdateActivityData] = useState({
 		title: "",
@@ -62,15 +61,11 @@ export const Student_SelectedActivitySection = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
+			const response = submitActivity(id);
 
-			const submitActivity = useSubmitActivity(id);
-
-			// must add a conditional statement to check if response is successful
-			// like if status 200 then goods
-
-			// if response is successfully updated, then:
-			if (submitActivity.submission_status) {
-				console.log("Successfully updated class!");
+			if (response) {
+				console.log("Successfully submitted activity!");
+				navigate("/student/activities");
 			}
 		} catch (error) {
 			console.error(error);

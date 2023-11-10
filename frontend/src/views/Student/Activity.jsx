@@ -9,6 +9,7 @@ import {
 	useGetActivityByTeam,
 	useFetchActivities,
 	useGetActivitiesByClass,
+	useGetSubmittedActivitiesByTeam
 } from "../../hooks/useActivity";
 import { useFetchClasses } from "../../hooks/useClass";
 import { ClassCard } from "../../components/Cards/Card.Class";
@@ -22,10 +23,13 @@ export const Student_ActivitySection = () => {
 	const [teams, setTeams] = useState([]);
 	const [unfilteredActivities, setUnfilteredActivities] = useState([]);
 	const [selectedActivity, setSelectedActivity] = useState(null);
+	const [selectedFilter, setSelectedFilter] = useState(0);
 
 	const fetchedTeams = useFetchTeams();
 	const fetchedClasses = useFetchClasses();
 	const { fetchActivitiesByClass } = useGetActivitiesByClass();
+
+	
 
 	const courses = useFetchCourses();
 	const [selectedTeam, setSelectedTeam] = useState(null);
@@ -48,10 +52,13 @@ export const Student_ActivitySection = () => {
 	console.log(team_id);
 	const teamactivity = useGetActivityByTeam(team_id);
 	console.log(teamactivity);
+	const [activities, setActivities] = useState(teamactivity);
+	const submittedByTeam = useGetSubmittedActivitiesByTeam(team_id);
+	
 
 	// this gets all the activities unfiltered
-	const getAllActivities = useFetchActivities();
-	const [activities, setActivities] = useState(useFetchActivities());
+	const getAllActivities = teamactivity;
+	
 
 	// classes is the state where all the classes are stored
 	const [classes, setClasses] = useState([]);
@@ -67,6 +74,32 @@ export const Student_ActivitySection = () => {
 		setSelectedTeam(null);
 
 		setActivitiesAndUnfiltered(getAllActivities);
+	};
+
+	const handleFilterActivities = (filter) => {
+		let filteredActivities;
+
+		switch (filter) {
+			case 0:
+				setActivities(unfilteredActivities);
+				setSelectedFilter(0)
+				break;
+			case 1:
+				filteredActivities = unfilteredActivities.filter(
+					(activity) => activity.submission_status === true
+				);
+				setActivities(filteredActivities);
+				setSelectedFilter(1)
+				break;
+			case 2:
+				filteredActivities = unfilteredActivities.filter(
+					(activity) => activity.submission_status === false
+				);
+				setActivities(filteredActivities);
+				setSelectedFilter(2)
+				break;
+		}
+
 	};
 
 	return (
