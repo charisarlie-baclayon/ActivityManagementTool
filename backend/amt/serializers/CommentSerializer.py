@@ -18,3 +18,16 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ('id', 'comment', 'date_added', 'activity', 'user')  # Include the user field
+
+class CreateCommentSerializer(serializers.Serializer):
+    user_id = serializers.IntegerField()
+    activity_id = serializers.IntegerField()
+    comment = serializers.CharField(max_length=10000)
+
+class CommentForActivitySerializer(serializers.ModelSerializer):
+    activity = ActivityCommentSerializer()
+    user = UserCommentSerializer()
+
+    class Meta:
+        model = Comment
+        fields = ('id', 'comment', 'date_added', 'activity', 'user')
