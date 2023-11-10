@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ActivityPopup } from "../../components/popups/activity/student-view-activity";
+import { WorkPopup } from "../../components/popups/activity/student-view-work";
 import { CreateActivityPopup } from "../../components/popups/activity/teacher-create-activity";
 import { ActivityCard } from "../../components/Cards/Card.Activity";
 import { useFetchTeams } from "../../hooks/useTeam";
@@ -22,6 +22,8 @@ import {
 	selectStudentModel,
 } from "../../features/slice/studentModelSlice"; // Import the student model slice
 import { loadFromLocalStorage } from "../../components/utils/utils";
+import { useCreateWork, useFetchWorksByActivity } from "../../hooks/useWork";
+import { WorkCard } from "../../components/Cards/Card.Work";
 
 export const Student_ActivitySection = () => {
 	const [team, setTeam] = useState([]);
