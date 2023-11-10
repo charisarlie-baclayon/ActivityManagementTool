@@ -35,7 +35,7 @@ export const Student_CreateActivitySection = () => {
         try {
             const response = await createActivity(activityData);
             if (response) {
-                navigate('/teacher/activities/')
+                navigate('/student/activities/')
                 console.log("Successfully created activity!");
             } else {
                 console.log("Activity creation failed.");

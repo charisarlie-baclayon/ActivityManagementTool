@@ -24,6 +24,7 @@ import { Student_CreateActivitySection } from "./views/Student/Activity-Create";
 import { Student_TemplateSection } from "./views/Student/Template";
 import { Student_SelectedTemplateSection } from "./views/Student/Template-Selected";
 import { Teacher_SelectedActivitySection } from "./views/Teacher/Activity-Selected";
+import { Student_SelectedActivitySection } from "./views/Student/Activity-Selected";
 
 function App() {
 	return (
@@ -55,6 +56,7 @@ function App() {
 					<Route index element={<Student_HomeSection />} />
 					<Route path='home' element={<Student_HomeSection />} />
 					<Route path='activities' element={<Student_ActivitySection />} />
+					<Route path='activities/:id' element={<Student_SelectedActivitySection />} />
 					<Route path='activities/new' element={<Student_CreateActivitySection />} />
 					<Route path='teams' element={<Student_TeamSection />} />
 					<Route path='teams/:id' element={<Student_SelectedTeamSection />} />
