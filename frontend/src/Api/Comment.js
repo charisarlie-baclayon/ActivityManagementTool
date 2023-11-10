@@ -2,11 +2,11 @@ import { apiSlice } from "./apiSlice";
 
 export const Comment = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
-		readComments: builder.query({
+		readComments: builder.mutation({
 			query: () => "/api/comments/",
 		}),
 
-		readComment: builder.query({
+		readComment: builder.mutation({
 			query: (id) => `/api/comments/${id}/`,
 		}),
 
@@ -32,7 +32,7 @@ export const Comment = apiSlice.injectEndpoints({
 				body: { ...data },
 			}),
 		}),
-		readCommentsForActivity: builder.query({
+		readCommentsForActivity: builder.mutation({
 			query: (activity_id) => ({
 				url: `/api/comments/comments_for_activity/?activity_id=${activity_id}`,
 				method: "GET",
@@ -42,10 +42,10 @@ export const Comment = apiSlice.injectEndpoints({
 });
 
 export const {
-	useReadCommentsQuery,
-	useReadCommentQuery,
+	useReadCommentsMutation,
+	useReadCommentMutation,
 	useCreateCommentMutation,
 	useDeleteCommentMutation,
 	useUpdateCommentMutation,
-	useReadCommentsForActivityQuery,
+	useReadCommentsForActivityMutation,
 } = Comment;
