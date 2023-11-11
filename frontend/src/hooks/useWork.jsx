@@ -11,6 +11,7 @@ export function useFetchWork(id) {
         const fetchWork = async () => {
             try {
                 const response = await readWork(id, accessToken);
+                console.log(`Use Get Work By Id : ${JSON.stringify(response, null, 2)}`);
                 setWorkData(response);
             } catch (error) {
                 console.error("Error fetching work data:", error);
@@ -33,6 +34,7 @@ export function useFetchWorks() {
         const fetchWorks = async () => {
             try {
                 const response = await readWorks(accessToken);
+                console.log(`Use Get All Works : ${JSON.stringify(response, null, 2)}`);
                 setWorks(response);
             } catch (error) {
                 console.log(error.response);
@@ -51,6 +53,7 @@ export function useCreateWork() {
     const createNewWork = async (data) => {
         try {
             const response = await createWork(data, accessToken);
+            console.log(`Use Create Work : ${JSON.stringify(response, null, 2)}`);
             return response;
         } catch (error) {
             console.error("Error creating work:", error);
@@ -66,6 +69,7 @@ export function useUpdateWork() {
     const updateExistingWork = async (id, data) => {
         try {
             const response = await updateWork(id, data, accessToken);
+            console.log(`Use Update Work : ${JSON.stringify(response, null, 2)}`);
             return response;
         } catch (error) {
             console.error("Error updating work:", error);
@@ -81,6 +85,7 @@ export function useDeleteWork() {
     const deleteWorkById = async (id) => {
         try {
             const response = await deleteWork(id, accessToken);
+            console.log(`Use Delete Work : ${JSON.stringify(response, null, 2)}`);
             return response;
         } catch (error) {
             console.error("Error deleting work:", error);

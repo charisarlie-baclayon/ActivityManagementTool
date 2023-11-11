@@ -10,7 +10,6 @@ import {
     useUpdateStudentMutation,
 } from "../api/Student";
 
-
 export function useFetchStudent(id) {
     const [readStudent] = useReadStudentMutation();
     const [studentData, setStudentData] = useState(null);
@@ -20,6 +19,7 @@ export function useFetchStudent(id) {
         const fetchStudent = async () => {
             try {
                 const response = await readStudent(id, accessToken);
+                console.log(`Use Get Student By Id : ${JSON.stringify(response, null, 2)}`);
                 setStudentData(response);
             } catch (error) {
                 console.error("Error fetching student data:", error);
@@ -43,6 +43,7 @@ export function useFetchStudents() {
         const fetchStudents = async () => {
             try {
                 const response = await readStudents(accessToken);
+                console.log(`Use Get All Students : ${JSON.stringify(response, null, 2)}`);
                 setStudents(response.data);
             } catch (error) {
                 console.log(error.response);
@@ -64,6 +65,7 @@ export function useFetchStudentsByTeam(id) {
         const fetchStudentsByTeam = async () => {
             try {
                 const response = await readStudentsByTeam(id, accessToken);
+                console.log(`Use Get Students By Team : ${JSON.stringify(response, null, 2)}`);
                 setStudents(response.data);
             } catch (error) {
                 console.log(error.response);
@@ -71,7 +73,7 @@ export function useFetchStudentsByTeam(id) {
         };
 
         fetchStudentsByTeam();
-    }, [accessToken, readStudentsByTeam]);
+    }, [id, accessToken, readStudentsByTeam]);
 
     return students;
 }
@@ -83,6 +85,7 @@ export function useCreateStudent() {
     const createNewStudent = async (data) => {
         try {
             const response = await createStudent(data, accessToken);
+            console.log(`Use Create Student : ${JSON.stringify(response, null, 2)}`);
             return response;
         } catch (error) {
             console.error("Error creating student:", error);
@@ -99,6 +102,7 @@ export function useUpdateStudent() {
     const updateExistingStudent = async (id, data) => {
         try {
             const response = await updateStudent(id, data, accessToken);
+            console.log(`Use Update Student : ${JSON.stringify(response, null, 2)}`);
             return response;
         } catch (error) {
             console.error("Error updating student:", error);
@@ -115,6 +119,7 @@ export function useDeleteStudent() {
     const deleteStudentById = async (id) => {
         try {
             const response = await deleteStudent(id, accessToken);
+            console.log(`Use Delete Student : ${JSON.stringify(response, null, 2)}`);
             return response;
         } catch (error) {
             console.error("Error deleting student:", error);
