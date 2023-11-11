@@ -41,7 +41,7 @@ export const UpdateActivityPopup = ({ show, handleClose, data }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await updateActivity(id, updateActivityData);
+            const response = await updateActivity(data.id, updateActivityData);
 
             // TODO : Check if Fields are empty
 
@@ -50,7 +50,6 @@ export const UpdateActivityPopup = ({ show, handleClose, data }) => {
                 handleClose();
                 console.log("Successfully updated class!");
                 navigate(0);
-
             }
         } catch (error) {
             console.error(error);
