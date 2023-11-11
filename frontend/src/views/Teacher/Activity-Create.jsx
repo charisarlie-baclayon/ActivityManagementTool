@@ -8,6 +8,8 @@ import { useFetchTeams } from "../../hooks/useTeam";
 export const Teacher_CreateActivitySection = () => {
     const navigate = useNavigate();
     const createActivity = useCreateActivity();
+
+    // Activity Model
     const [activityData, setActivityData] = useState({
         title: "",
         description: "",
@@ -20,8 +22,10 @@ export const Teacher_CreateActivitySection = () => {
         evaluation: null,
         total_score: 100,
     });
+
     const teams = useFetchTeams();
     const courses = useFetchCourses();
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setActivityData({
@@ -35,7 +39,7 @@ export const Teacher_CreateActivitySection = () => {
         try {
             const response = await createActivity(activityData);
             if (response) {
-                navigate('/teacher/activities/')
+                navigate('/teacher/activities/');
                 console.log("Successfully created activity!");
             } else {
                 console.log("Activity creation failed.");
@@ -69,7 +73,9 @@ export const Teacher_CreateActivitySection = () => {
                         </button>
                     </div>
                 </div>
+
                 <hr className="text-dark" />
+
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label htmlFor="title" className="form-label">Title</label>
@@ -82,6 +88,7 @@ export const Teacher_CreateActivitySection = () => {
                             onChange={handleChange}
                         />
                     </div>
+
                     <div className="mb-3">
                         <label htmlFor="description" className="form-label">Description</label>
                         <textarea
@@ -92,6 +99,7 @@ export const Teacher_CreateActivitySection = () => {
                             onChange={handleChange}
                         />
                     </div>
+
                     <div className="mb-3">
                         <label htmlFor="course_id" className="form-label">Course</label>
                         <select
@@ -109,6 +117,7 @@ export const Teacher_CreateActivitySection = () => {
                             ))}
                         </select>
                     </div>
+
                     <div className="mb-3">
                         <label htmlFor="team_id" className="form-label">Team</label>
                         <select
@@ -126,6 +135,7 @@ export const Teacher_CreateActivitySection = () => {
                             ))}
                         </select>
                     </div>
+
                     <div className="mb-3">
                         <label htmlFor="year_level" className="form-label">Year Level</label>
                         <input
@@ -137,6 +147,7 @@ export const Teacher_CreateActivitySection = () => {
                             onChange={handleChange}
                         />
                     </div>
+
                     <div className="mb-3">
                         <label htmlFor="section" className="form-label">Section</label>
                         <input
@@ -148,19 +159,23 @@ export const Teacher_CreateActivitySection = () => {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="submission_status" className="form-label">Submission Status</label>
-                        <select
-                            className="form-select"
-                            id="submission_status"
-                            name="submission_status"
-                            value={activityData.submission_status}
-                            onChange={handleChange}
-                        >
-                            <option value="false">Not Submitted</option>
-                            <option value="true">Submitted</option>
-                        </select>
-                    </div>
+
+                    {/*
+                        <div className="mb-3">
+                            <label htmlFor="submission_status" className="form-label">Submission Status</label>
+                            <select
+                                className="form-select"
+                                id="submission_status"
+                                name="submission_status"
+                                value={activityData.submission_status}
+                                onChange={handleChange}
+                            >
+                                <option value="false">Not Submitted</option>
+                                <option value="true">Submitted</option>
+                            </select>
+                        </div>
+                    */}
+
                     <div className="mb-3">
                         <label htmlFor="due_date" className="form-label">Due Date</label>
                         <input
@@ -172,17 +187,21 @@ export const Teacher_CreateActivitySection = () => {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="evaluation" className="form-label">Evaluation</label>
-                        <input
-                            type="number"
-                            className="form-control"
-                            id="evaluation"
-                            name="evaluation"
-                            value={activityData.evaluation}
-                            onChange={handleChange}
-                        />
-                    </div>
+
+                    {/*
+                        <div className="mb-3">
+                            <label htmlFor="evaluation" className="form-label">Evaluation</label>
+                            <input
+                                type="number"
+                                className="form-control"
+                                id="evaluation"
+                                name="evaluation"
+                                value={activityData.evaluation}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    */}
+
                     <div className="mb-3">
                         <label htmlFor="total_score" className="form-label">Total Score</label>
                         <input
@@ -194,6 +213,7 @@ export const Teacher_CreateActivitySection = () => {
                             onChange={handleChange}
                         />
                     </div>
+
                     <button type="submit" className="btn btn-primary">Create Activity</button>
                 </form>
             </div>
