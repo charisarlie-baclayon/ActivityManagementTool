@@ -155,11 +155,11 @@ export const Teacher_SelectedActivitySection = () => {
 				<div>
 					{activityData ? (
 						<div>
-							<p>Name: {activityData.title}</p>
-							<p>Description: {activityData.description}</p>
-							<p>Due Date: {activityData.due_date}</p>
+							<p>Name: {activityData?.title}</p>
+							<p>Description: {activityData?.description}</p>
+							<p>Due Date: {activityData?.due_date}</p>
 							<p>
-								Evaluation: {activityData.evaluation} /{" "}
+								Evaluation: {activityData?.evaluation} /{" "}
 								{activityData.total_score}
 							</p>
 						</div>
@@ -193,12 +193,12 @@ export const Teacher_SelectedActivitySection = () => {
 
 					{activityComments && activityComments.length > 0 ? (
 						activityComments.map((comment) => (
-							<div className='d-flex flex-row justify-content-between p-3 border border-dark rounded-3 '>
-								<p key={comment.id}>
-									{comment.user} - {comment.comment}
+							<div className='d-flex flex-row justify-content-between p-3 border border-dark rounded-3 ' key={comment.id}>
+								<p>
+									{comment.user.email} - {comment.comment}
 								</p>
 								<span
-									className='nav-item nav-link text-danger '
+									className='nav-item nav-link text-danger'
 									onClick={(e) => handleCommentDelete(e, comment.id)}
 								>
 									<FiTrash />

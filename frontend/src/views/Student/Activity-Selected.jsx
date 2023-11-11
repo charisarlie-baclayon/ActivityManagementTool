@@ -12,6 +12,9 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { setStudentModel, selectCurrentTeam, selectStudentModel } from "../../features/slice/studentModelSlice"; // Import the student model slice
 import { loadFromLocalStorage } from "../../components/utils/utils";
+import { WorkPopup } from "../../components/popups/activity/student-view-work";
+import { useCreateWork, useFetchWorksByActivity } from '../../hooks/useWork';
+import { WorkCard } from '../../components/Cards/Card.Work';
 import { selectCurrentId } from '../../features/auth/authSlice';
 import { useCreateComment, useDeleteComment, useFetchComments, useFetchCommentsForActivity } from '../../hooks/useComments';
 
@@ -26,24 +29,33 @@ export const Student_SelectedActivitySection = () => {
 			dispatch(setStudentModel(savedStudentModel));
 		}
 	}, []);
-
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const [showModal, setShowModal] = useState(false);
 	const handleCloseModal = () => setShowModal(false);
-
+	const [workData, setWorkData] = useState(null);
 	const [activityData, setActivityData] = useState(null);
 	const teams = useFetchTeams();
 	const courses = useFetchCourses();
 	const fetchActivityData = useFetchActivity(id);
 	const deleteActivity = useDeleteActivity();
 	const submitActivity = useSubmitActivity();
+	const fetchWorkData = useFetchWorksByActivity(id);
+	const createWork = useCreateWork();
 
 	useEffect(() => {
 		if (fetchActivityData) {
 			setActivityData(fetchActivityData);
 		}
 	}, [fetchActivityData]);
+
+	useEffect(() => {
+		if (fetchWorkData) {
+			setWorkData(fetchWorkData);
+		}
+	}, [fetchWorkData]);
+	console.log(workData);
+
 
 	const [updateActivityData, setUpdateActivityData] = useState({
 		title: "",
@@ -58,7 +70,11 @@ export const Student_SelectedActivitySection = () => {
 		total_score: 100,
 	});
 
+	const [showAddWorkModal, setShowAddWorkModal] = useState(false);
 
+	const handleAddWork = async (e) => {
+		setShowAddWorkModal(true);
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -167,20 +183,52 @@ export const Student_SelectedActivitySection = () => {
 					) : (
 						<p>Loading class details...</p>
 					)}
+
+					<div className="d-flex flex-column gap-3">
+						<h5 className="fw-bold">Works</h5>
+						{workData ? (
+							workData.map((work) => (
+								<WorkCard key={work.id} workData={work} />
+							))
+						) : (
+							<p>No work data available.</p>
+						)}
+					</div>
+
 				</div>
 				<div className='d-flex flex-row gap-3'>
-					<button className='btn btn-success bw-3'>Add Work</button>
+					<button className='btn btn-success bw-3' onClick={handleAddWork}>
+						Add Work
+					</button>
 					<button className='btn btn-outline-secondary bw-3'>Edit Work</button>
 				</div>
 				<hr className='text-dark' />
+
+				{workData && (
+					<WorkPopup
+						show={showAddWorkModal}
+						handleClose={() => setShowAddWorkModal(false)}
+						workData={workData} // Pass any necessary data
+						id={id}
+					//onSubmit={handleSubmitWork} // Define a function to handle work submission
+					/>
+				)}
+
+
 				<div className='d-flex flex-column gap-3'>
 					<p>Comment</p>
 					{activityComments && activityComments.length > 0 ? (
 						activityComments.map((comment) => (
-							<div className='d-flex flex-row justify-content-between p-3 border border-dark rounded-3 '>
-								<p key={comment.id}>
-									{comment.user} - {comment.comment}
+							<div className='d-flex flex-row justify-content-between p-3 border border-dark rounded-3 ' key={comment.id}>
+								<p>
+									{comment.user.email} - {comment.comment}
 								</p>
+								<span
+									className='nav-item nav-link text-danger'
+									onClick={(e) => handleCommentDelete(e, comment.id)}
+								>
+									<FiTrash />
+								</span>
 							</div>
 						))
 					) : (

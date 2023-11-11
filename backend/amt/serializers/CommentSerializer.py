@@ -2,18 +2,18 @@ from rest_framework import serializers
 from amt.models import User
 from amt.models import Comment, Activity
 
-# class UserCommentSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = ('id', 'email', 'first_name', 'last_name')  # Include the fields you want to expose
+class UserCommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'email', 'first_name', 'last_name')  # Include the fields you want to expose
 
-# class ActivityCommentSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Activity
-#         fields = ('id', 'title')
+class ActivityCommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Activity
+        fields = ('id', 'title')
 class CommentSerializer(serializers.ModelSerializer):
-    # activity = ActivityCommentSerializer()
-    # user = UserCommentSerializer()  # Serialize the user field
+    activity = ActivityCommentSerializer()
+    user = UserCommentSerializer()  # Serialize the user field
 
     class Meta:
         model = Comment
