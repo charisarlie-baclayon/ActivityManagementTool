@@ -17,6 +17,7 @@ export function useFetchClass(id) {
 		const fetchClass = async () => {
 			try {
 				const response = await readClass(id);
+				console.log(`Use Get Class By Id : ${JSON.stringify(response, null, 2)}`);
 				setClassData(response.data);
 			} catch (error) {
 				console.error("Error fetching class data:", error);
@@ -36,6 +37,7 @@ export function useFetchClasses() {
 		const fetchClasses = async () => {
 			try {
 				const response = await readClasses();
+				console.log(`Use Get All Classes : ${JSON.stringify(response, null, 2)}`);
 				setClasses(response.data);
 			} catch (error) {
 				console.error("Error fetching classes data:", error);
@@ -56,6 +58,7 @@ export function useFetchClassesBySection(section) {
 		const fetchClasses = async () => {
 			try {
 				const response = await readClasses(section);
+				console.log(`Use Get Classes By Section : ${JSON.stringify(response, null, 2)}`);
 				setClasses(response.data);
 			} catch (error) {
 				console.error("Error fetching classes data:", error);
@@ -76,6 +79,7 @@ export function useFetchClassesByCourse(course_id) {
 		const fetchClasses = async () => {
 			try {
 				const response = await readClasses(course_id);
+				console.log(`Use Get Classes By Course : ${JSON.stringify(response, null, 2)}`);
 				setClasses(response.data);
 			} catch (error) {
 				console.error("Error fetching classes data:", error);
@@ -94,6 +98,7 @@ export function useCreateClass() {
 	const createNewClass = async (data) => {
 		try {
 			const response = await createClass({ ...data });
+			console.log(`Use Create Class : ${JSON.stringify(response, null, 2)}`);
 			return response;
 		} catch (error) {
 			console.error("Error creating class:", error);
@@ -109,6 +114,7 @@ export function useUpdateClass() {
 	const updateExistingClass = async (id, data) => {
 		try {
 			const response = await updateClass({ id, ...data });
+			console.log(`Use Update Class : ${JSON.stringify(response, null, 2)}`);
 			return response;
 		} catch (error) {
 			console.error("Error updating class:", error);
@@ -124,6 +130,7 @@ export function useDeleteClass() {
 	const deleteClassById = async (id) => {
 		try {
 			const response = await deleteClass(id);
+			console.log(`Use Delete Class : ${JSON.stringify(response, null, 2)}`);
 			return response;
 		} catch (error) {
 			console.error("Error deleting class:", error);

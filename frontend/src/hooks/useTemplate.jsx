@@ -15,6 +15,7 @@ export function useFetchTemplate(id) {
         const fetchTemplate = async () => {
             try {
                 const response = await readTemplate(id);
+                console.log(`Use Get Template By Id : ${JSON.stringify(response, null, 2)}`);
                 setTemplateData(response.data);
             } catch (error) {
                 console.error("Error fetching template data:", error);
@@ -34,6 +35,7 @@ export function useFetchTemplates() {
         const fetchTemplates = async () => {
             try {
                 const response = await readTemplates();
+                console.log(`Use Get All Templates : ${JSON.stringify(response, null, 2)}`);
                 setTemplates(response.data);
             } catch (error) {
                 console.error("Error fetching templates data:", error);
@@ -52,7 +54,7 @@ export function useCreateTemplate() {
     const createNewTemplate = async (data) => {
         try {
             const response = await createTemplate(data);
-            console.log(response);
+            console.log(`Use Create Template : ${JSON.stringify(response, null, 2)}`);
             return response;
         } catch (error) {
             console.error("Error creating template:", error);
@@ -68,6 +70,7 @@ export function useUpdateTemplate() {
     const updateExistingTemplate = async (id, data) => {
         try {
             const response = await updateTemplate({ id, ...data });
+            console.log(`Use Update Template : ${JSON.stringify(response, null, 2)}`);
             return response;
         } catch (error) {
             console.error("Error updating template:", error);
@@ -83,6 +86,7 @@ export function useDeleteTemplate() {
     const deleteTemplateById = async (id) => {
         try {
             const response = await deleteTemplate(id);
+            console.log(`Use Delete Template : ${JSON.stringify(response, null, 2)}`);
             return response;
         } catch (error) {
             console.error("Error deleting template:", error);

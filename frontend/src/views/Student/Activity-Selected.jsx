@@ -187,17 +187,17 @@ export const Student_SelectedActivitySection = () => {
 					<div className="d-flex flex-column gap-3">
 						<h5 className="fw-bold">Works</h5>
 						{workData ? (
-						workData.map((work) => (
-							<WorkCard key={work.id} workData={work} />
-						))
+							workData.map((work) => (
+								<WorkCard key={work.id} workData={work} />
+							))
 						) : (
-						<p>No work data available.</p>
+							<p>No work data available.</p>
 						)}
 					</div>
 
 				</div>
 				<div className='d-flex flex-row gap-3'>
-				<button className='btn btn-success bw-3' onClick={handleAddWork}>
+					<button className='btn btn-success bw-3' onClick={handleAddWork}>
 						Add Work
 					</button>
 					<button className='btn btn-outline-secondary bw-3'>Edit Work</button>
@@ -206,10 +206,10 @@ export const Student_SelectedActivitySection = () => {
 
 				{workData && (
 					<WorkPopup
-					show={showAddWorkModal}
-					handleClose={() => setShowAddWorkModal(false)}
-					workData={workData} // Pass any necessary data
-					id={id}
+						show={showAddWorkModal}
+						handleClose={() => setShowAddWorkModal(false)}
+						workData={workData} // Pass any necessary data
+						id={id}
 					//onSubmit={handleSubmitWork} // Define a function to handle work submission
 					/>
 				)}
@@ -219,10 +219,16 @@ export const Student_SelectedActivitySection = () => {
 					<p>Comment</p>
 					{activityComments && activityComments.length > 0 ? (
 						activityComments.map((comment) => (
-							<div className='d-flex flex-row justify-content-between p-3 border border-dark rounded-3 '>
-								<p key={comment.id}>
-									{comment.user} - {comment.comment}
+							<div className='d-flex flex-row justify-content-between p-3 border border-dark rounded-3 ' key={comment.id}>
+								<p>
+									{comment.user.email} - {comment.comment}
 								</p>
+								<span
+									className='nav-item nav-link text-danger'
+									onClick={(e) => handleCommentDelete(e, comment.id)}
+								>
+									<FiTrash />
+								</span>
 							</div>
 						))
 					) : (

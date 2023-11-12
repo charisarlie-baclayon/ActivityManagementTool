@@ -11,6 +11,7 @@ export function useFetchCategory(id) {
         const fetchCategory = async () => {
             try {
                 const response = await readCategory(id, accessToken);
+                console.log(`Use Get Category By Id : ${JSON.stringify(response, null, 2)}`);
                 setCategoryData(response);
             } catch (error) {
                 console.error("Error fetching category data:", error);
@@ -33,9 +34,10 @@ export function useFetchCategories() {
         const fetchCategories = async () => {
             try {
                 const response = await readCategories(accessToken);
+                console.log(`Use Get All Categories : ${JSON.stringify(response, null, 2)}`);
                 setCategories(response);
             } catch (error) {
-                console.log(error.response);
+                console.error("Error fetching categories data:", error);
             }
         };
 
@@ -51,6 +53,7 @@ export function useCreateCategory() {
     const createNewCategory = async (data) => {
         try {
             const response = await createCategory(data, accessToken);
+            console.log(`Use Create Category : ${JSON.stringify(response, null, 2)}`);
             return response;
         } catch (error) {
             console.error("Error creating category:", error);
@@ -66,6 +69,7 @@ export function useUpdateCategory() {
     const updateExistingCategory = async (id, data) => {
         try {
             const response = await updateCategory(id, data, accessToken);
+            console.log(`Use Update Category : ${JSON.stringify(response, null, 2)}`);
             return response;
         } catch (error) {
             console.error("Error updating category:", error);
@@ -81,6 +85,7 @@ export function useDeleteCategory() {
     const deleteCategoryById = async (id) => {
         try {
             const response = await deleteCategory(id, accessToken);
+            console.log(`Use Delete Category : ${JSON.stringify(response, null, 2)}`);
             return response;
         } catch (error) {
             console.error("Error deleting category:", error);

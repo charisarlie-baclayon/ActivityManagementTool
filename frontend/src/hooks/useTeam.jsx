@@ -15,6 +15,7 @@ export function useFetchTeam(id) {
 		const fetchTeam = async () => {
 			try {
 				const response = await readTeam(id);
+				console.log(`Use Get Team By Id : ${JSON.stringify(response, null, 2)}`);
 				setTeam(response.data);
 			} catch (error) {
 				console.error("Error fetching team data:", error);
@@ -35,6 +36,7 @@ export function useFetchTeams() {
 		const fetchTeams = async () => {
 			try {
 				const response = await readTeams();
+				console.log(`Use Get All Teams : ${JSON.stringify(response, null, 2)}`);
 				setTeams(response.data);
 			} catch (error) {
 				console.error("Error fetching teams data:", error);
@@ -53,6 +55,7 @@ export function useCreateTeam() {
 	const createNewTeam = async (data) => {
 		try {
 			const response = await createTeam({ ...data });
+			console.log(`Use Create Team : ${JSON.stringify(response, null, 2)}`);
 			return response;
 		} catch (error) {
 			console.error("Error creating team:", error);
@@ -68,6 +71,7 @@ export function useUpdateTeam() {
 	const updateExistingTeam = async (id, data) => {
 		try {
 			const response = await updateTeam({ id, ...data });
+			console.log(`Use Update Team : ${JSON.stringify(response, null, 2)}`);
 			return response;
 		} catch (error) {
 			console.error("Error updating team:", error);
@@ -83,6 +87,7 @@ export function useDeleteTeam() {
 	const deleteTeamById = async (id) => {
 		try {
 			const response = await deleteTeam(id);
+			console.log(`Use Delete Team : ${JSON.stringify(response, null, 2)}`);
 			return response;
 		} catch (error) {
 			console.error("Error deleting team:", error);

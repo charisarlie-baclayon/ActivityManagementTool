@@ -28,6 +28,7 @@ export function useCreateActivity() {
 	const createNewActivity = async (data) => {
 		try {
 			const response = await createActivity({ ...data });
+			console.log(`Use Create Activity : ${JSON.stringify(response, null, 2)}`);
 			return response;
 		} catch (error) {
 			console.error("Error creating activity:", error);
@@ -47,6 +48,7 @@ export function useCreateActivityfromTemplate() {
 	const createNewActivity = async (data) => {
 		try {
 			const response = await createActivityFromTemplate({ ...data });
+			console.log(`Use Create Activity From Template : ${JSON.stringify(response, null, 2)}`);
 			return response;
 		} catch (error) {
 			console.error("Error creating activity:", error);
@@ -66,7 +68,7 @@ export function useAddEvaluationToActivity() {
 	const addEvaluation = async (id, data) => {
 		try {
 			const response = await addEvaluationToActivity(id, { ...data });
-			console.log(response);
+			console.log(`Use Add Evaluation to Activity : ${JSON.stringify(response, null, 2)}`);
 			return response;
 		} catch (error) {
 			console.error("Error adding evaluation to activity:", error);
@@ -88,7 +90,7 @@ export function useDeleteEvaluationFromActivity() {
 	const deleteEvaluation = async (id) => {
 		try {
 			const response = await deleteEvaluationFromActivity(id);
-			console.log(response);
+			console.log(`Use Delete Evaluation Activity : ${JSON.stringify(response, null, 2)}`);
 			return response;
 		} catch (error) {
 			console.error("Error deleting evaluation from activity:", error);
@@ -111,6 +113,7 @@ export function useSubmitActivity() {
 	const submitTheActivity = async (id) => {
 		try {
 			const response = await submitActivity(id);
+			console.log(`Use Submit Activity : ${JSON.stringify(response, null, 2)}`);
 			return response;
 		} catch (error) {
 			console.error("Error updating activity:", error);
@@ -136,7 +139,7 @@ export function useGetActivityByTeam(id) {
 		const fetchActivity = async () => {
 			try {
 				const response = await getActivitiesByTeam(id);
-				// console.log(response);
+				console.log(`Use Get Activity By Team : ${JSON.stringify(response, null, 2)}`);
 				setActivity(response.data);
 			} catch (error) {
 				console.error("Error fetching activity data:", error);
@@ -156,7 +159,7 @@ export function useGetActivitiesByCourse(id) {
 		const fetchActivity = async () => {
 			try {
 				const response = await getActivitiesByCourse(id);
-				// console.log(response);
+				console.log(`Use Get Activity By Course : ${JSON.stringify(response, null, 2)}`);
 				setActivity(response.data);
 			} catch (error) {
 				console.error("Error fetching activity data:", error);
@@ -180,6 +183,7 @@ export function useGetActivitiesByClass() {
 	const fetchActivitiesByClass = async (id) => {
 		try {
 			const response = await getActivitiesByClass(id);
+			console.log(`Use Get Activity By Class : ${JSON.stringify(response, null, 2)}`);
 			return response.data;
 		} catch (error) {
 			console.error("Error fetching activities data:", error);
@@ -203,6 +207,7 @@ export function useGetSubmittedActivitiesByTeam(id) {
 		const fetchActivities = async () => {
 			try {
 				const response = await getSubmittedActivitiesByTeam(id);
+				console.log(`Use Get Submitted Activity By Team : ${JSON.stringify(response, null, 2)}`);
 				setActivities(response.data);
 			} catch (error) {
 				console.error("Error fetching submitted activity data:", error);
@@ -229,6 +234,7 @@ export function useGetSubmittedActivitiesByClass(id) {
 		const fetchActivities = async () => {
 			try {
 				const response = await getSubmittedActivitiesByClass(id);
+				console.log(`Use Get Submitted Activity By Class : ${JSON.stringify(response, null, 2)}`);
 				setActivities(response.data);
 			} catch (error) {
 				console.error("Error fetching submitted activities data:", error);
@@ -249,6 +255,7 @@ export function useFetchActivities() {
 		const fetchActivities = async () => {
 			try {
 				const response = await getAllActivities();
+				console.log(`Use Get All Activity : ${JSON.stringify(response, null, 2)}`);
 				setActivities(response.data);
 			} catch (error) {
 				console.error("Error fetching teams data:", error);
@@ -269,6 +276,7 @@ export function useFetchActivity(id) {
 		const fetchActivity = async () => {
 			try {
 				const response = await readActivity(id);
+				console.log(`Use Get Activity : ${JSON.stringify(response, null, 2)}`);
 				setActivityData(response.data);
 			} catch (error) {
 				console.error("Error fetching activity data:", error);
@@ -286,7 +294,7 @@ export function useUpdateActivity() {
 	const updateExistingClass = async (id, data) => {
 		try {
 			const response = await updateClass({ id, ...data });
-			console.log(response);
+			console.log(`Use Update Activity : ${JSON.stringify(response, null, 2)}`);
 			return response;
 		} catch (error) {
 			console.error("Error updating class:", error);
@@ -309,7 +317,7 @@ export function useDeleteActivity() {
 	const deleteActivityById = async (id) => {
 		try {
 			const response = await deleteActivity(id);
-			console.log(response);
+			console.log(`Use Delete Activity : ${JSON.stringify(response, null, 2)}`);
 			return response;
 		} catch (error) {
 			console.error("Error deleting activity:", error);
