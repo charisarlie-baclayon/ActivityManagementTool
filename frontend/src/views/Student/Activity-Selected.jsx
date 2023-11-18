@@ -17,6 +17,7 @@ import { useCreateWork, useFetchWorksByActivity } from '../../hooks/useWork';
 import { WorkCard } from '../../components/Cards/Card.Work';
 import { selectCurrentId } from '../../features/auth/authSlice';
 import { useCreateComment, useDeleteComment, useFetchComments, useFetchCommentsForActivity } from '../../hooks/useComments';
+import { EditWorkModal } from '../../components/popups/activity/student-edit-work';
 
 export const Student_SelectedActivitySection = () => {
 
@@ -54,7 +55,7 @@ export const Student_SelectedActivitySection = () => {
 			setWorkData(fetchWorkData);
 		}
 	}, [fetchWorkData]);
-	console.log(workData);
+	console.log(fetchWorkData);
 
 
 	const [updateActivityData, setUpdateActivityData] = useState({
@@ -106,6 +107,39 @@ export const Student_SelectedActivitySection = () => {
 			console.error(error);
 		}
 	};
+
+	//Edit/Delete Work
+
+	//Edit Work
+	const [editWorkData, setEditWorkData] = useState(null);
+	const [showEditWorkModal, setShowEditWorkModal] = useState(false);
+	const [selectedWorkId, setSelectedWorkId] = useState(null);
+	const [selectedWork, setSelectedWork] = useState(null);
+	const [isEditWorkClickable, setIsEditWorkClickable] = useState(false);
+
+	//Select a work
+	const handleSelectWork = (work) => {
+		setSelectedWork(work);
+		setSelectedWorkId(work.id);
+	  };
+
+	const handleEditWork = (work) => {
+		if (work) {
+			setEditWorkData(work); // Assuming setEditWorkData is a state updater function
+			setSelectedWork(work);
+			setSelectedWorkId(work.id); // Set the selected work ID
+			setShowEditWorkModal(true);
+		  }
+	};
+
+	// Function to handle submitting the edited work
+	const handleEditWorkSubmit = async (editedWorkData) => {
+		// Implement the logic to update the work data
+		// You may need to use the appropriate hook or API call here
+		console.log('Edited Work Data:', editedWorkData);
+		setShowEditWorkModal(false);
+	};
+
 
 	const handleEdit = (e) => {
 		console.log(activityData);
@@ -188,7 +222,13 @@ export const Student_SelectedActivitySection = () => {
 						<h5 className="fw-bold">Works</h5>
 						{workData ? (
 							workData.map((work) => (
-								<WorkCard key={work.id} workData={work} />
+								<WorkCard 
+									key={work.id} 
+									workData={work} 
+									isClickable={!showEditWorkModal}
+									onEditClick={() => handleSelectWork(work)}
+									isSelected={selectedWork && selectedWork.id === work.id} // Check if the work is selected
+								/>
 							))
 						) : (
 							<p>No work data available.</p>
@@ -197,10 +237,17 @@ export const Student_SelectedActivitySection = () => {
 
 				</div>
 				<div className='d-flex flex-row gap-3'>
-					<button className='btn btn-success bw-3' onClick={handleAddWork}>
+					<button className='btn btn-outline-secondary bw-3' onClick={handleAddWork}>
 						Add Work
 					</button>
-					<button className='btn btn-outline-secondary bw-3'>Edit Work</button>
+					{selectedWork && (
+						<button
+						className="btn btn-primary bw-3"
+						onClick={() => handleEditWork(selectedWork)}
+						>
+						Edit Work
+						</button>
+					)}
 				</div>
 				<hr className='text-dark' />
 
@@ -236,6 +283,17 @@ export const Student_SelectedActivitySection = () => {
 					)}
 				</div>
 			</div>
+
+			{showEditWorkModal && (
+				<EditWorkModal
+					show={showEditWorkModal}
+					handleClose={() => setShowEditWorkModal(false)}
+					editWorkData={selectedWork}
+					onSubmit={handleEditWorkSubmit}
+				/>
+			)}
+			
+
 			<Modal show={showModal} onHide={handleCloseModal} size='lg' centered>
 				<Modal.Header closeButton>
 					<Modal.Title className='fs-6 fw-bold'>Create Activity</Modal.Title>
