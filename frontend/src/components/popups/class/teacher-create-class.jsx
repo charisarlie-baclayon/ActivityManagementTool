@@ -3,20 +3,19 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useCreateClass } from "../../../hooks/useClass";
 import { useFetchCourses, useCreateCourse } from "../../../hooks/useCourse";
+import { useNavigate } from "react-router-dom";
 
 export const CreateClassPopup = ({ show, handleClose }) => {
+	const navigate = useNavigate();
 	const createNewClass = useCreateClass();
-	const createNewCourse = useCreateCourse();
 	const courses = useFetchCourses();
 
 	const [classData, setClassData] = useState({
 		name: "",
-		course: "", // Rename course_id to course
+		course: "",
 		year_level: "",
 		section: "",
 	});
-
-	const [newCourseName, setNewCourseName] = useState("");
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -34,33 +33,21 @@ export const CreateClassPopup = ({ show, handleClose }) => {
 		});
 	};
 
-	const handleNewCourseChange = (e) => {
-		setNewCourseName(e.target.value);
-	};
-
-	const handleCreateNewCourse = async () => {
-		if (newCourseName.trim() !== "") {
-			const newCourseData = await createNewCourse({ name: newCourseName });
-			setClassData({
-				...classData,
-				course: newCourseData.id, // Rename course_id to course
-			});
-		}
-	};
-
 	const handleSubmit = async () => {
+		// Check if any of the required fields are empty
+		const requiredFields = ['name', 'course', 'year_level', 'section'];
+		const isEmptyField = requiredFields.some((field) => !classData[field]);
+
+		if (isEmptyField) {
+			window.alert('Please fill in all required fields.');
+			return;
+		}
+
 		try {
 			await createNewClass(classData);
 			console.log(classData);
+			navigate(0);
 			handleClose();
-
-			if (
-				window.confirm(
-					"Created Successfully. Click 'Okay' to refresh the page."
-				)
-			) {
-				window.location.reload();
-			}
 		} catch (error) {
 			console.error(error);
 			// Handle error, e.g., show an error message to the user

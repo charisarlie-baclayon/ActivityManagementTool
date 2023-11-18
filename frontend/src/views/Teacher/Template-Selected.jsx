@@ -13,6 +13,21 @@ export const Teacher_SelectedTemplateSection = () => {
 	const fetchTemplateData = useFetchTemplate(id);
 	const deleteTemplate = useDeleteTemplate();
 
+
+	// Define the initial state for the editable fields
+	const [activityData, setActivityData] = useState({
+		title: "",
+		description: "",
+		course_id: "",
+		team_id: "", // You can select a team from the dropdown
+		year_level: "",
+		section: "",
+		submission_status: false,
+		due_date: null,
+		evaluation: null,
+		total_score: 100,
+	});
+
 	// Use the new function for creating an activity from a template
 	const createActivityFromTemplate = useCreateActivityfromTemplate();
 
@@ -25,17 +40,23 @@ export const Teacher_SelectedTemplateSection = () => {
 	const handleDelete = async (e) => {
 		e.preventDefault();
 
-		// todo: add a modal to confirm deletion
+		// Display a confirmation dialog
+		const isConfirmed = window.confirm("Are you sure you want to delete this template?");
 
-		try {
-			const response = await deleteTemplate(id);
+		if (isConfirmed) {
+			try {
+				const response = await deleteTemplate(id);
 
-			if (response) {
-				console.log("Successfully deleted template!");
-				navigate(-1);
+				if (response) {
+					console.log("Successfully deleted template!");
+					navigate(-1);
+				}
+			} catch (error) {
+				console.error(error);
 			}
-		} catch (error) {
-			console.error(error);
+		} else {
+			// The user canceled the deletion
+			console.log("Deletion canceled");
 		}
 	};
 
@@ -43,6 +64,14 @@ export const Teacher_SelectedTemplateSection = () => {
 		e.preventDefault();
 
 		const { team_id } = activityData; // Assuming you want to use the selected team for the new activity
+
+		const requiredFields = ['title', 'description', 'due_date', 'total_score', "team_id", "course_id", "section", "year_level"];
+		const isEmptyField = requiredFields.some((field) => !activityData[field]);
+
+		if (isEmptyField) {
+			window.alert('Please fill in all required fields.');
+			return;
+		}
 
 		// Create the payload for the new activity
 		const newActivityData = {
@@ -62,20 +91,6 @@ export const Teacher_SelectedTemplateSection = () => {
 			console.error(error);
 		}
 	};
-
-	// Define the initial state for the editable fields
-	const [activityData, setActivityData] = useState({
-		title: "",
-		description: "",
-		course_id: "",
-		team_id: "", // You can select a team from the dropdown
-		year_level: "",
-		section: "",
-		submission_status: false,
-		due_date: null,
-		evaluation: null,
-		total_score: 100,
-	});
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -239,6 +254,7 @@ export const Teacher_SelectedTemplateSection = () => {
 							onChange={handleChange}
 						/>
 					</div>
+					{/* 
 					<div className='mb-3'>
 						<label htmlFor='evaluation' className='form-label'>
 							Evaluation
@@ -252,6 +268,7 @@ export const Teacher_SelectedTemplateSection = () => {
 							onChange={handleChange}
 						/>
 					</div>
+					*/}
 					<div className='mb-3'>
 						<label htmlFor='total_score' className='form-label'>
 							Total Score

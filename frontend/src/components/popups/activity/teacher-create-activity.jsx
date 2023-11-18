@@ -15,18 +15,27 @@ export const CreateActivityPopup = ({ show, handleClose }) => {
 		due_date: "",
 		evaluation: 0,
 		total_score: 0,
-		team_id: "", // Initialize the team_id field
+		team_id: "",
 	});
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setActivityData({
 			...activityData,
-			[name]: value,
+			[name]: name === "description" ? value.replace(/\n/g, "<br>") : value
 		});
 	};
 
 	const handleSubmit = async () => {
+		// Check if any of the required fields are empty
+		const requiredFields = ['title', 'description', "link", 'due_date', 'total_score', "team_id"];
+		const isEmptyField = requiredFields.some((field) => !updateActivityData[field]);
+
+		if (isEmptyField) {
+			window.alert('Please fill in all required fields.');
+			return;
+		}
+
 		try {
 			await createNewActivity(activityData);
 			handleClose();
@@ -36,7 +45,6 @@ export const CreateActivityPopup = ({ show, handleClose }) => {
 			}
 		} catch (error) {
 			console.error(error);
-			// Handle error, e.g., show an error message to the user
 		}
 	};
 
@@ -84,6 +92,7 @@ export const CreateActivityPopup = ({ show, handleClose }) => {
 							onChange={handleChange}
 						/>
 					</Form.Group>
+					{/*
 					<Form.Group className="mb-3" controlId="evaluation-input">
 						<Form.Label>Evaluation</Form.Label>
 						<Form.Control
@@ -93,6 +102,7 @@ export const CreateActivityPopup = ({ show, handleClose }) => {
 							onChange={handleChange}
 						/>
 					</Form.Group>
+					*/}
 					<Form.Group className="mb-3" controlId="total-score-input">
 						<Form.Label>Total Score</Form.Label>
 						<Form.Control

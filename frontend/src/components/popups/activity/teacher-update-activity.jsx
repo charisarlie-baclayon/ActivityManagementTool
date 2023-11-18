@@ -33,17 +33,25 @@ export const UpdateActivityPopup = ({ show, handleClose, data }) => {
         const { name, value } = e.target;
         setUpdateActivityData({
             ...updateActivityData,
-            [name]: value,
+            [name]: value
         });
         console.log(updateActivityData);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Check if any of the required fields are empty
+        const requiredFields = ['title', 'description', 'due_date', 'total_score'];
+        const isEmptyField = requiredFields.some((field) => !updateActivityData[field]);
+
+        if (isEmptyField) {
+            window.alert('Please fill in all required fields.');
+            return;
+        }
+
         try {
             const response = await updateActivity(data.id, updateActivityData);
-
-            // TODO : Check if Fields are empty
 
             if (response) {
                 setUpdateActivityData(updateActivityData);
@@ -84,6 +92,7 @@ export const UpdateActivityPopup = ({ show, handleClose, data }) => {
                             name='description'
                             value={updateActivityData?.description}
                             onChange={handleChange}
+                            requ
                         />
                     </Form.Group>
 

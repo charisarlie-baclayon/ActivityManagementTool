@@ -26,6 +26,16 @@ export const UpdateClassPopup = ({ show, handleClose, data }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Check if any of the required fields are empty
+        const requiredFields = ['name', 'year_level', 'section'];
+        const isEmptyField = requiredFields.some((field) => !updateClassData[field]);
+
+        if (isEmptyField) {
+            window.alert('Please fill in all required fields.');
+            return;
+        }
+
         try {
             const response = await updateClass(data.id, updateClassData);
 
@@ -47,7 +57,7 @@ export const UpdateClassPopup = ({ show, handleClose, data }) => {
     return (
         <Modal show={show} onHide={handleClose} size='lg' centered>
             <Modal.Header closeButton>
-                <Modal.Title className='fs-6 fw-bold'>Create Class</Modal.Title>
+                <Modal.Title className='fs-6 fw-bold'>Update Class</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>

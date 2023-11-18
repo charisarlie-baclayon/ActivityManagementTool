@@ -47,7 +47,7 @@ export const Student_SignIn = () => {
 
 			if (loginUser) {
 				if (loginUser.role !== "student") {
-					alert("Unauthorized: You are not authorized to access this resource.");
+					window.alert("Unauthorized: You are not authorized to access this resource.");
 					return;
 				}
 
@@ -101,6 +101,10 @@ export const Student_SignIn = () => {
 			} else {
 				setErrorMessage("Login Failed");
 			}
+
+			// Display Windows alert for incorrect credentials
+			window.alert("Incorrect credentials. Please try again.");
+
 			console.error(error);
 			errRef.current.focus();
 			navigate("/student/sign-in");

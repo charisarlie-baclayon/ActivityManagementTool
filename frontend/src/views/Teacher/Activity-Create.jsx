@@ -36,6 +36,15 @@ export const Teacher_CreateActivitySection = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const requiredFields = ['title', 'description', 'due_date', 'total_score', "team_id", "course_id", "section", "year_level"];
+        const isEmptyField = requiredFields.some((field) => !activityData[field]);
+
+        if (isEmptyField) {
+            window.alert('Please fill in all required fields.');
+            return;
+        }
+
         try {
             const response = await createActivity(activityData);
             if (response) {
