@@ -39,7 +39,7 @@ export const Teacher_SelectedActivitySection = () => {
 
 	useEffect(() => {
 		if (fetchActivityData) {
-			const temp = fetchActivityData;
+			const temp = { ...fetchActivityData };
 			setActivityData(temp);
 		}
 	}, [fetchActivityData]);
@@ -47,32 +47,45 @@ export const Teacher_SelectedActivitySection = () => {
 	const handleDeleteEvaluation = async (e) => {
 		e.preventDefault();
 
-		// todo: add a modal to confirm deletion
+		// Display a confirmation dialog
+		const isConfirmed = window.confirm("Are you sure you want to delete this evaluation?");
 
-		try {
-			const response = deleteEvaluation(id);
+		if (isConfirmed) {
+			try {
+				const response = deleteEvaluation(id);
 
-			navigate(0);
-			console.log("Evaluation deleted successfully!");
-		} catch (error) {
-			console.error(error);
+				navigate(0);
+				console.log("Evaluation deleted successfully!");
+			} catch (error) {
+				console.error(error);
+			}
+		}
+		else {
+			// The user canceled the deletion
+			console.log("Deletion canceled");
 		}
 	};
 
 	const handleDelete = async (e) => {
 		e.preventDefault();
 
-		// todo: add a modal to confirm deletion
+		// Display a confirmation dialog
+		const isConfirmed = window.confirm("Are you sure you want to delete this activity?");
 
-		try {
-			const response = await deleteActivity(id);
+		if (isConfirmed) {
+			try {
+				const response = await deleteActivity(id);
 
-			if (response) {
-				console.log("Successfully deleted team!");
-				navigate("/teacher/activities");
+				if (response) {
+					console.log("Successfully deleted team!");
+					navigate("/teacher/activities");
+				}
+			} catch (error) {
+				console.error(error);
 			}
-		} catch (error) {
-			console.error(error);
+		} else {
+			// The user canceled the deletion
+			console.log("Deletion canceled");
 		}
 	};
 
@@ -84,18 +97,23 @@ export const Teacher_SelectedActivitySection = () => {
 
 	const handleCommentDelete = async (e, commentId) => {
 		e.preventDefault();
+		// Display a confirmation dialog
+		const isConfirmed = window.confirm("Are you sure you want to delete this comment?");
 
-		// todo: add a modal to confirm deletion
-		console.log(e);
-		try {
-			const response = await deleteComment(commentId);
+		if (isConfirmed) {
+			try {
+				const response = await deleteComment(commentId);
 
-			if (response) {
-				console.log("Successfully deleted comment!");
-				navigate(0);
+				if (response) {
+					console.log("Successfully deleted comment!");
+					navigate(0);
+				}
+			} catch (error) {
+				console.error(error);
 			}
-		} catch (error) {
-			console.error(error);
+		} else {
+			// The user canceled the deletion
+			console.log("Deletion canceled");
 		}
 	};
 
@@ -113,6 +131,20 @@ export const Teacher_SelectedActivitySection = () => {
 				});
 		}
 	}, [activityData]);
+
+	const getFormattedDate = () => {
+		if (activityData?.due_date) {
+			const options = {
+				year: "numeric",
+				month: "long",
+				day: "numeric",
+			};
+			const date = new Date(activityData.due_date);
+			return date.toLocaleDateString(undefined, options);
+		} else {
+			return "None";
+		}
+	};
 
 	return (
 		<div className='container-md'>
@@ -154,14 +186,18 @@ export const Teacher_SelectedActivitySection = () => {
 
 				<div>
 					{activityData ? (
-						<div>
-							<p>Name: {activityData?.title}</p>
-							<p>Description: {activityData?.description}</p>
-							<p>Due Date: {activityData?.due_date}</p>
-							<p>
-								Evaluation: {activityData?.evaluation} /{" "}
-								{activityData.total_score}
-							</p>
+						<div className="d-flex flex-row justify-content-between ">
+							<div>
+								<p>Due - {getFormattedDate()}</p>
+								<p>Description:</p>
+								<div dangerouslySetInnerHTML={{ __html: activityData?.description.replace(/\n/g, "<br>") }} />
+							</div>
+							<div>
+								<p>
+									Evaluation: {activityData?.evaluation ?? 0} /{" "}
+									{activityData.total_score}
+								</p>
+							</div>
 						</div>
 					) : (
 						<p>Loading class details...</p>
@@ -172,6 +208,7 @@ export const Teacher_SelectedActivitySection = () => {
 					<button
 						className='btn btn-success bw-3'
 						onClick={() => setShowAddEvaluationModal(true)}
+						disabled={!activityData?.submission_status}
 					>
 						Add Evaluation
 					</button>

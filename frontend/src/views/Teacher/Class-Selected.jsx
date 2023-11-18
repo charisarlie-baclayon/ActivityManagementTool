@@ -7,7 +7,7 @@ import {
 } from "../../hooks/useClass";
 import { useNavigate } from "react-router-dom";
 import { FiChevronLeft } from "react-icons/fi";
-import { UpdateClassPopup } from "../../components/popups/comment/teacher-update-comment";
+import { UpdateClassPopup } from "../../components/popups/class/teacher-update-class";
 
 export const Teacher_SelectedClassSection = () => {
 	const [showModal, setShowModal] = useState(false);
@@ -32,18 +32,23 @@ export const Teacher_SelectedClassSection = () => {
 
 	const handleDelete = async (e) => {
 		e.preventDefault();
+		// Display a confirmation dialog
+		const isConfirmed = window.confirm("Are you sure you want to delete this class?");
 
-		// todo: add a modal to confirm deletion
+		if (isConfirmed) {
+			try {
+				const response = await deleteClass(id);
 
-		try {
-			const response = await deleteClass(id);
-
-			if (response) {
-				console.log("Successfully deleted team!");
-				navigate("/teacher/classes");
+				if (response) {
+					console.log("Successfully deleted team!");
+					navigate("/teacher/classes");
+				}
+			} catch (error) {
+				console.error(error);
 			}
-		} catch (error) {
-			console.error(error);
+		} else {
+			// The user canceled the deletion
+			console.log("Deletion canceled");
 		}
 	};
 	return (

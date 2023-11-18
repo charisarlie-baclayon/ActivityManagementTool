@@ -20,7 +20,7 @@ export const CreateEvaluationPopup = ({ show, handleClose, data }) => {
         const { name, value } = e.target;
         setEvaluationData({
             ...evaluationData,
-            [name]: value,
+            [name]: parseInt(value),
         });
         console.log(evaluationData);
     };
@@ -28,10 +28,17 @@ export const CreateEvaluationPopup = ({ show, handleClose, data }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // todo: add logic to handle adding evaluation
+        // Check if any of the required fields are empty
+        const requiredFields = ['evaluation'];
+        const isEmptyField = requiredFields.some((field) => !evaluationData[field]);
+
+        if (isEmptyField) {
+            window.alert('Please fill in all required fields.');
+            return;
+        }
 
         try {
-            const response = addEvaluation(updateActivityData);
+            const response = addEvaluation(evaluationData);
             console.log("Evaluation added successfully!");
             handleClose();
             navigate(0);

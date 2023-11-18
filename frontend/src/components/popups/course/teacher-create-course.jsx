@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useCreateCourse } from "../../../hooks/useCourse"; // Import the hook for creating courses
+import { useNavigate } from "react-router-dom";
 
 export const CreateCoursePopup = ({ show, handleClose }) => {
+    const navigate = useNavigate();
     const createNewCourse = useCreateCourse();
 
     const [courseData, setCourseData] = useState({
@@ -21,11 +23,19 @@ export const CreateCoursePopup = ({ show, handleClose }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Check if any of the required fields are empty
+        const requiredFields = ['name'];
+        const isEmptyField = requiredFields.some((field) => !courseData[field]);
+
+        if (isEmptyField) {
+            window.alert('Please fill in all required fields.');
+            return;
+        }
         try {
             await createNewCourse(courseData);
 
             await handleClose();
-            window.location.reload(); // You can consider a better way to handle this
+            navigate(0);
         } catch (error) {
             console.error(error);
             // Handle error, e.g., show an error message to the user

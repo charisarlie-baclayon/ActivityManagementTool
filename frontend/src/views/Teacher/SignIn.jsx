@@ -44,9 +44,7 @@ export const Teacher_SignIn = () => {
 
 			if (loginUser) {
 				if (loginUser.role !== "teacher") {
-					alert(
-						"Unauthorized: You are not authorized to access this resource."
-					);
+					window.alert("Unauthorized: You are not authorized to access this resource.");
 					return;
 				}
 
@@ -79,6 +77,10 @@ export const Teacher_SignIn = () => {
 			} else {
 				setErrorMessage("Login Failed");
 			}
+
+			// Display Windows alert for incorrect credentials
+			window.alert("Incorrect credentials. Please try again.");
+
 			console.error(error);
 			errRef.current.focus();
 			navigate("/teacher/sign-in");

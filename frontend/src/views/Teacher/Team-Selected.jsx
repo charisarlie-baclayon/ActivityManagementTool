@@ -51,11 +51,18 @@ export const Teacher_SelectedTeamSection = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
+		// Check if any of the required fields are empty
+		const requiredFields = ['name', 'team_class'];
+		const isEmptyField = requiredFields.some((field) => !updateTeamData[field]);
+
+		if (isEmptyField) {
+			window.alert('Please fill in all required fields.');
+			return;
+		}
+
 		try {
 			const response = await updateTeam(id, updateTeamData);
-
-			// must add a conditional statement to check if response is successful
-			// like if status 200 then goods
 
 			if (response) {
 				setTeamData(updateTeamData);
@@ -75,17 +82,23 @@ export const Teacher_SelectedTeamSection = () => {
 
 	const handleDelete = async (e) => {
 		e.preventDefault();
-		console.log("Delete");
+		// Display a confirmation dialog
+		const isConfirmed = window.confirm("Are you sure you want to delete this team?");
 
-		try {
-			const response = await deleteTeam(id);
+		if (isConfirmed) {
+			try {
+				const response = await deleteTeam(id);
 
-			if (response) {
-				console.log("Successfully deleted team!");
-				navigate("/teacher/teams");
+				if (response) {
+					console.log("Successfully deleted team!");
+					navigate("/teacher/teams");
+				}
+			} catch (error) {
+				console.error(error);
 			}
-		} catch (error) {
-			console.error(error);
+		} else {
+			// The user canceled the deletion
+			console.log("Deletion canceled");
 		}
 	};
 
