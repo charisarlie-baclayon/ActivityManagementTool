@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import logo from '../../assets/img/logo/logo-incubatee-primary-1.png';
+import logo from '../../assets/img/logo/incubatee.png';
 import './Home.css';
 import { Link, animateScroll as scroll } from 'react-scroll';
 import { useNavigate } from 'react-router-dom';
