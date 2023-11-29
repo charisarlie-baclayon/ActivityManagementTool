@@ -290,6 +290,8 @@ export const Student_SelectedActivitySection = () => {
 					handleClose={() => setShowEditWorkModal(false)}
 					editWorkData={selectedWork}
 					onSubmit={handleEditWorkSubmit}
+					id={id}
+					workId={selectedWorkId}
 				/>
 			)}
 			
