@@ -14,10 +14,11 @@ export const WorkPopup = ({ show, handleClose, id }) => {
 	});
 
 	const [disable, setDisable] = useState(false);
+	const [prompt, setPrompt] = useState({ show: false, message: "" });
 
   	//const createWork = useCreateWork();
 
-	  const handleChange = (e) => {
+	const handleChange = (e) => {
 		const { name, value, files } = e.target;
 
 		setWorkData((prevData) => ({
@@ -27,6 +28,7 @@ export const WorkPopup = ({ show, handleClose, id }) => {
 	};
 
 	const handleModalHide = () => {
+		setPrompt({ show: false, message: "" });
 		setDisable(false);
 		handleClose();
 	};
@@ -34,6 +36,15 @@ export const WorkPopup = ({ show, handleClose, id }) => {
 	const [createWork] = useCreateWorkMutation();
 
 	const handleUpdate = async (e) => {
+
+		if (!workData.work || !workData.file_attachment) {
+			setPrompt({
+			  show: true,
+			  message: "Please provide both 'Work' and 'File Attachment' before submitting.",
+			});
+			return;
+		  }
+
 		const formData = new FormData();
 		formData.append("activity_id", id);
 		formData.append("work", workData.work);
@@ -91,6 +102,7 @@ export const WorkPopup = ({ show, handleClose, id }) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
+	  	{prompt.show && <p className="text-danger">{prompt.message}</p>}
         <button
           className="btn btn-secondary bw-3 btn-block fw-bold"
           onClick={handleUpdate}
