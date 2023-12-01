@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../assets/img/logo/logo-incubatee-light-1.png';
+import logo from '../../assets/img/logo/incubatee.png';
 import './Home.css';
 import { FiFacebook, FiInstagram, FiTwitter } from "react-icons/fi";
 
@@ -22,7 +22,7 @@ export const Footer = () => {
                     </div>
 
                     <div className="col-md-6"></div>
-                    
+
                     <div className="footer-social col-md-3 text-md-right">
                         <p className='fw-bold'>Follow Us On:</p>
                         <div className="footer-social-media-icons justify-content-md-end">
@@ -34,7 +34,7 @@ export const Footer = () => {
                 </div>
             </div>
 
-            <hr/>
+            <hr />
 
             <div className="container-md py-3">
                 <div className="row">

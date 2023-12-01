@@ -1,6 +1,6 @@
 import React from 'react';
 import { FiHome, FiBook, FiActivity, FiUsers } from 'react-icons/fi';
-import logo from '../../assets/img/logo/logo-incubatee-primary-2.png';
+import logo from '../../assets/img/logo/incubatee.png';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export const Teacher_SideBar = () => {
