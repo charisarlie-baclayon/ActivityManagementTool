@@ -8,6 +8,7 @@ export const Work = apiSlice.injectEndpoints({
 
 		readWork: builder.mutation({
 			query: (id) => `/api/works/${id}/`,
+			method: "GET",
 		}),
 
 		getWorkByActivity: builder.mutation({
@@ -33,10 +34,10 @@ export const Work = apiSlice.injectEndpoints({
 		}),
 
 		updateWork: builder.mutation({
-			query: (data) => ({
-				url: `/api/works/${data.id}/`,
+			query: ({ id, formData }) => ({
+				url: `/api/works/${id}/`,
 				method: "PUT",
-				body: { ...data },
+				body: formData,
 			}),
 		}),
 	}),

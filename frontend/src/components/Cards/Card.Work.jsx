@@ -1,4 +1,4 @@
-export const WorkCard = ({ workData }) => {
+export const WorkCard = ({ isClickable, onEditClick, workData, isSelected }) => {
   const { id, work, file_attachment, date_added } = workData;
 
   // If file_attachment is available, extract the file name
@@ -7,18 +7,31 @@ export const WorkCard = ({ workData }) => {
   // If file_attachment is available, create a download link; otherwise, disable the link
   const downloadLink = file_attachment ? (
     <a href={file_attachment} download={fileName}>
-      Download File
+      {fileName}
     </a>
   ) : (
     <span>{fileName}</span>
   );
 
+
+  const handleClick = () => {
+    // Only execute the onEditClick handler if isClickable is true
+    if (isClickable) {
+      onEditClick && onEditClick();
+    }
+  };
+
   return (
-    <div className="card">
+    <div
+      className={`card border ${isSelected ? 'border-primary bg-secondary text-white' : 'border-primary'} p-3 shadow-sm ${
+        isClickable ? 'clickable' : ''
+      }`}
+      onClick={handleClick}
+    >
       <div className="card-body">
         <h5 className="card-title">{work}</h5>
         <p className="card-text">Date Added: {new Date(date_added).toLocaleString()}</p>
-        <p className="card-text">File Attachment: {downloadLink}</p>
+        <p className="card-text bold">File Attachment: {downloadLink}</p>
         {/* Add more fields as needed */}
       </div>
     </div>
