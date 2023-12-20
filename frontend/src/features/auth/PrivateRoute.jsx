@@ -20,7 +20,7 @@ import { useDispatch } from "react-redux";
 import {
 	useRefreshTokenMutation,
 	useVerifyTokenMutation,
-} from "../../api/Authentication";
+} from "../../Api/Authentication";
 import { setCredentials } from "../../features/auth/authSlice";
 
 export const PrivateRoutes = () => {
