@@ -5,7 +5,7 @@ import {
     useCreateTemplateMutation,
     useDeleteTemplateMutation,
     useUpdateTemplateMutation,
-} from "../api/Template";
+} from "../Api/Template";
 
 export function useFetchTemplate(id) {
     const [readTemplate] = useReadTemplateMutation();

@@ -5,7 +5,7 @@ import {
 	useCreateTeamMutation,
 	useDeleteTeamMutation,
 	useUpdateTeamMutation,
-} from "../api/Teams";
+} from "../Api/Teams";
 
 export function useFetchTeam(id) {
 	const [readTeam] = useReadTeamMutation();

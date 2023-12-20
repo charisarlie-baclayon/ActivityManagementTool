@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentToken } from "../features/auth/authSlice";
-import { readCategory, readCategories, createCategory, deleteCategory, updateCategory } from "../api/Categories";
+import { readCategory, readCategories, createCategory, deleteCategory, updateCategory } from "../Api/Categories";
 
 export function useFetchCategory(id) {
     const [categoryData, setCategoryData] = useState(null);

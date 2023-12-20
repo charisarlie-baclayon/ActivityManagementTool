@@ -6,7 +6,7 @@ import { setCredentials } from "../../features/auth/authSlice";
 import {
 	useLoginTeacherMutation,
 	useAcquireTokenMutation,
-} from "../../api/Authentication";
+} from "../../Api/Authentication";
 
 export const Teacher_SignIn = () => {
 	const userRef = useRef();
