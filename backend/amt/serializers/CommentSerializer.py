@@ -11,10 +11,18 @@ class ActivityCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
         fields = ('id', 'title')
-class CommentSerializer(serializers.ModelSerializer):
-    activity = ActivityCommentSerializer()
-    user = UserCommentSerializer()  # Serialize the user field
+class CommentCreateSerializer(serializers.ModelSerializer):
+    # activity = ActivityCommentSerializer()
+    # user = UserCommentSerializer()  # Serialize the user field
 
     class Meta:
         model = Comment
-        fields = ('id', 'comment', 'date_added', 'activity', 'user')  # Include the user field
+        fields = ('id', 'comment', 'date_added', 'activity_id', 'user_id')  # Include the user field
+
+class CommentSerializer(serializers.ModelSerializer):
+    activity = ActivityCommentSerializer()
+    user = UserCommentSerializer()
+
+    class Meta:
+        model = Comment
+        fields = ('id', 'comment', 'date_added', 'activity', 'user')

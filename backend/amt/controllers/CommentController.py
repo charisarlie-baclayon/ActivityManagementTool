@@ -9,13 +9,12 @@ from rest_framework.permissions import IsAuthenticated
 from amt.permissions.permissions import IsTeacher
 
 from amt.models import Comment
-from amt.serializers import CommentSerializer
+from amt.serializers.CommentSerializer import CommentCreateSerializer, CommentSerializer
 from amt.models import User , Activity
 
 
 class CommentController(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin):
     queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
     authentication_classes = [JWTAuthentication]
 
     def get_permissions(self):
@@ -23,6 +22,12 @@ class CommentController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Crea
             return [IsAuthenticated(), IsTeacher()]
         else:
             return [IsAuthenticated()]
+        
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return CommentCreateSerializer
+        else:
+            return CommentSerializer
         
 
     def create(self, request, *args, **kwargs):
