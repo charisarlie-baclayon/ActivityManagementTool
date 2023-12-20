@@ -135,17 +135,25 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql', 
+#         'NAME': 'amt_db',
+#         'USER': 'root',
+#         'PASSWORD': 'Mysql@123',
+#         'HOST': 'localhost',  
+#         'PORT': '3306',
+#     }
+# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'amt_db',
-        'USER': 'root',
+        'NAME': 'charisarlie$amt_database',
+        'USER': 'charisarlie',
         'PASSWORD': 'Mysql@123',
-        'HOST': 'localhost',  
-        'PORT': '3306',
+        'HOST': 'charisarlie.mysql.pythonanywhere-services.com',
     }
 }
-
 
 
 # Password validation
