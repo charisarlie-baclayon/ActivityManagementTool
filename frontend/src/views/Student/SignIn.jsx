@@ -7,7 +7,7 @@ import { Authentication } from "../../api/Authentication";
 import {
 	useLoginStudentMutation,
 	useAcquireTokenMutation,
-} from "../../api/Authentication";
+} from "../../Api/Authentication";
 import { setStudentModel } from "../../features/slice/studentModelSlice";
 import { saveToLocalStorage } from "../../components/utils/utils";
 
