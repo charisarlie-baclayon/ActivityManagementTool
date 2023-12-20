@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { apiSlice } from "./api/apiSlice";
+import { apiSlice } from "./Api/apiSlice";
 import authReducer from "./features/auth/authSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import { CookieStorage } from "redux-persist-cookie-storage";
