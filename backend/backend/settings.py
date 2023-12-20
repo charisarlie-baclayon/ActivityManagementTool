@@ -135,22 +135,17 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql', 
-#         'NAME': 'amt_db',
-#         'USER': 'root',
-#         'PASSWORD': 'Mysql@123',
-#         'HOST': 'localhost',  
-#         'PORT': '3306',
-#     }
-# }
-
 DATABASES = {
-    'default': dj_database_url.config (
-        default="sqlite:///" + os.path.join(BASE_DIR, "db.sqlite3"),
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'amt_db',
+        'USER': 'root',
+        'PASSWORD': 'Mysql@123',
+        'HOST': 'localhost',  
+        'PORT': '3306',
+    }
 }
+
 
 
 # Password validation
