@@ -1,50 +1,54 @@
-import axios from "axios";
+import { apiSlice } from "./apiSlice";
 
-export const readClasses = async () => {
-  try {
-    const response = await axios.get("http://127.0.0.1:8000/api/classes/");
-    console.log(response.data); // Handle the response data
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+export const Classes = apiSlice.injectEndpoints({
+	endpoints: (builder) => ({
+		readClasses: builder.mutation({
+			query: () => "/api/classes/",
+		}),
+		readClass: builder.mutation({
+			query: (id) => `/api/classes/${id}/`,
+		}),
+		createClass: builder.mutation({
+			query: (data) => ({
+				url: "/api/classes/",
+				method: "POST",
+				body: { ...data },
+			}),
+		}),
+		deleteClass: builder.mutation({
+			query: (id) => ({
+				url: `/api/classes/${id}/`,
+				method: "DELETE",
+			}),
+		}),
+		updateClass: builder.mutation({
+			query: (data) => ({
+				url: `/api/classes/${data.id}/`,
+				method: "PUT",
+				body: { ...data },
+			}),
+		}),
+		readClassesBySection: builder.mutation({
+			query: (section) => ({
+				url: `/api/classes/get_classes_by_section/?section=${section}`,
+				method: "GET",
+			}),
+		}),
+		readClassesByCourse: builder.mutation({
+			query: (course_id) => ({
+				url: `/api/classes/get_classes_by_course/?course_id=${course_id}`,
+				method: "GET",
+			}),
+		}),
+	}),
+});
 
-export const readClass = async (id) => {
-  try {
-    const response = await axios.get(`http://127.0.0.1:8000/api/classes/${id}/`);
-    console.log(response.data); // Handle the response data
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
-
-export const createClass = async (data) => {
-  try {
-    const response = await axios.post("http://127.0.0.1:8000/api/classes/", data);
-    console.log(response.data); // Handle the response data
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
-
-export const deleteClass = async (id) => {
-  return await axios
-    .delete(`http://127.0.0.1:8000/api/classes/${id}/`)
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
-
-export const updateClass = async (id, data) => {
-  try {
-    const response = await axios.put(`http://127.0.0.1:8000/api/classes/${id}/`, data);
-    console.log(response.data); // Handle the response data
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+export const {
+	useReadClassesMutation,
+	useReadClassMutation,
+	useCreateClassMutation,
+	useDeleteClassMutation,
+	useUpdateClassMutation,
+	useReadClassesBySectionMutation,
+	useReadClassesByCourseMutation,
+} = Classes;

@@ -1,60 +1,52 @@
-import axios from "axios";
+import { apiSlice } from "./apiSlice";
 
-export const readTemplates = async () => {
-  try {
-    const response = await axios.get(
-      "http://127.0.0.1:8000/api/templates/"
-    );
-    console.log(response.data); // Handle the response data
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+export const Template = apiSlice.injectEndpoints({
+	endpoints: (builder) => ({
+		readTemplates: builder.mutation({
+			query: () => "/api/templates/",
+		}),
 
-export const readTemplate = async (id) => {
-  try {
-    const response = await axios.get(
-      `http://127.0.0.1:8000/api/templates/${id}/`
-    );
-    console.log(response.data); // Handle the response data
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+		readTemplate: builder.mutation({
+			query: (id) => `/api/templates/${id}/`,
+		}),
 
-export const createTemplate = async (data) => {
-  try {
-    const response = await axios.post(
-      "http://127.0.0.1:8000/api/templates/",
-      data
-    );
-    console.log(response.data); // Handle the response data
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+		createTemplate: builder.mutation({
+			query: (data) => ({
+				url: "/api/templates/",
+				method: "POST",
+				body: { ...data },
+			}),
+		}),
 
-export const deleteTemplate = async (id) => {
-  return await axios
-    .delete(`http://127.0.0.1:8000/api/templates/${id}/`)
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
+		deleteTemplate: builder.mutation({
+			query: (id) => ({
+				url: `/api/templates/${id}/`,
+				method: "DELETE",
+			}),
+		}),
 
-export const updateTemplate = async (id, data) => {
-  try {
-    const response = await axios.put(
-      `http://127.0.0.1:8000/api/templates/${id}/`,
-      data
-    );
-    console.log(response.data); // Handle the response data
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+		updateTemplate: builder.mutation({
+			query: (data) => ({
+				url: `/api/templates/${data.id}/`,
+				method: "PUT",
+				body: { ...data },
+			}),
+		}),
+
+		readTemplatesByCourse: builder.mutation({
+			query: (course_id) => ({
+				url: `/api/templates/get_templates_by_course/?course_id=${course_id}`,
+				method: "GET",
+			}),
+		}),
+	}),
+});
+
+export const {
+	useReadTemplatesMutation,
+	useReadTemplateMutation,
+	useCreateTemplateMutation,
+	useDeleteTemplateMutation,
+	useUpdateTemplateMutation,
+	useReadTemplatesByCourseMutation,
+} = Template;

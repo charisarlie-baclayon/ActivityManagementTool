@@ -1,90 +1,119 @@
 // Variables
-$primary: #FFEC8B;
-$secondary: #B8860B;
-$body-bg: #dfdfdf;
-$body-color: #202020;
-$border-color: #dfdfdf;
-$light: $body-bg;
-$dark: $body-color;
-$font-family: 'Roboto Condensed', sans-serif;
+$primary: #FFC000;
+$secondary: #966919;
+$success: #005000;
+$info: #FFB060;
+$warning: #FFFF60;
+$danger: #9F0000;
+$light: #FDFDEE;
+$dark: #202020;
+
+$theme-colors: (
+	"primary": $primary,
+	"secondary": $secondary,
+	"success": $success,
+	"info": $info,
+	"warning": $warning,
+	"danger": $danger,
+	"light": $light,
+	"dark": $dark) !default;
+
+.light-mode {
+	background-color: $light;
+	color: $dark;
+}
+
+.dark-mode {
+	background-color: $dark;
+	color: $light;
+}
+
+$font-family: 'Roboto Condensed',
+	sans-serif;
 
 // Global font settings
 * {
-  font-family: $font-family;
+	font-family: $font-family;
 }
 
 *:focus {
-  box-shadow: none !important;
+	box-shadow: none !important;
 }
 
 $h1-font-size: 4.5rem;
-$h2-font-size: 4rem; 
-$h3-font-size: 3rem; 
-$h4-font-size: 2rem; 
-$h5-font-size: 1.5rem; 
-$h6-font-size: 1.25rem; 
+$h2-font-size: 4rem;
+$h3-font-size: 3rem;
+$h4-font-size: 2rem;
+$h5-font-size: 1.5rem;
+$h6-font-size: 1.25rem;
 
 // Layout Styles
 .view-navbar {
-  margin-top: 75px;
+	margin-top: 75px;
 }
 
 .view-sidebar {
-  margin-left: 200px;
+	margin-left: 200px;
 }
 
 .sidebar {
-  min-width: 125px;
-  max-width: 200px;
+	min-width: 125px;
+	max-width: 200px;
+}
+
+.sidebar-link {
+	cursor: pointer;
 }
 
 .navbar {
-  min-height: 75px;
-  max-height: 100px;
+	min-height: 75px;
+	max-height: 100px;
 }
 
 // Border Widths in Pixels
 $border-widths: (
-  1: 1px,
-  2: 2px,
-  3: 3px,
-  4: 4px,
-  5: 5px
+	1: 1px,
+	2: 2px,
+	3: 3px,
+	4: 4px,
+	5: 5px
 );
 
-
+.clickable:hover {
+	cursor: pointer;
+}
 
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 
 
 @each $bw, $width in $border-widths {
-  .bw-#{$bw} {
-    border-width: $width;
-  }
+	.bw-#{$bw} {
+		border-width: $width;
+	}
 }
 
 /* Reduce the width of the input outline */
 input:focus {
-  outline-width: 1px; // You can adjust this value to your desired width
+	outline-width: 1px; // You can adjust this value to your desired width
 }
 
 /* Scrollbar Styles */
 ::-webkit-scrollbar {
-  width: 6px;
-  background-color: $body-color; // Set the background color
+	width: 6px;
+	background-color: $body-color; // Set the background color
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: $primary; // Set the thumb color
-  border-radius: 6px;
+	background-color: $primary; // Set the thumb color
+	border-radius: 6px;
 }
 
 /* Optional: Scrollbar Track on Hover */
 ::-webkit-scrollbar:hover {
-  background-color: $body-color; // Set the hover background color
+	background-color: $body-color; // Set the hover background color
 }
 
 /* Optional: Scrollbar Thumb on Hover */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: lighten($primary, 10%); // Lighten the thumb color on hover
+	background-color: lighten($primary, 10%); // Lighten the thumb color on hover
 }

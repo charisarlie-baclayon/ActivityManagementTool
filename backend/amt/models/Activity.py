@@ -9,8 +9,23 @@ class Activity(models.Model):
     submission_status = models.BooleanField(default=False)
     due_date = models.DateTimeField(null=True)
     activity_team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
-    activity_class = models.ForeignKey(Class, on_delete=models.CASCADE, null=True)
+    evaluation = models.IntegerField(null=True)
+    total_score = models.IntegerField(default=100, null=False)
+    #activity_class = models.ForeignKey(Class, on_delete=models.CASCADE, null=True)
 
+    @classmethod
+    def create_activity_from_template(cls, template):
+        new_activity = cls(
+            title=template.title,
+            description=template.description,
+            # Copy other fields from the template as needed
+        )
+        new_activity.save()
+        return new_activity
+
+    def __str__(self):
+        return self.title
+    
     # work_submission = models.TextField(max_length=10000, default="", null=True, blank=True)
 
     # TO-ADD

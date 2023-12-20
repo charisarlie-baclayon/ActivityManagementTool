@@ -1,60 +1,44 @@
-import axios from "axios";
+import { apiSlice } from "./apiSlice";
 
-export const readCategories = async () => {
-  try {
-    const response = await axios.get(
-      "http://127.0.0.1:8000/api/categories/"
-    );
-    console.log(response.data); // Handle the response data
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+export const Category = apiSlice.injectEndpoints({
+	endpoints: (builder) => ({
+		readCategories: builder.query({
+			query: () => "/api/categories/",
+		}),
 
-export const readCategory = async (id) => {
-  try {
-    const response = await axios.get(
-      `http://127.0.0.1:8000/api/categories/${id}/`
-    );
-    console.log(response.data); // Handle the response data
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+		readCategory: builder.query({
+			query: (id) => `/api/categories/${id}/`,
+		}),
 
-export const createCategory = async (data) => {
-  try {
-    const response = await axios.post(
-      "http://127.0.0.1:8000/api/categories/",
-      data
-    );
-    console.log(response.data); // Handle the response data
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+		createCategory: builder.mutation({
+			query: (data) => ({
+				url: "/api/categories/",
+				method: "POST",
+				body: { ...data },
+			}),
+		}),
 
-export const deleteCategory = async (id) => {
-  return await axios
-    .delete(`http://127.0.0.1:8000/api/categories/${id}/`)
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
+		deleteCategory: builder.mutation({
+			query: (id) => ({
+				url: `/api/categories/${id}/`,
+				method: "DELETE",
+			}),
+		}),
 
-export const updateCategory = async (id, data) => {
-  try {
-    const response = await axios.put(
-      `http://127.0.0.1:8000/api/categories/${id}/`,
-      data
-    );
-    console.log(response.data); // Handle the response data
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+		updateCategory: builder.mutation({
+			query: (data) => ({
+				url: `/api/categories/${data.id}/`,
+				method: "PUT",
+				body: { ...data },
+			}),
+		}),
+	}),
+});
+
+export const {
+	useReadCategoriesQuery,
+	useReadCategoryQuery,
+	useCreateCategoryMutation,
+	useDeleteCategoryMutation,
+	useUpdateCategoryMutation,
+} = Category;

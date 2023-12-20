@@ -1,50 +1,51 @@
-import axios from "axios";
+import { apiSlice } from "./apiSlice";
 
-export const readComments = async () => {
-  try {
-    const response = await axios.get("http://127.0.0.1:8000/api/comments/");
-    console.log(response.data); // Handle the response data
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+export const Comment = apiSlice.injectEndpoints({
+	endpoints: (builder) => ({
+		readComments: builder.mutation({
+			query: () => "/api/comments/",
+		}),
 
-export const readComment = async (id) => {
-  try {
-    const response = await axios.get(`http://127.0.0.1:8000/api/comments/${id}/`);
-    console.log(response.data); // Handle the response data
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+		readComment: builder.mutation({
+			query: (id) => `/api/comments/${id}/`,
+		}),
 
-export const createComment = async (data) => {
-  try {
-    const response = await axios.post("http://127.0.0.1:8000/api/comments/", data);
-    console.log(response.data); // Handle the response data
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+		createComment: builder.mutation({
+			query: (data) => ({
+				url: "/api/comments/",
+				method: "POST",
+				body: { ...data },
+			}),
+		}),
 
-export const deleteComment = async (id) => {
-  return await axios
-    .delete(`http://127.0.0.1:8000/api/comments/${id}/`)
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
+		deleteComment: builder.mutation({
+			query: (id) => ({
+				url: `/api/comments/${id}/`,
+				method: "DELETE",
+			}),
+		}),
 
-export const updateComment = async (id, data) => {
-  try {
-    const response = await axios.put(`http://127.0.0.1:8000/api/comments/${id}/`, data);
-    console.log(response.data); // Handle the response data
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+		updateComment: builder.mutation({
+			query: (data) => ({
+				url: `/api/comments/${data.id}/`,
+				method: "PUT",
+				body: { ...data },
+			}),
+		}),
+		readCommentsForActivity: builder.mutation({
+			query: (activity_id) => ({
+				url: `/api/comments/comments_for_activity/?activity_id=${activity_id}`,
+				method: "GET",
+			}),
+		}),
+	}),
+});
+
+export const {
+	useReadCommentsMutation,
+	useReadCommentMutation,
+	useCreateCommentMutation,
+	useDeleteCommentMutation,
+	useUpdateCommentMutation,
+	useReadCommentsForActivityMutation,
+} = Comment;

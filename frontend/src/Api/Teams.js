@@ -1,50 +1,46 @@
-import axios from "axios";
+import { apiSlice } from "./apiSlice";
 
-export const readTeams = async () => {
-  try {
-    const response = await axios.get("http://127.0.0.1:8000/api/teams/");
-    console.log(response.data); // Handle the response data
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+export const Teams = apiSlice.injectEndpoints({
+	endpoints: (builder) => ({
+		readTeams: builder.mutation({
+			query: () => ({
+				url: "/api/teams/",
+				method: "GET",
+			}),
+		}),
+		readTeam: builder.mutation({
+			query: (id) => ({
+				url: `/api/teams/${id}/`,
+				method: "GET",
+			}),
+		}),
+		createTeam: builder.mutation({
+			query: (data) => ({
+				url: "/api/teams/",
+				method: "POST",
+				body: { ...data },
+			}),
+		}),
+		deleteTeam: builder.mutation({
+			query: (id) => ({
+				url: `/api/teams/${id}/`,
+				method: "DELETE",
+			}),
+		}),
+		updateTeam: builder.mutation({
+			query: (data) => ({
+				url: `/api/teams/${data.id}/`,
+				method: "PUT",
+				body: { ...data },
+			}),
+		}),
+	}),
+});
 
-export const readTeam = async (id) => {
-  try {
-    const response = await axios.get(`http://127.0.0.1:8000/api/teams/${id}/`);
-    console.log(response.data); // Handle the response data
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
-
-export const createTeam = async (data) => {
-  try {
-    const response = await axios.post("http://127.0.0.1:8000/api/teams/", data);
-    console.log(response.data); // Handle the response data
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
-
-export const deleteTeam = async (id) => {
-  return await axios
-    .delete(`http://127.0.0.1:8000/api/teams/${id}/`)
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
-
-export const updateTeam = async (id, data) => {
-  try {
-    const response = await axios.put(`http://127.0.0.1:8000/api/teams/${id}/`, data);
-    console.log(response.data); // Handle the response data
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+export const {
+	useReadTeamsMutation,
+	useReadTeamMutation,
+	useCreateTeamMutation,
+	useDeleteTeamMutation,
+	useUpdateTeamMutation,
+} = Teams;

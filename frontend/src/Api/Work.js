@@ -1,50 +1,53 @@
-import axios from "axios";
+import { apiSlice } from "./apiSlice";
 
-export const readWorks = async () => {
-  try {
-    const response = await axios.get("http://127.0.0.1:8000/api/works/");
-    console.log(response.data); // Handle the response data
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+export const Work = apiSlice.injectEndpoints({
+	endpoints: (builder) => ({
+		readWorks: builder.mutation({
+			query: () => "/api/works/",
+		}),
 
-export const readWork = async (id) => {
-  try {
-    const response = await axios.get(`http://127.0.0.1:8000/api/works/${id}/`);
-    console.log(response.data); // Handle the response data
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+		readWork: builder.mutation({
+			query: (id) => `/api/works/${id}/`,
+			method: "GET",
+		}),
 
-export const createWork = async (data) => {
-  try {
-    const response = await axios.post("http://127.0.0.1:8000/api/works/", data);
-    console.log(response.data); // Handle the response data
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+		getWorkByActivity: builder.mutation({
+			query: (id) => ({
+				url: `/api/works/get_work_by_activity/?activity_id=${id}`,
+				method: "GET",
+			}),
+		  }),
 
-export const deleteWork = async (id) => {
-  return await axios
-    .delete(`http://127.0.0.1:8000/api/works/${id}/`)
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
+		createWork: builder.mutation({
+			query: (formData) => ({
+				url: "/api/works/",
+				method: "POST",
+				body: formData,
+			  }),
+		}),
 
-export const updateWork = async (id, data) => {
-  try {
-    const response = await axios.put(`http://127.0.0.1:8000/api/works/${id}/`, data);
-    console.log(response.data); // Handle the response data
-  } catch (error) {
-    console.log(error.response.data);
-  }
-};
+		deleteWork: builder.mutation({
+			query: (id) => ({
+				url: `/api/works/${id}/`,
+				method: "DELETE",
+			}),
+		}),
+
+		updateWork: builder.mutation({
+			query: ({ id, formData }) => ({
+				url: `/api/works/${id}/`,
+				method: "PUT",
+				body: formData,
+			}),
+		}),
+	}),
+});
+
+export const {
+	useReadWorksMutation,
+	useReadWorkMutation,
+	useGetWorkByActivityMutation,
+	useCreateWorkMutation,
+	useDeleteWorkMutation,
+	useUpdateWorkMutation,
+} = Work;
