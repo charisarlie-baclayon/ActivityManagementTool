@@ -6,7 +6,7 @@ import {
 	useLocation,
 	useNavigate,
 } from "react-router-dom";
-//import { verifyToken } from "../../api/Authentication";
+//import { verifyToken } from "../../Api/Authentication";
 import { useSelector } from "react-redux";
 import {
 	selectCurrentToken,

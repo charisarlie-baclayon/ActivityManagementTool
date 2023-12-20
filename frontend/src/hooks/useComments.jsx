@@ -5,7 +5,7 @@ import {
     useReadCommentMutation,
     useReadCommentsMutation,
     useReadCommentsForActivityMutation,
-} from "../api/Comment";
+} from "../Api/Comment";
 
 export function useFetchComment(id) {
     const { data: commentData } = useReadCommentMutation(id, { skip: !id });
