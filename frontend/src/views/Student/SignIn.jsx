@@ -3,11 +3,11 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../features/auth/authSlice";
-import { Authentication } from "../../api/Authentication";
+import { Authentication } from "../../Api/Authentication";
 import {
 	useLoginStudentMutation,
 	useAcquireTokenMutation,
-} from "../../api/Authentication";
+} from "../../Api/Authentication";
 import { setStudentModel } from "../../features/slice/studentModelSlice";
 import { saveToLocalStorage } from "../../components/utils/utils";
 

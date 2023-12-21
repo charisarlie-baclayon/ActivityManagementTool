@@ -6,7 +6,7 @@ import {
 	useLocation,
 	useNavigate,
 } from "react-router-dom";
-//import { verifyToken } from "../../api/Authentication";
+//import { verifyToken } from "../../Api/Authentication";
 import { useSelector } from "react-redux";
 import {
 	selectCurrentToken,
@@ -20,7 +20,7 @@ import { useDispatch } from "react-redux";
 import {
 	useRefreshTokenMutation,
 	useVerifyTokenMutation,
-} from "../../api/Authentication";
+} from "../../Api/Authentication";
 import { setCredentials } from "../../features/auth/authSlice";
 
 export const PrivateRoutes = () => {

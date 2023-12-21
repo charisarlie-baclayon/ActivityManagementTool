@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentToken } from "../features/auth/authSlice";
-import { readTeacher, readTeachers, createTeacher, deleteTeacher, updateTeacher } from "../api/Teachers";
+import { readTeacher, readTeachers, createTeacher, deleteTeacher, updateTeacher } from "../Api/Teachers";
 
 export function useFetchTeacher(id) {
     const [teacherData, setTeacherData] = useState(null);

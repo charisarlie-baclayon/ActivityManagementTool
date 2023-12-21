@@ -8,7 +8,7 @@ import {
     useCreateStudentMutation,
     useDeleteStudentMutation,
     useUpdateStudentMutation,
-} from "../api/Student";
+} from "../Api/Student";
 
 export function useFetchStudent(id) {
     const [readStudent] = useReadStudentMutation();
