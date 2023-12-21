@@ -51,12 +51,6 @@ export const Student_NavBar = () => {
 					id='navbarContent'
 				>
 					<div className='navbar-nav ml-auto gap-3'>
-						<span className='nav-item nav-link'>
-							{isNavbarCollapsed ? <FiBell /> : "Notification"}
-						</span>
-						<span className='nav-item nav-link'>
-							{isNavbarCollapsed ? <FiUser /> : "User"}
-						</span>
 						<span className='nav-item nav-link' onClick={handleLogout}>
 							{isNavbarCollapsed ? <FiLogOut /> : "Logout"}
 						</span>
