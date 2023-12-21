@@ -27,8 +27,8 @@ export const CreateTemplatePopup = ({ show, handleClose }) => {
         e.preventDefault();
         // Check if any of the required fields are empty
         const requiredFields = ['title', 'description', 'course'];
-        const isEmptyField = requiredFields.some((field) => !classData[field]);
-
+        const isEmptyField = requiredFields.some(field => !templateData[field]);
+        console.log(templateData)
         if (isEmptyField) {
             window.alert('Please fill in all required fields.');
             return;
