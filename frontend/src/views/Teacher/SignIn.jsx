@@ -138,6 +138,9 @@ export const Teacher_SignIn = () => {
 							<button type='submit' className='btn btn-primary btn-block'>
 								Submit
 							</button>
+							<button className='btn btn-secondary btn-block' onClick={() => navigate('/teacher/signup')}>
+								Don't have an Account
+							</button>
 							<button
 								className='btn btn-outline-secondary bw-3 btn-block'
 								onClick={handleCancel}
