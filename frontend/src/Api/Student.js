@@ -58,6 +58,16 @@ export const Students = apiSlice.injectEndpoints({
 				},
 			}),
 		}),
+		assignStudentToTeam: builder.mutation({
+			query: (id, data, accessToken) => ({
+			  url: `/api/students/${id}/assign_to_team/`,
+			  method: "POST",
+			  body: { ...data },
+			  headers: {
+				Authorization: `Bearer ${accessToken}`,
+			  },
+			}),
+		  }),
 	}),
 });
 
@@ -68,4 +78,5 @@ export const {
 	useCreateStudentMutation,
 	useDeleteStudentMutation,
 	useUpdateStudentMutation,
+	useAssignStudentToTeamMutation,
 } = Students;

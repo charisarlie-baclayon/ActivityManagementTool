@@ -8,6 +8,7 @@ import {
     useCreateStudentMutation,
     useDeleteStudentMutation,
     useUpdateStudentMutation,
+    useAssignStudentToTeamMutation,
 } from "../Api/Student";
 
 export function useFetchStudent(id) {
@@ -128,3 +129,21 @@ export function useDeleteStudent() {
 
     return deleteStudentById;
 }
+
+export function useAssignStudentToTeam() {
+    const [assignStudentToTeam] = useAssignStudentToTeamMutation();
+    const accessToken = useSelector(selectCurrentToken);
+  
+    const assignStudentToTeamById = async (id, data) => {
+      try {
+        const response = await assignStudentToTeam(id, { team_id: data.team_id }, accessToken);
+        console.log(`Use Assign Student To Team : ${JSON.stringify(response, null, 2)}`);
+        return response;
+      } catch (error) {
+        console.error("Error assigning student to team:", error);
+        throw error; // rethrow the error to handle it in the component
+      }
+    };
+  
+    return assignStudentToTeamById;
+  }
