@@ -16,6 +16,20 @@ export const Authentication = apiSlice.injectEndpoints({
 				body: { ...credentials },
 			}),
 		}),
+		signUpTeacher: builder.mutation({
+			query: (credentials) => ({
+				url: "/api/teachers/",
+				method: "POST",
+				body: { ...credentials },
+			}),
+		}),
+		signUpStudent: builder.mutation({
+			query: (credentials) => ({
+				url: "/api/students/",
+				method: "POST",
+				body: { ...credentials },
+			}),
+		}),
 		acquireToken: builder.mutation({
 			query: (credentials) => ({
 				url: "/tokens/acquire",
@@ -50,4 +64,6 @@ export const {
 	useAcquireTokenMutation,
 	useRefreshTokenMutation,
 	useVerifyTokenMutation,
+	useSignUpTeacherMutation,
+	useSignUpStudentMutation,
 } = Authentication;

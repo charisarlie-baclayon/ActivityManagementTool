@@ -25,6 +25,8 @@ import { Student_TemplateSection } from "./views/Student/Template";
 import { Student_SelectedTemplateSection } from "./views/Student/Template-Selected";
 import { Teacher_SelectedActivitySection } from "./views/Teacher/Activity-Selected";
 import { Student_SelectedActivitySection } from "./views/Student/Activity-Selected";
+import { Teacher_SignUp } from "./views/Teacher/SignUp";
+import { Student_SignUp } from "./views/Student/SignUp";
 
 function App() {
 	return (
@@ -33,6 +35,8 @@ function App() {
 			<Route path='home' element={<Home />} />
 			<Route path='teacher/signin' element={<Teacher_SignIn />} />
 			<Route path='student/signin' element={<Student_SignIn />} />
+			<Route path='teacher/signup' element={<Teacher_SignUp />} />
+			<Route path='student/signup' element={<Student_SignUp />} />
 
 			<Route element={<PrivateRoutes />}>
 				<Route path='teacher' element={<Teacher />}>
