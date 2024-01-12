@@ -6,7 +6,7 @@ import { setCredentials } from "../../features/auth/authSlice";
 import {
 	useLoginTeacherMutation,
 	useAcquireTokenMutation,
-} from "../../api/Authentication";
+} from "../../Api/Authentication";
 
 export const Teacher_SignIn = () => {
 	const userRef = useRef();
@@ -137,6 +137,9 @@ export const Teacher_SignIn = () => {
 
 							<button type='submit' className='btn btn-primary btn-block'>
 								Submit
+							</button>
+							<button className='btn btn-secondary btn-block' onClick={() => navigate('/teacher/signup')}>
+								Don't have an Account
 							</button>
 							<button
 								className='btn btn-outline-secondary bw-3 btn-block'

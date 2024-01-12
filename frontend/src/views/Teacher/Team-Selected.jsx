@@ -8,16 +8,21 @@ import {
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
-import { FiChevronLeft } from "react-icons/fi";
+import { FiChevronLeft, FiTrash } from "react-icons/fi";
+import AssignStudentTeamPopup from "../../components/popups/team/student-assign-team";
+import { useFetchStudentsByTeam } from "../../hooks/useStudent";
 
 export const Teacher_SelectedTeamSection = () => {
 	const [showModal, setShowModal] = useState(false);
+	const [showAssignStudentPopup, setShowAssignStudentPopup] = useState(false);
 	const handleCloseModal = () => setShowModal(false);
+	const handleCloseAssignStudentPopup = () => setShowAssignStudentPopup(false); 	
 	const navigate = useNavigate();
 
 	const { id } = useParams();
 	const updateTeam = useUpdateTeam();
 	const deleteTeam = useDeleteTeam();
+	const fetchedStudentData = useFetchStudentsByTeam(id);
 	const [teamData, setTeamData] = useState(null);
 	const fetchedTeamData = useFetchTeam(id);
 
@@ -32,6 +37,14 @@ export const Teacher_SelectedTeamSection = () => {
 			setTeamData(fetchedTeamData);
 		}
 	}, [fetchedTeamData]);
+
+	
+	useEffect(() => {
+		if (fetchedStudentData) {
+			setTeamData(fetchedStudentData);
+			console.log(fetchedStudentData);
+		}
+	}, [fetchedStudentData]);
 
 	useEffect(() => {
 		if (teamData) {
@@ -102,6 +115,12 @@ export const Teacher_SelectedTeamSection = () => {
 		}
 	};
 
+	
+	const handleAddMember = (e) => {
+		e.preventDefault();
+		setShowAssignStudentPopup(true);
+	};
+
 	return (
 		<div className='container-md'>
 			<div className='container-md d-flex flex-column gap-3 mt-5 pr-3 pl-3'>
@@ -113,6 +132,12 @@ export const Teacher_SelectedTeamSection = () => {
 						<h4 className="fw-bold m-0">{teamData ? `Team - ${teamData.name}` : "Loading..."}</h4>
 					</div>
 					<div className="d-flex flex-row gap-3 ">
+						<button
+							className="btn btn-outline-secondary btn-block fw-bold bw-3 m-0 "
+							onClick={handleAddMember}
+						>
+						Add Member
+						</button>
 						<button
 							className='btn btn-outline-secondary btn-block fw-bold bw-3 m-0 '
 							onClick={handleEdit}
@@ -139,7 +164,29 @@ export const Teacher_SelectedTeamSection = () => {
 						<p>Loading team details...</p>
 					)}
 				</div>
+				
+				<hr className='text-dark' />
+				<div className="d-flex flex-column gap-3">
+				{fetchedStudentData && fetchedStudentData.length > 0 ? (
+					fetchedStudentData.map((student) => (
+						<div className='d-flex flex-row justify-content-between p-3 border border-dark rounded-3' key={student.id}>
+							<p>
+								{`${'Id: ' + student.id + ' - '} ${ student.user.first_name} ${student.user.last_name} - ${student.user.email}`}
+							</p>
+						</div>
+					))
+					) : (
+					<p>No students available</p>
+					)}
+				</div>
 			</div>
+			
+			<AssignStudentTeamPopup
+				show={showAssignStudentPopup}
+				handleClose={handleCloseAssignStudentPopup}
+				// Replace assignStudentToTeam with the actual function that assigns a student to a team
+				teamId={id}
+			/>
 
 			<Modal size='lg' centered show={showModal} onHide={handleCloseModal}>
 				<Modal.Header closeButton>

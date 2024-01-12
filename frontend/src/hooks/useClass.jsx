@@ -7,7 +7,7 @@ import {
 	useUpdateClassMutation,
 	useReadClassesBySectionMutation,
 	useReadClassesByCourseMutation,
-} from "../api/Classes";
+} from "../Api/Classes";
 
 export function useFetchClass(id) {
 	const [readClass] = useReadClassMutation();

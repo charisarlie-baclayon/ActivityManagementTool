@@ -16,11 +16,12 @@ class ClassController(GenericViewSet, ListModelMixin, RetrieveModelMixin, Create
     queryset = Class.objects.all()
     serializer_class = ClassSerializer
 
-    def get_permissions(self):
-        if self.action in ['create', 'retrieve', 'destroy', 'list', 'get_classes_by_section', 'get_classes_by_course']:
-            return [IsAuthenticated(), IsTeacher()]
-        else:
-            return [IsAuthenticated()]
+    # def get_permissions(self):
+    #     if self.action in ['create', 'retrieve', 'destroy', 'list', 'get_classes_by_section', 'get_classes_by_course']:
+    #         # return [IsAuthenticated(), IsTeacher()]
+    #         return [IsAuthenticated(), IsTeacher()]
+    #     else:
+    #         return [IsAuthenticated()]
         
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

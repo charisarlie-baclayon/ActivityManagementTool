@@ -21,6 +21,9 @@ import { UpdateActivityPopup } from "../../components/popups/activity/teacher-up
 import { CreateCommentPopup } from "../../components/popups/comment/teacher-create-comment";
 import { CreateEvaluationPopup } from "../../components/popups/evaluation/teacher-create-evaluation";
 
+import { WorkCard } from '../../components/Cards/Card.Work';
+import { useCreateWork, useFetchWorksByActivity } from '../../hooks/useWork';
+
 export const Teacher_SelectedActivitySection = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
@@ -36,6 +39,16 @@ export const Teacher_SelectedActivitySection = () => {
 	const deleteActivity = useDeleteActivity();
 	const deleteComment = useDeleteComment();
 	const deleteEvaluation = useDeleteEvaluationFromActivity();
+
+	const [workData, setWorkData] = useState(null);
+	const fetchWorkData = useFetchWorksByActivity(id);
+
+	useEffect(() => {
+		if (fetchWorkData) {
+			setWorkData(fetchWorkData);
+		}
+	}, [fetchWorkData]);
+	console.log(fetchWorkData);
 
 	useEffect(() => {
 		if (fetchActivityData) {
@@ -222,9 +235,23 @@ export const Teacher_SelectedActivitySection = () => {
 						</button>
 					)}
 				</div>
+				
+				<div className="d-flex flex-column gap-3">
+					<h5 className="fw-bold">Works</h5>
+					{workData && workData.length > 0 ? (
+						workData.map((work) => (
+							<WorkCard 
+								key={work.id} 
+								workData={work} 
+							/>
+						))
+					) : (
+						<p>No work data available.</p>
+					)}
+				</div>
 
 				<hr className='text-dark' />
-
+				
 				<div className='d-flex flex-column gap-3'>
 					<p>Comment</p>
 

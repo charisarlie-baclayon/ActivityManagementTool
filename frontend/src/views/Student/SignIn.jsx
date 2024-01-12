@@ -3,11 +3,11 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../features/auth/authSlice";
-import { Authentication } from "../../api/Authentication";
+import { Authentication } from "../../Api/Authentication";
 import {
 	useLoginStudentMutation,
 	useAcquireTokenMutation,
-} from "../../api/Authentication";
+} from "../../Api/Authentication";
 import { setStudentModel } from "../../features/slice/studentModelSlice";
 import { saveToLocalStorage } from "../../components/utils/utils";
 
@@ -167,6 +167,9 @@ export const Student_SignIn = () => {
 
 							<button type='submit' className='btn btn-primary  btn-block'>
 								Submit
+							</button>
+							<button className='btn btn-secondary btn-block' onClick={() => navigate('/student/signup')}>
+								Don't have an Account
 							</button>
 							<button
 								className='btn btn-outline-secondary bw-3 btn-block'

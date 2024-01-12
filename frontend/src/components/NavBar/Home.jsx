@@ -84,10 +84,10 @@ export const NavBar = () => {
 							</li>
 						))}
 						<li className='nav-item d-flex align-items-md-center'>
-							<button className='btn fw-bold bw-3 btn-outline-primary btn-block' onClick={handleIncubator}>Incubator</button>
+							<button className='btn fw-bold bw-3 btn-outline-primary btn-block' onClick={handleIncubator}>Teacher</button>
 						</li>
 						<li className='nav-item d-flex align-items-md-center'>
-							<button className='btn fw-bold bw-3 btn-primary btn-block' onClick={handleIncubatee}>Incubatee</button>
+							<button className='btn fw-bold bw-3 btn-primary btn-block' onClick={handleIncubatee}>Student</button>
 						</li>
 					</ul>
 				</div>

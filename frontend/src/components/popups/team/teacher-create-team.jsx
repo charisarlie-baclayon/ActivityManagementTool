@@ -23,14 +23,6 @@ export const CreateTeamPopup = ({ show, handleClose }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// Check if any of the required fields are empty
-		const requiredFields = ['name', 'team_class'];
-		const isEmptyField = requiredFields.some((field) => !classData[field]);
-
-		if (isEmptyField) {
-			window.alert('Please fill in all required fields.');
-			return;
-		}
 
 		try {
 			await createNewTeam(teamData);

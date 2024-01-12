@@ -5,7 +5,7 @@ import {
     useCreateCourseMutation,
     useDeleteCourseMutation,
     useUpdateCourseMutation,
-} from "../api/Course";
+} from "../Api/Course";
 
 export function useFetchCourse(id) {
     const [readCourse] = useReadCourseMutation();
